@@ -18,7 +18,7 @@ class EmbarcacionesController extends Controller
      */
     public function index()
     {
-        $embarcaciones = Embarcacion::all();
+        $embarcaciones = Embarcacion::where('IdArmador', auth()->user()->id)->get();
      
 
         return view('embarcaciones.index', compact('embarcaciones'));
@@ -48,7 +48,7 @@ class EmbarcacionesController extends Controller
     {
 
         $embarcacion = Embarcacion::create([
-            'IdArmador' => 10,
+            'IdArmador' => auth()->user() -> id,
             'Nombre' => $request -> embarcacion,
             'Matricula' => $request -> matricula,
             'PermisoPesca' => $request -> permiso,
@@ -104,7 +104,7 @@ class EmbarcacionesController extends Controller
     {
         $embarcacion = Embarcacion::find($id);
 
-        $embarcacion -> IdArmador = 1;
+        $embarcacion -> IdArmador = auth()->user() -> id;
         $embarcacion -> Nombre = $request -> embarcacion;
         $embarcacion -> Matricula = $request -> matricula;
         $embarcacion -> PermisoPesca = $request -> permiso;

@@ -18,7 +18,7 @@ class CapitanesController extends Controller
     {
         $capitanes = array();
 
-        foreach(Capitan::all() as $capitan){
+        foreach(Capitan::where('IdArmador', auth()->user() -> id)->get() as $capitan){
 
             $embarcaciones = array();
 
@@ -73,7 +73,7 @@ class CapitanesController extends Controller
             'Usuario' => $request -> usuario,
             'Clave' => $request -> clave1,
             'Estado' => 'A',
-            'IdArmador' => 10 //Cambnioar
+            'IdArmador' => auth()->user() -> id 
 
         ]);
 
@@ -123,7 +123,7 @@ class CapitanesController extends Controller
         $capitan -> Usuario = $request -> usuario;
         $capitan -> Clave = $request -> clave1;
         $capitan -> Estado = 'A';
-        $capitan -> IdArmador = 10; //Cambnioar
+        $capitan -> IdArmador =  auth()->user() -> id; 
 
         $capitan->save();
 
