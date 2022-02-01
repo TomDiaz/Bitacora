@@ -18,7 +18,20 @@ class User extends Authenticatable
     use Notifiable;
     use TwoFactorAuthenticatable;
 
+    public function adminlte_image(){
+
+        $user = User::find(auth()->user() -> id);
+        return $user -> profile_photo_url;
+    }
+
+    public function adminlte_profile_url()
+    {
+        return 'profile/username';
+    }
+
     /**
+     * 
+     * 
      * The attributes that are mass assignable.
      *
      * @var string[]

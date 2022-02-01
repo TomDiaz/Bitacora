@@ -3,15 +3,14 @@
 
 
 @section('content_header')
-    <h1>Capitanes</h1>
 @stop
 
 @section('content')
-
- <a class="btn btn-secondary" href="{{ route('capitanes.create')}}">Nuevo capitan  <i class="fas fa-plus"></i></a>
+ <br>
+ <a class="btn btn-secondary animate__animated animate__lightSpeedInLeft " href="{{ route('capitanes.create')}}">Nuevo capitan  <i class="fas fa-plus"></i></a>
  <hr>
 
-<table class="table table-striped">
+<table class="table table-striped animate__animated animate__zoomIn">
   <thead class="table-dark">
     <tr>
       <th scope="col">#</th>
@@ -58,12 +57,39 @@
   </tbody>
 </table>
 
+<div class="paginacion">
+     {{ $capitanes_bd -> links()}}
+</div>
+
+
 @stop
 
 @section('css')
+   <link rel="stylesheet" href="sweetalert2.min.css">
     <link rel="stylesheet" href="/css/admin_custom.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"/>
 @stop
+
+@section('plugins.Sweetalert2', true)
 
 @section('js')
     <script> console.log('Hi!'); </script>
+
+    <script> 
+
+     @if ( session('mensaje') )
+
+      Swal.fire({
+        position: 'center-center',
+        icon: 'success',
+        title: 'Capitan agregado con exito!!',
+        showConfirmButton: false,
+        timer: 2000,
+        type: "success",
+      })
+
+      @endif
+
+     </script>
+
 @stop

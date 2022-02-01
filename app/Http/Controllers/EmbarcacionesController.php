@@ -16,10 +16,21 @@ class EmbarcacionesController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $req)
     {
-        $embarcaciones = Embarcacion::where('IdArmador', auth()->user()->id)->get();
+        $embarcaciones = Embarcacion::where('IdArmador', auth()->user()->id)->paginate(10);
      
+       if($req->adminlteSearch){
+         $embarcaciones = Embarcacion::where('IdArmador', auth()->user()->id)->where('Nombre', 'LIKE' ,'%'.$req->adminlteSearch.'%')->paginate(10);
+       };
+
+       if(count($embarcaciones)==0){
+          $embarcaciones = Embarcacion::where('IdArmador', auth()->user()->id)->where('Matricula', 'LIKE' ,'%'.$req->adminlteSearch.'%')->paginate(10);
+       }
+
+       if(count($embarcaciones)==0){
+          $embarcaciones = Embarcacion::where('IdArmador', auth()->user()->id)->where('PermisoPesca', 'LIKE' ,'%'.$req->adminlteSearch.'%')->paginate(10);
+       }
 
         return view('embarcaciones.index', compact('embarcaciones'));
     }

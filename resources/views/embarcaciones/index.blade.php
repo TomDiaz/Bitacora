@@ -3,15 +3,14 @@
 
 
 @section('content_header')
-    <h1>Embarcaciones</h1>
 @stop
 
 @section('content')
-
-<a class="btn btn-secondary" href="{{ route('embarcaciones.create')}}">Nueva embarcacion  <i class="fas fa-plus"></i></a>
+<br>
+<a class="btn btn-secondary animate__animated animate__lightSpeedInLeft" href="{{ route('embarcaciones.create')}}">Nueva embarcacion  <i class="fas fa-plus"></i></a>
 <hr>
 
-<table class="table table-striped">
+<table class="table table-striped animate__animated animate__zoomIn">
   <thead class="table-dark">
     <tr>
       <th scope="col">#</th>
@@ -49,14 +48,20 @@
         </td>
       </tr>
    @endforeach
+
    
   </tbody>
 </table>
+
+<div class="paginacion">
+     {{ $embarcaciones -> links()}}
+</div>
 
 @stop
 
 @section('css')
     <link rel="stylesheet" href="/css/admin_custom.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"/>
 @stop
 
 @section('js')

@@ -31,4 +31,5 @@ Route::middleware(['auth:sanctum', 'verified'])->group(function () {
 
     Route::resource('embarcaciones',EmbarcacionesController::class);
 
+
 });

@@ -57,3 +57,79 @@
   .dashboard .about p{
     color: #6c757d
   }
+
+
+  .paginacion svg{
+    width: 20px;
+}
+
+.paginacion nav div:nth-child(1){
+  display: none;
+}
+
+.paginacion {
+  position: relative;
+  width: 100%;
+  text-align: center;
+}
+
+.paginacion nav a{
+  transition: all .5s;
+}
+
+.paginacion nav a:hover{
+   border: solid 1px #007bff !important;
+  color: #007bff !important;
+}
+
+#barChart{
+  background-color: grey;
+  border-radius: 6px;
+}
+
+
+.user-menu a{
+  width: 300px;
+  grid-gap: 20px;
+  margin-right: 20px;
+  background: #e8eaec;
+  text-align: center;
+  border-radius: 50px;
+  position: relative;
+}
+
+
+
+.user-menu a span{
+  grid-column: 1; 
+  margin-top: -46px;
+  font-weight: 600;
+  color: #6c757d
+  
+}
+
+.user-menu a span:before{
+  content: "Bienvenido";
+}
+
+.user-menu a img{
+  position: absolute;
+  left: 5px;
+  bottom: 3px;
+}
+
+
+.user-menu .dropdown-menu{
+  left: -50px !important;
+  border-top-left-radius: 15px !important;
+}
+
+.user-menu .dropdown-menu .user-header{
+  border-top-left-radius: 15px
+}
+
+.user-menu .dropdown-menu .user-footer{
+  display: flex;
+  justify-content: space-around;
+  
+}

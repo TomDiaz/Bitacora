@@ -17,8 +17,9 @@ class CapitanesController extends Controller
     public function index()
     {
         $capitanes = array();
+        $capitanes_bd = Capitan::latest('FechaRegistro')->where('IdArmador', auth()->user() -> id)->paginate(10);
 
-        foreach(Capitan::where('IdArmador', auth()->user() -> id)->get() as $capitan){
+        foreach( $capitanes_bd as $capitan){
 
             $embarcaciones = array();
 
@@ -41,7 +42,7 @@ class CapitanesController extends Controller
 
         }
 
-        return view('capitanes.index', compact('capitanes'));
+        return view('capitanes.index', compact('capitanes','capitanes_bd'));
     }
 
     /**
@@ -77,7 +78,7 @@ class CapitanesController extends Controller
 
         ]);
 
-        return redirect('/capitanes');
+        return redirect('/capitanes')->with('mensaje', 'Capitan agregado con exito!!');
     }
 
     /**

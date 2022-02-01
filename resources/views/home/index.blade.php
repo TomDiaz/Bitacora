@@ -11,7 +11,7 @@
 
    <div class="row ">
   <div class="col">
-  <div class="card mb-3" style="max-width: 540px;">
+  <div class="card mb-3 animate__animated animate__lightSpeedInLeft" style="max-width: 540px;">
   <div class="row g-0">
     <div class="col-md-4 icono">
        <div class="icono"><i class="fas fa-ship"></i></div>
@@ -33,7 +33,7 @@
 </div>
   </div>
   <div class="col">
-  <div class="card mb-3" style="max-width: 540px;">
+  <div class="card mb-3 animate__animated animate__lightSpeedInLeft" style="max-width: 540px;">
   <div class="row g-0">
     <div class="col-md-4 icono">
       <div class="icono "><i class="fas fa-users"></i></div>
@@ -55,7 +55,7 @@
   </div>
 
   <div class="col">
-  <div class="card mb-3" style="max-width: 540px;">
+  <div class="card mb-3 animate__animated animate__lightSpeedInLeft" style="max-width: 540px;">
 
   <div>
      <canvas id="myChart" ></canvas>
@@ -66,7 +66,7 @@
 
 
   <div class="col-12">
-    <div class="card about">
+    <div class="card about animate__animated animate__bounceInUp">
 
       <div class="row">
 
@@ -118,14 +118,7 @@ Para el correcto funcionamiento de la aplicación, se requiere que el dispositiv
 
 @section('css')
     <link rel="stylesheet" href="css/admin_custom.css">
-
-    <style>
-      #barChart{
-  background-color: grey;
-  border-radius: 6px;
-}
-    </style>
-
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"/>
 @stop
 
 @section('js')
