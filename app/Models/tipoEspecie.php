@@ -5,9 +5,9 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class ArtePesca extends Model
+class tipoEspecie extends Model
 {
-    protected $table = 'artepesca';
+    protected $table = 'tipo_de_especie';
 
     public $timestamps = false;
     
@@ -15,6 +15,5 @@ class ArtePesca extends Model
 
     protected $fillable = [
         'nombre',
-     
     ];
 }
