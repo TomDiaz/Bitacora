@@ -62,7 +62,7 @@
     <select class="form-control" name="arte_pesca"  multiple id="">
 
     @foreach($artepesca as $arte)
-        <option value="{{$arte -> IdArtePesca}}">{{$arte -> Nombre}}</option>
+        <option value="{{$arte -> IdArtePesca}}">{{$arte -> nombre}}</option>
       @endforeach 
 
       </select>
