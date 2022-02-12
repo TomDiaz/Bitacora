@@ -3,6 +3,7 @@
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Api\RecursosController;
+use App\Http\Controllers\Api\BitacorasController;
 /*
 |--------------------------------------------------------------------------
 | API Routes
@@ -19,3 +20,4 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 });
 
 Route::get('recursos',[RecursosController::class,'index']);
+Route::post('bitacora',[BitacorasController::class,'store']);
