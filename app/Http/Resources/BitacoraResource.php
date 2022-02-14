@@ -41,7 +41,6 @@ class BitacoraResource extends JsonResource
             'embarcacion' => Embarcacion::find($this -> id_embarcacion) -> Nombre,
             'matricula' => Embarcacion::find($this -> id_embarcacion) -> Matricula, 
             'capitan' => $capitanes, 
-            
 
         ];
     }

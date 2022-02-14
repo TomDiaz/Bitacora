@@ -135,16 +135,15 @@ class CapitanesController extends Controller
     {
         $capitan = Capitan::find($id);
         
-        $capitan -> IdTipoIdentificacion =  'C';
-        $capitan -> Identificacion = $request -> nro_identificacion;
-        $capitan -> Nombres =  $request -> nombre;
-        $capitan -> Apellidos = $request -> apellido;
-        $capitan -> Celular = $request -> celular;
-        $capitan -> Email = $request -> email;
-        $capitan -> Usuario = $request -> usuario;
-        $capitan -> Clave = $request -> clave1;
-        $capitan -> Estado = 'A';
-        $capitan -> IdArmador =  auth()->user() -> id; 
+        $capitan -> cuil = $request -> cuil;
+        $capitan -> nombres =  $request -> nombre;
+        $capitan -> apellidos = $request -> apellido;
+        $capitan -> celular = $request -> celular;
+        $capitan -> email = $request -> email;
+        $capitan -> usuario = $request -> usuario;
+        $capitan -> clave = $request -> clave1;
+        $capitan -> Estado = 1;
+        $capitan -> id_armador =  auth()->user() -> id; 
 
         $capitan->save();
 

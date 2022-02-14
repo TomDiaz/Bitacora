@@ -5,6 +5,7 @@ use App\Http\Controllers\CapitanesController;
 use App\Http\Controllers\EmbarcacionesController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\BitacorasController;
+use App\Http\Controllers\LancesController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -28,11 +29,17 @@ Route::middleware(['auth:sanctum', 'verified'])->group(function () {
         return view('profile.show');
     })->name('perfil');
 
+
+    Route::get('/about', function () {
+        return view('home.about');
+    });
+
     Route::resource('capitanes',CapitanesController::class);
 
     Route::resource('embarcaciones',EmbarcacionesController::class);
 
     Route::get('bitacoras',[BitacorasController::class,'index']);
+    Route::get('lances',[LancesController::class,'index']);
 
 
 });

@@ -7,7 +7,7 @@
 
     @csrf
 
-  <div class="datos contenido">
+  <div class="datos contenido animate__animated animate__lightSpeedInLeft">
 
     <h3 style="text-align:center;">DATOS DE LA EMBARCACION</h3>
 
@@ -68,6 +68,7 @@
 
 @section('css')
     <link rel="stylesheet" href="/css/admin_custom.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"/>
 @stop
 
 @section('js')

@@ -13,24 +13,20 @@
     <h3>DATOS DE LA EMBARCACION</h3>
 
     <div class="mb-3 ">
-         <label for="exampleInputEmail1" class="form-label">Embarcación</label>
          <input type="text" class="form-control" name="embarcacion" value="{{$embarcacion -> Nombre}}" placeholder="Nombre de la embarcación" id="exampleInputEmail1" aria-describedby="emailHelp" required>
        </div>
      
        <div class="mb-3 ">
-         <label for="exampleInputEmail1" class="form-label">Matrícula</label>
          <input type="text" class="form-control" name="matricula" value="{{$embarcacion -> Matricula}}"  placeholder="Matrícula de la embarcación" id="exampleInputEmail1" aria-describedby="emailHelp" required>
        </div>
 
     <div class="row">
 
     <div class="mb-3 col">
-    <label for="exampleInputEmail1" class="form-label">Permiso de Pesca</label>
     <input type="text" class="form-control" name="permiso" value="{{$embarcacion -> PermisoPesca}}"  placeholder="Permiso de Pesca de la embarcación" id="exampleInputEmail1" aria-describedby="emailHelp" required>
   </div>
 
   <div class="mb-3 col">
-    <label for="exampleInputEmail1" class="form-label">Fecha de Caducidad</label>
     <input id="date" name="fecha_caducidad" value="{{$embarcacion -> FechaVigenciaPermisoPesca}}" required type="date">
   </div>
      
@@ -38,7 +34,6 @@
 
 
   <div class="mb-3">
-    <label for="exampleInputEmail1" class="form-label">PAIS ABANDERAMIENTO</label>
 
     <select class="form-control" name="pais" id="" required>
         <option value="Argentina">Argentina</option>
@@ -47,29 +42,25 @@
   </div>
 
   <div class="mb-3">
-    <label for="exampleInputEmail1" class="form-label">CAPITANES ASIGNADOS</label>
 
     <select class="form-control" name="capitanes[]"  multiple >
 
       @foreach($capitanes as $capitan)
-        <option value="{{$capitan -> IdCapitan}}">{{$capitan -> Nombres}} {{$capitan -> Apellidos}}</option>
+        <option value="{{$capitan -> id}}">{{$capitan -> nombres}} {{$capitan -> apellidos}}</option>
       @endforeach 
     </select>
   </div>
+ 
 
-  <div class="mb-3">
-    <label for="exampleInputEmail1" class="form-label">ARTE DE PESCA</label>
+  
+  <div class="butons">
 
-    <select class="form-control" name="arte_pesca"  multiple id="">
+       <button type="submit" style="display:block; width:100%; margin-bottom:5px;" class="btn btn-outline-primary">Guardar</button>
+       <a  class="btn btn-outline-danger" style="display:block; width:100%;"  href="{{route('embarcaciones.index')}}">Cancelar</a> 
 
-    @foreach($artepesca as $arte)
-        <option value="{{$arte -> IdArtePesca}}">{{$arte -> Nombre}}</option>
-      @endforeach 
+   </div>
 
-      </select>
-  </div>
 
-  <button type="submit" style="display:block; width:100%;" class="btn btn-primary">Guardar</button>
 
   </div>
 

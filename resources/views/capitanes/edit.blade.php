@@ -3,12 +3,10 @@
 
 @section('content')
 <br>
-<form id="form_cap" class="formulario">
+<form  class="formulario" action="{{route('capitanes.update', $capitan -> id)}}" method="POST">
 
     @csrf
-
-    <meta name="csrf-token" content="{{ csrf_token() }}">
-
+    @method('PUT')
     
     
     <div class="row contenido justify-content-around animate__animated animate__lightSpeedInLeft">

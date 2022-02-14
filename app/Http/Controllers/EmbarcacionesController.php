@@ -64,8 +64,8 @@ class EmbarcacionesController extends Controller
             'Matricula' => $request -> matricula,
             'PermisoPesca' => $request -> permiso,
             'FechaVigenciaPermisoPesca' => $request -> fecha_caducidad,
-            'Estado' => 'A' ,
-            'Pais' => $request -> pais,
+            'Estado' => 'A',
+            'Pais' => 'Argentina',
         ]);
 
         foreach($request-> capitanes as $capitan){

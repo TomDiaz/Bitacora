@@ -322,7 +322,7 @@ return [
         ],
         [
             'text' => 'Mapa de Lances',
-            'url'  => 'admin/settings',
+            'url'  => 'lances',
             'icon' => 'fas fa-map-marked-alt',
         ],
         [
