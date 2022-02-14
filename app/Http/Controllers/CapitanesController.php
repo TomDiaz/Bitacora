@@ -17,7 +17,7 @@ class CapitanesController extends Controller
     public function index()
     {
         $capitanes = array();
-        $capitanes_bd = Capitan::latest('fecha_registro')->where('id_armador', auth()->user() -> id)->paginate(10);
+        $capitanes_bd = Capitan::latest('fecha_registro')->where('id_armador', auth()->user() -> id)->paginate(2);
 
         foreach( $capitanes_bd as $capitan){
 
@@ -67,13 +67,13 @@ class CapitanesController extends Controller
         try{
 
             $request->validate([
-                'cuil' => 'required',
                 'nombre' => 'required',
                 'apellido' => 'required',
                 'celular' => 'required',
                 'email' => 'required',
                 'usuario' => 'required',
                 'clave1' => 'required',
+                'cuil' => 'required|min:3',
             ]);
 
             Capitan::create([

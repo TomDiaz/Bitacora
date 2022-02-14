@@ -4,6 +4,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\CapitanesController;
 use App\Http\Controllers\EmbarcacionesController;
 use App\Http\Controllers\HomeController;
+use App\Http\Controllers\BitacorasController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -30,6 +31,8 @@ Route::middleware(['auth:sanctum', 'verified'])->group(function () {
     Route::resource('capitanes',CapitanesController::class);
 
     Route::resource('embarcaciones',EmbarcacionesController::class);
+
+    Route::get('bitacoras',[BitacorasController::class,'index']);
 
 
 });

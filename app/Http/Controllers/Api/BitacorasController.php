@@ -72,19 +72,17 @@ class BitacorasController extends Controller
 
             }
 
-            foreach($lance['artes_de_pesca'] as $arte){
 
-              lanceArtePesca::create([
+            lanceArtePesca::create([
 
-                'id_lance' => $new_lance -> id,
-                'id_arte' => $arte['id_arte'],
-                'tamanio' => $arte['tamanio'],
-                'tipo_malla' => $arte['tipo_malla'],
-                'luz_malla' => $arte['luz_malla'],
+              'id_lance' => $new_lance -> id,
+              'id_arte' => $lance['artes_de_pesca']['id_arte'],
+              'tamanio' => $lance['artes_de_pesca']['tamanio'],
+              'tipo_malla' => $lance['artes_de_pesca']['tipo_malla'],
+              'luz_malla' => $lance['artes_de_pesca']['luz_malla'],
 
-              ]);
+            ]);
 
-            }
 
             foreach($lance['especies'] as $especie){
 
@@ -111,7 +109,7 @@ class BitacorasController extends Controller
 
         } catch (\Exception $e) {
             report($e);
-            return response()->json(['msj'=>'Server error','err'=>  $e],500);
+            return response()->json(['msj'=>'Server error','err'=>  $lance['artes_de_pesca'] -> tamanio],500);
         }
     
 

@@ -22,7 +22,7 @@
               <hr>
           
             <div class="mb-3">
-              <input type="text" class="form-control active" name="nombre" placeholder="Nombres"  id="nombre" aria-describedby="emailHelp" require>
+              <input type="text" class="form-control active" name="nombre" placeholder="Nombres"  id="nombre" aria-describedby="emailHelp" >
               <div class="icono"></div>
             </div>
           
@@ -33,7 +33,7 @@
           
           
             <div class="mb-3">
-              <input type="number" class="form-control active" name="cuil" placeholder="Cuil"  id="cuil" aria-describedby="emailHelp" require>
+              <input type="number" class="form-control active" name="cuil" placeholder="Cuil"  id="cuil" aria-describedby="emailHelp" >
               <div class="icono"></div>
             </div>
           

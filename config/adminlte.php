@@ -317,7 +317,7 @@ return [
         ['header' => 'Reportes'],
         [
             'text' => 'Bitácora',
-            'url'  => 'admin/settings',
+            'url'  => 'bitacoras',
             'icon' => 'fas fa-clipboard',
         ],
         [

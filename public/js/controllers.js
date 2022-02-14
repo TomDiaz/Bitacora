@@ -20,6 +20,7 @@ form_cap.addEventListener('submit', function(e){
     const csrfToken = document.head.querySelector("[name~=csrf-token][content]").content;
 
 
+    console.log(data)
   
     fetch('/capitanes',{
 
@@ -68,6 +69,12 @@ form_cap.addEventListener('submit', function(e){
             })
         }
         else{
+
+            form.forEach( element => {
+                    element.style.cssText = 'border: solid 1px #ced4da'
+                    $('i').remove()
+            })
+
             form_cap.reset()
         }
 
