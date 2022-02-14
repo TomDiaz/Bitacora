@@ -18,7 +18,7 @@ class CapitanesController extends Controller
     public function index()
     {
         $capitanes = array();
-        $capitanes_bd = Capitan::latest('fecha_registro')->where('id_armador', auth()->user() -> id)->paginate(2);
+        $capitanes_bd = Capitan::latest('fecha_registro')->where('id_armador', auth()->user() -> id)->paginate(10);
 
         foreach( $capitanes_bd as $capitan){
 
