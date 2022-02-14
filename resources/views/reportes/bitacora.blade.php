@@ -19,6 +19,7 @@
       <th scope="col">Capitán/es</th>
       <th scope="col">Fecha de Ingreso</th>
       <th scope="col">Fecha de Salida</th>
+      <th scope="col"></th>
   
     </tr>
   </thead>
@@ -37,6 +38,7 @@
          <td>{{ $bitacora['capitan']}}</td>
          <td>{{$bitacora['fecha_inicial'] }} </td>
          <td>{{$bitacora['fecha_final'] }} </td>
+         <td><button type="button" class="btn btn-danger">PDF <i style="margin-left: 5px;"class="fa fa-file-pdf"></i></button></td>
        </tr>
     @endforeach
    

@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Models\Capitan;
 use App\Models\CapitanEmbarcacion;
 use App\Models\Embarcacion;
+use Illuminate\Support\Facades\Hash;
 
 class CapitanesController extends Controller
 {
@@ -69,11 +70,9 @@ class CapitanesController extends Controller
             $request->validate([
                 'nombre' => 'required',
                 'apellido' => 'required',
-                'celular' => 'required',
-                'email' => 'required',
                 'usuario' => 'required',
                 'clave1' => 'required',
-                'cuil' => 'required|min:3',
+                'cuil' => 'required',
             ]);
 
             Capitan::create([
@@ -84,7 +83,7 @@ class CapitanesController extends Controller
                 'celular' => $request -> celular,
                 'email' => $request -> email,
                 'usuario' => $request -> usuario,
-                'clave' => $request -> clave1,
+                'clave' => Hash::make($request -> clave1),
                 'estado' => 1,
                 'id_armador' => auth()->user() -> id 
     
@@ -94,7 +93,7 @@ class CapitanesController extends Controller
 
         } 
         catch ( \Exception $e) {
-             return response()->json(['msj'=>'Datos incorrectos',"type" => "error"],500);
+             return response()->json(['msj'=>'Datos incorrectos',"type" => "error", "err" => $e],500);
         }
       
 
@@ -141,7 +140,7 @@ class CapitanesController extends Controller
         $capitan -> celular = $request -> celular;
         $capitan -> email = $request -> email;
         $capitan -> usuario = $request -> usuario;
-        $capitan -> clave = $request -> clave1;
+        $capitan -> clave = Hash::make($request -> clave1);
         $capitan -> Estado = 1;
         $capitan -> id_armador =  auth()->user() -> id; 
 

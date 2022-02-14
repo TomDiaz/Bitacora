@@ -56,6 +56,7 @@ form_cap.addEventListener('submit', function(e){
 
         if(data.type == 'error'){
 
+            console.log(data.err)
             
             form.forEach( element => {
 

@@ -18,7 +18,8 @@
       <th scope="col">#</th>
       <th scope="col">Capitán</th>
       <th scope="col">Usuario</th>
-      <th scope="col">Clave</th>
+      <th scope="col">E-mail</th>
+      <th scope="col">Cuil</th>
       <th scope="col">Embarcaciones</th>
       <th scope="col"></th>
       <th scope="col"></th>
@@ -36,7 +37,8 @@
          <th scope="row">{{ $cont++ }}</th>
          <td>{{ $capitan['capitan'] -> nombres }}  {{ $capitan['capitan'] -> apellidos }}</td>
          <td>{{ $capitan['capitan'] -> usuario}} </td>
-         <td>{{ $capitan['capitan'] -> clave}} </td>
+         <td>{{ $capitan['capitan'] -> email}} </td>
+         <td>{{ $capitan['capitan'] -> cuil}} </td>
 
          <td class="embarcaciones">
          @foreach($capitan['embarcaciones']  as $embarcacion)
