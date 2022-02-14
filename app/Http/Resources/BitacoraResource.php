@@ -27,7 +27,11 @@ class BitacoraResource extends JsonResource
 
         foreach($CapitanEmbarcacion as $capitan){
 
-            $capitanes .=  capitan::find($capitan -> IdCapitan) -> nombres . ' ' . capitan::find($capitan -> IdCapitan) -> apellidos .' - ';
+            if(capitan::find($capitan -> IdCapitan)){
+
+                $capitanes .=  capitan::find($capitan -> IdCapitan) -> nombres . ' ' . capitan::find($capitan -> IdCapitan) -> apellidos .' - ';
+            }
+
         }
 
         return [
