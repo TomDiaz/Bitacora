@@ -11,21 +11,20 @@ class Capitan extends Model
 
     public $timestamps = false;
     
-    protected $primaryKey= 'IdCapitan';
+    protected $primaryKey= 'id';
 
     protected $fillable = [
-        'IdCapitan ',
-        'IdTipoIdentificacion',
-        'Identificacion ',
-        'Nombres',
-        'Apellidos',
-        'Direccion',
-        'Celular',
-        'Email',
-        'Usuario',
-        'Clave',
-        'Estado',
-        'FechaRegistro',
-        'IdArmador'
+        'id',
+        'cuil',
+        'nombres',
+        'apellidos',
+        'direccion',
+        'celular',
+        'email',
+        'usuario',
+        'clave',
+        'estado',
+        'fechaRegistro',
+        'id_armador'
     ];
 }

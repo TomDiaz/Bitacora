@@ -17,7 +17,7 @@ class CapitanesController extends Controller
     public function index()
     {
         $capitanes = array();
-        $capitanes_bd = Capitan::latest('FechaRegistro')->where('IdArmador', auth()->user() -> id)->paginate(10);
+        $capitanes_bd = Capitan::latest('fecha_registro')->where('id_armador', auth()->user() -> id)->paginate(10);
 
         foreach( $capitanes_bd as $capitan){
 
@@ -63,22 +63,42 @@ class CapitanesController extends Controller
      */
     public function store(Request $request)
     {
-        Capitan::create([
 
-            'IdTipoIdentificacion' =>  'C',
-            'Identificacion' => $request -> nro_identificacion,
-            'Nombres' =>  $request -> nombre,
-            'Apellidos' => $request -> apellido,
-            'Celular' => $request -> celular,
-            'Email' => $request -> email,
-            'Usuario' => $request -> usuario,
-            'Clave' => $request -> clave1,
-            'Estado' => 'A',
-            'IdArmador' => auth()->user() -> id 
+        try{
 
-        ]);
+            $request->validate([
+                'cuil' => 'required',
+                'nombre' => 'required',
+                'apellido' => 'required',
+                'celular' => 'required',
+                'email' => 'required',
+                'usuario' => 'required',
+                'clave1' => 'required',
+            ]);
 
-        return redirect('/capitanes')->with('mensaje', 'Capitan agregado con exito!!');
+            Capitan::create([
+    
+                'cuil' => $request -> cuil,
+                'nombres' =>  $request -> nombre,
+                'apellidos' => $request -> apellido,
+                'celular' => $request -> celular,
+                'email' => $request -> email,
+                'usuario' => $request -> usuario,
+                'clave' => $request -> clave1,
+                'estado' => 1,
+                'id_armador' => auth()->user() -> id 
+    
+            ]);
+    
+            return response()->json(["msj" => "Capitan agregado con exito!!", "type" => "success"],201);
+
+        } 
+        catch ( \Exception $e) {
+             return response()->json(['msj'=>'Datos incorrectos',"type" => "error"],500);
+        }
+      
+
+        //return redirect('/capitanes')->with('mensaje', 'Capitan agregado con exito!!');
     }
 
     /**
@@ -140,9 +160,10 @@ class CapitanesController extends Controller
     public function destroy($id)
     {
         $capitan = Capitan::find($id);
+        $data = $capitan -> nombres . " " . $capitan -> apellidos;
         $capitan->delete();
 
 
-        return redirect('/capitanes');
+        return response()->json(["capitan" => $data],201);
     }
 }

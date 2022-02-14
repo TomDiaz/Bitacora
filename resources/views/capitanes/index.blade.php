@@ -10,6 +10,8 @@
  <a class="btn btn-secondary animate__animated animate__lightSpeedInLeft " href="{{ route('capitanes.create')}}">Nuevo capitan  <i class="fas fa-plus"></i></a>
  <hr>
 
+ <meta name="csrf-token" content="{{ csrf_token() }}">
+
 <table class="table table-striped animate__animated animate__zoomIn">
   <thead class="table-dark">
     <tr>
@@ -32,9 +34,9 @@
 
        <tr>
          <th scope="row">{{ $cont++ }}</th>
-         <td>{{ $capitan['capitan'] -> Nombres }}  {{ $capitan['capitan'] -> Apellidos }}</td>
-         <td>{{ $capitan['capitan'] -> Usuario}} </td>
-         <td>{{ $capitan['capitan'] -> Clave}} </td>
+         <td>{{ $capitan['capitan'] -> nombres }}  {{ $capitan['capitan'] -> apellidos }}</td>
+         <td>{{ $capitan['capitan'] -> usuario}} </td>
+         <td>{{ $capitan['capitan'] -> clave}} </td>
 
          <td class="embarcaciones">
          @foreach($capitan['embarcaciones']  as $embarcacion)
@@ -42,13 +44,15 @@
          @endforeach
          </td>
 
-         <td ><a href="{{ route('capitanes.edit',$capitan['capitan'] -> IdCapitan )}}" style="display:block; width:100%;" class="btn btn-primary ">Editar</a></td>
+         <td ><a  href="{{ route('capitanes.edit',$capitan['capitan'] -> id )}}" style="display:block; width:100%;" class="btn btn-primary ">Editar</a></td>
          <td>
-            <form action="{{route('capitanes.destroy', $capitan['capitan'] -> IdCapitan)}}" method="POST">
+            <!-- <form action="{{route('capitanes.destroy', $capitan['capitan'] -> id)}}" method="POST">
                 @csrf
                 @method('DELETE')
                 <button style="display:block; width:100%;" class="btn btn-danger " type="submit">Eliminar</button>
-            </form>
+            </form> -->
+
+            <button onClick="deleteCapitan({{$capitan['capitan'] -> id}})" style="display:block; width:100%;" class="btn btn-danger">Eliminar</button>
         </td>
        </tr>
 
@@ -73,23 +77,6 @@
 @section('plugins.Sweetalert2', true)
 
 @section('js')
-    <script> console.log('Hi!'); </script>
-
-    <script> 
-
-     @if ( session('mensaje') )
-
-      Swal.fire({
-        position: 'center-center',
-        icon: 'success',
-        title: 'Capitan agregado con exito!!',
-        showConfirmButton: false,
-        timer: 2000,
-        type: "success",
-      })
-
-      @endif
-
-     </script>
+ <script src="/js/controllers.js"></script>
 
 @stop

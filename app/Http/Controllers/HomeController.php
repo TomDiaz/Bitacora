@@ -10,7 +10,7 @@ class HomeController extends Controller
 {
    public function index(){
 
-       $capitanes = Capitan::where('IdArmador', auth()->user() -> id)->count();
+       $capitanes = Capitan::where('id_armador', auth()->user() -> id)->count();
        $embarcaciones = Embarcacion::where('IdArmador', auth()->user() -> id)->count();
 
 

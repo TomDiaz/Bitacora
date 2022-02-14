@@ -254,6 +254,11 @@ return [
             'url'  => 'home',
             'icon' => 'fas fa-home',
         ],
+        [
+            'text' => 'About',
+            'url'  => 'about',
+            'icon' => 'fas fa-address-card',
+        ],
 
         ['header' => 'Administración'],
         [
