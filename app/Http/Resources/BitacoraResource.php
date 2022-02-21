@@ -34,14 +34,17 @@ class BitacoraResource extends JsonResource
 
         }
 
+
+
         return [
+            'id' => $this -> id,
             'nombre' => $this -> nombre,
             'fecha_inicial' => $this -> fecha_inicial,
             'fecha_final' => $this -> fecha_final,
             'embarcacion' => Embarcacion::find($this -> id_embarcacion) -> Nombre,
             'matricula' => Embarcacion::find($this -> id_embarcacion) -> Matricula, 
             'capitan' => $capitanes, 
-
+            'tripulantes' => $this -> tripulantes,
         ];
     }
 }

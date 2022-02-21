@@ -9,6 +9,22 @@ input[type="number"]
 
 /**/
 
+.pdf-visor{
+ width: 70% !important;
+ height: 90vh !important;
+ background: #2a2a2e !important;
+ height: 80vh;
+}
+
+.pdf-visor button{
+  display: none !important;;
+}
+
+.pdf-visor iframe{
+ height: 85vh;
+ margin-top: 10px;
+}
+
 
 .dashboard .card{
     padding: 30px;

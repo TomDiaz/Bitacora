@@ -144,3 +144,18 @@ function deleteCapitan(id){
 
      
 }
+
+
+
+function getiframe(url){
+
+
+    Swal.fire({
+        html: '<iframe style="width:100%;" src="' + url + '" frameborder="0"></iframe>',
+        customClass: 'pdf-visor'
+
+      })
+
+    
+
+}
