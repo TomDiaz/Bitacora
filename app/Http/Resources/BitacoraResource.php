@@ -19,22 +19,6 @@ class BitacoraResource extends JsonResource
     public function toArray($request)
     {
 
-        $CapitanEmbarcacion = CapitanEmbarcacion::where('IdEmbarcacion', $this -> id_embarcacion)->get();
-
-        $capitanes = '';
-
-        $cont = 0;
-
-        foreach($CapitanEmbarcacion as $capitan){
-
-            if(capitan::find($capitan -> IdCapitan)){
-
-                $capitanes .=  capitan::find($capitan -> IdCapitan) -> nombres . ' ' . capitan::find($capitan -> IdCapitan) -> apellidos .' - ';
-            }
-
-        }
-
-
 
         return [
             'id' => $this -> id,
@@ -43,8 +27,8 @@ class BitacoraResource extends JsonResource
             'fecha_final' => $this -> fecha_final,
             'embarcacion' => Embarcacion::find($this -> id_embarcacion) -> Nombre,
             'matricula' => Embarcacion::find($this -> id_embarcacion) -> Matricula, 
-            'capitan' => $capitanes, 
             'tripulantes' => $this -> tripulantes,
+            'capitan' => Capitan::find($this -> id_capitan) -> nombres . ' ' . Capitan::find($this -> id_capitan) -> apellidos
         ];
     }
 }

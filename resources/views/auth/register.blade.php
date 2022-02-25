@@ -1,7 +1,11 @@
 <x-guest-layout>
     <x-jet-authentication-card>
         <x-slot name="logo">
-            <x-jet-authentication-card-logo />
+            <div class="login-logo">
+               <img src="vendor/adminlte/dist/img/logo.png" alt="">
+               <h2>Bitacora Electrónica de Pesca </h2>
+            </div>
+            
         </x-slot>
 
         <x-jet-validation-errors class="mb-4" />
@@ -10,7 +14,7 @@
             @csrf
 
             <div>
-                <x-jet-label for="name" value="{{ __('Name') }}" />
+                <x-jet-label for="name" value="{{ __('Nombre') }}" />
                 <x-jet-input id="name" class="block mt-1 w-full" type="text" name="name" :value="old('name')" required autofocus autocomplete="name" />
             </div>
 
@@ -25,7 +29,7 @@
             </div>
 
             <div class="mt-4">
-                <x-jet-label for="password_confirmation" value="{{ __('Confirm Password') }}" />
+                <x-jet-label for="password_confirmation" value="{{ __('Confirmar Password') }}" />
                 <x-jet-input id="password_confirmation" class="block mt-1 w-full" type="password" name="password_confirmation" required autocomplete="new-password" />
             </div>
 
@@ -58,3 +62,23 @@
         </form>
     </x-jet-authentication-card>
 </x-guest-layout>
+
+<style>
+    .login-logo img{
+  width: 50%;
+  display: block;
+  margin: auto;
+  margin-top: -100px;
+  padding: 20px;
+}
+
+.login-logo{
+  text-align: center;
+}
+
+.login-logo h2{
+  font-size: 25px;
+  font-weight: 900;
+  color: #4484c5;
+}
+</style>

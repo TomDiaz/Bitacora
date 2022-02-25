@@ -26,7 +26,7 @@ class BitacorasController extends Controller
        try{
 
           $bitacora = bitacora::create([
-
+            'id_capitan' => $req -> id_capitan, 
             'id_embarcacion'=> $req -> id_embarcacion ,
             'id_puerto_zarpe'=> $req -> id_puerto_zarpe ,
             'id_puerto_arribo'=> $req -> id_puerto_arribo ,

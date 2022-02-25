@@ -36,12 +36,14 @@
                     <x-jet-checkbox id="remember_me" name="remember" />
                     <span class="ml-2 text-sm text-gray-600">{{ __('Remember me') }}</span>
                 </label>
+
+               
             </div>
 
             <div class="flex items-center justify-end mt-4">
                 @if (Route::has('password.request'))
                     <a class="underline text-sm text-gray-600 hover:text-gray-900" href="{{ route('password.request') }}">
-                        {{ __('Forgot your password?') }}
+                        {{ __('Recuperar contraseña') }}
                     </a>
                 @endif
 
@@ -49,8 +51,14 @@
                     {{ __('Log in') }}
                 </x-jet-button>
             </div>
+             <br>   
+            <div class="regitrarse">
+                <span class="ml-2 text-sm text-gray-600"> <a  href="{{ env('APP_URL')}}register"> ¿No tienes una cuenta? Registrate</a> </span>
+            </div>
         </form>
     </x-jet-authentication-card>
+ 
+
 </x-guest-layout>
 
 
@@ -71,5 +79,11 @@
   font-size: 25px;
   font-weight: 900;
   color: #4484c5;
+}
+.regitrarse a{
+    transition: .5s;
+}
+.regitrarse a:hover{
+  font-weight: 900;
 }
 </style>

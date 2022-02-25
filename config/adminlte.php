@@ -316,7 +316,7 @@ return [
         // ],
         ['header' => 'Reportes'],
         [
-            'text' => 'Bitácora',
+            'text' => 'Bitácoras',
             'url'  => 'bitacoras',
             'icon' => 'fas fa-clipboard',
         ],
@@ -326,7 +326,7 @@ return [
             'icon' => 'fas fa-map-marked-alt',
         ],
         [
-            'text' => 'Capturas',
+            'text' => 'Metricas',
             'url'  => 'admin/settings',
             'icon' => 'fas fa-fish',
         ],

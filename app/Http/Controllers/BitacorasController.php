@@ -26,8 +26,15 @@ class BitacorasController extends Controller
 
         $page = 10;
 
-        $bitacoras = BitacoraResource::collection(bitacora::latest('fecha_inicial')->paginate($page))->resolve();
-        $bitacoras_bd = bitacora::latest('fecha_inicial')->paginate($page);
+        $filtro = DB::table('bitacora')
+                 ->join('embarcacion', 'bitacora.id_embarcacion', '=', 'embarcacion.IdEmbarcacion')
+                 ->where('IdArmador',auth()->user() -> id)
+                 ->latest('fecha_inicial')
+                 ->paginate($page);
+
+
+        $bitacoras = BitacoraResource::collection($filtro)->resolve();
+        $bitacoras_bd = $filtro;
 
         return view('reportes.bitacora',  compact('bitacoras','bitacoras_bd'));
      
@@ -41,13 +48,13 @@ class BitacorasController extends Controller
         $especies = DB::table('especie_lance')
                    ->join('lances', 'especie_lance.id_lance', '=', 'lances.id')
                    ->join('especies', 'especie_lance.id_especie', '=', 'especies.id')
-                   ->where('lances.id_bitacora',47)
+                   ->where('lances.id_bitacora',$id)
                    ->get();
 
         $arte_pesca = DB::table('lance_arte_de_pesca')
                    ->join('lances', 'lance_arte_de_pesca.id_lance', '=', 'lances.id')
                    ->join('artepesca', 'lance_arte_de_pesca.id_arte', '=', 'artepesca.id')
-                   ->where('lances.id_bitacora',47)
+                   ->where('lances.id_bitacora',$id)
                    ->first();
 
         $data = [

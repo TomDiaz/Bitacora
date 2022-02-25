@@ -15,7 +15,43 @@ input[type="number"]
   table thead{
     background: #020024 !important;
  }
+
+
+ .coord{
+  width: 10px !important;
+  color: #fff;
+  padding: 20px;
+  font-weight: 600
+}
+.coord-color1{
+  background: #22a94a;
+}
+.coord-color2{
+  background: red;
+}
+
+.conidicones{
+  height: 600px;
+  font-size: 15px;
+  text-align: left;
+  overflow-y: scroll
+}
 /**/
+
+.map-visor{
+  width: 70% !important;
+  height: 90vh !important;
+  background: #8ab4f8 !important;
+}
+
+.map-visor button{
+  display: none !important;
+}
+
+.map-visor #mapa{
+  height: 87vh !important;
+}
+
 
 .pdf-visor{
  width: 70% !important;
@@ -33,6 +69,9 @@ input[type="number"]
  margin-top: 10px;
 }
 
+.home-estadisticas .card{
+  height: 615px !important;
+}
 
 .dashboard .card{
     padding: 30px;

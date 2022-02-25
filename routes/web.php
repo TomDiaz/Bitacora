@@ -21,6 +21,8 @@ Route::get('/', function () {
     return view('auth.login');
 });
 
+
+
 Route::middleware(['auth:sanctum', 'verified'])->group(function () {
 
     Route::get('/home', [HomeController::class, 'index'])->name('home');

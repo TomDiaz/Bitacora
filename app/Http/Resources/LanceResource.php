@@ -24,15 +24,26 @@ class LanceResource extends JsonResource
 
         $arte_lance = lanceArtePesca::where('id_lance', $this -> id)->get();
 
+        $coord_i = [
+             'latitud' => $coordenadas[0] -> latitud,
+             'longitud' => $coordenadas[0] -> longitud,
+        ];
+
+        $coord_f = [
+             'latitud' => $coordenadas[1] -> latitud,
+             'longitud' => $coordenadas[1] -> longitud,
+        ];
+
         return [
             'fecha_inicial' => $this -> fecha_inicial,
             'fecha_final' => $this -> fecha_final,
             'bitacora' => bitacora::find($this -> id_bitacora) -> nombre,
             'zona_de_pesca' =>  zonaPesca::find($this -> id_zona_de_pesca) -> nombre,
-            'coordenadas_inicio' => $coordenadas[0] -> latitud . " - "  . $coordenadas[0] -> longitud,
-            'coordenadas_fin' =>  $coordenadas[0] -> latitud . " - "  . $coordenadas[1] -> longitud,
+            'coordenadas_inicio' =>  $coord_i,
+            'coordenadas_fin' =>  $coord_f,
             'arte_pesca' => ArtePesca::find($arte_lance[0] -> id_arte) -> nombre,
-            'especies_objetivo' => "Sin"
+            'especies_objetivo' => "Sin",
+            ''
 
         ];
     }

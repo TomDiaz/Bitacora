@@ -148,14 +148,64 @@ function deleteCapitan(id){
 
 
 function getiframe(url){
-
-
     Swal.fire({
         html: '<iframe style="width:100%;" src="' + url + '" frameborder="0"></iframe>',
         customClass: 'pdf-visor'
 
       })
-
-    
-
 }
+
+
+function getMap(inicio, fin){
+
+    console.log(inicio.longitud)
+
+
+
+    Swal.fire({
+        html: '<div id="mapa" style="width:100%; height:500px;"></div>',
+        customClass: 'map-visor'
+
+      })
+
+      let mapa = new google.maps.Map(document.getElementById('mapa')  , {
+        center: {lat: inicio.latitud , lng: inicio.longitud},
+        zoom: 5,
+        mapId: '761d02f6ca887a9c'
+    });
+
+    let marcador1 = new google.maps.Marker({
+       map: mapa,
+       draggable: true,
+       position: {lat: inicio.latitud , lng: inicio.longitud},
+       title: "Coordenadas Inicio"
+    })
+
+    let marcador2 = new google.maps.Marker({
+       map: mapa,
+       draggable: true,
+       position: {lat: fin.latitud, lng: fin.longitud},
+       title: 'Coordenadas Fin'
+    })
+
+    var infowindow1 = new google.maps.InfoWindow({
+        content: `<span class="coord coord-color1">Coordenadas de Inicio</span>`
+    });
+    var infowindow2 = new google.maps.InfoWindow({
+        content: `<span class="coord coord-color2">Coordenadas de Fin</span>`
+    });
+
+    infowindow1.open(mapa,marcador1);
+    infowindow2.open(mapa,marcador2);
+
+      google.maps.event.addListener(marcador1, 'click', function() {
+        infowindow1.open(mapa,marcador1);
+      });
+
+      google.maps.event.addListener(marcador2, 'click', function() {
+        infowindow2.open(mapa,marcador2);
+      });
+}
+
+
+
