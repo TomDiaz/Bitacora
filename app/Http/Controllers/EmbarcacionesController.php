@@ -32,6 +32,8 @@ class EmbarcacionesController extends Controller
           $embarcaciones = Embarcacion::where('IdArmador', auth()->user()->id)->where('PermisoPesca', 'LIKE' ,'%'.$req->adminlteSearch.'%')->paginate(10);
        }
 
+
+
         return view('embarcaciones.index', compact('embarcaciones'));
     }
 
@@ -43,7 +45,10 @@ class EmbarcacionesController extends Controller
     public function create()
     {
 
-        $capitanes = Capitan::all();
+        session_start();
+        $_SESSION['capitanes'] = [];
+
+        $capitanes = Capitan::where('id_armador',  auth()->user()->id)->get();
         $artepesca = ArtePesca::all();
 
         return view('embarcaciones.create', compact('capitanes', 'artepesca'));
@@ -58,6 +63,8 @@ class EmbarcacionesController extends Controller
     public function store(Request $request)
     {
 
+        session_start();
+
         $embarcacion = Embarcacion::create([
             'IdArmador' => auth()->user() -> id,
             'Nombre' => $request -> embarcacion,
@@ -68,7 +75,7 @@ class EmbarcacionesController extends Controller
             'Pais' => 'Argentina',
         ]);
 
-        foreach($request-> capitanes as $capitan){
+        foreach( $_SESSION['capitanes'] as $capitan){
            CapitanEmbarcacion::create([
             'IdCapitan' => $capitan,
             'IdEmbarcacion' =>  $embarcacion -> IdEmbarcacion
@@ -142,4 +149,9 @@ class EmbarcacionesController extends Controller
 
         return redirect('/embarcaciones');
     }
+
+
+   
+
+
 }

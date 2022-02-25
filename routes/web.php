@@ -6,6 +6,7 @@ use App\Http\Controllers\EmbarcacionesController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\BitacorasController;
 use App\Http\Controllers\LancesController;
+use Illuminate\Http\Request;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -43,6 +44,18 @@ Route::middleware(['auth:sanctum', 'verified'])->group(function () {
     Route::get('bitacoras',[BitacorasController::class,'index']);
     Route::get('pdf/parte_de_pesca/{id}',[BitacorasController::class,'PDF_PartePesca']);
     Route::get('lances',[LancesController::class,'index']);
+    Route::post('capchecked',function(Request $req){
+        session_start();
+        $_SESSION['capitanes'] = $req -> capitanes; 
 
+        return response()->json(["msj" => "Capitan agregado con exito!!", "type" => $req -> capitanes],201);
+
+    });
+    Route::get('capchecked',function(Request $req){
+        session_start();
+        return response()->json($_SESSION['capitanes'],200);
+    });
+
+      
 
 });

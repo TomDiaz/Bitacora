@@ -1,5 +1,6 @@
 
 
+
 let form_cap = document.getElementById('form_cap')
 
 form_cap.addEventListener('submit', function(e){
@@ -209,3 +210,123 @@ function getMap(inicio, fin){
 
 
 
+/* EMBARCACIONES  */
+
+  
+async function popupCapitanes(capitanes){
+
+     let data = await fetch('/capchecked')
+                     .then( res => res.json())
+                     .then( data => {
+                          return data
+                      })
+ 
+    console.log("-----Capitanes elejidos")
+    console.log(data)
+    console.log("----Capitanes elejidos end")                      
+  
+    console.log(capitanes)
+
+    let tamplate = ''
+    let capitanes_check = data;
+
+    capitanes.forEach(element => {
+       
+        if(data.find(x => x == element.id)){
+
+          tamplate += `
+          <div class="capitan"><span>${element.nombres}</span><input disabled="false" class="check " type="checkbox" checked value="${element.id}" id="capitan-${element.id}"> <i class="fa-solid fa-circle-check"></i></div>
+          `
+        }
+
+        else{
+
+          tamplate += `
+             <div class="capitan"><span>${element.nombres}</span><input disabled="false" class="check " type="checkbox" value="${element.id}" id="capitan-${element.id}"> <i class="fa-solid"></i></div>
+          `
+        }
+
+    });
+
+    
+
+    Swal.fire({
+      html: `
+           <div class="capitanes">
+             <h3>Capitanes</h3>
+             <hr>
+              ${tamplate}
+           </div>
+        `,
+      customClass: 'capitanes-visor',
+      showCancelButton: true,
+      confirmButtonText: 'Aceptar y guardar',
+      cancelButtonText: 'Cancelar',
+      cancelButtonColor: '#d33',
+
+    })
+    .then((result) => {
+         if(result.value){
+
+           const csrfToken = document.head.querySelector("[name~=csrf-token][content]").content;
+
+           let data = {
+             'capitanes': capitanes_check
+           }
+
+           fetch('/capchecked',{
+
+            method: 'POST',
+            body: JSON.stringify(data),
+            headers: {
+                'Content-Type': 'application/json',
+                "X-CSRF-Token": csrfToken
+            }
+    
+           })
+            .then( res => res.json())
+            .then( data => {
+                console.log(data)
+           })
+
+           console.log(capitanes_check)
+         }
+    })
+
+    $('.capitan').click(function(){
+
+      console.log("click")
+
+      if($(this).children('.check').is(':checked')){
+
+        $(this).children('.check').attr( 'checked', false )
+        $(this).children('i').removeClass('fa-circle-check')
+
+
+       let index =  capitanes_check.findIndex( x => x == $(this).children('.check').val());
+
+       console.log(index)
+
+      
+       capitanes_check.splice(index, 1)
+
+      }
+      else{
+
+        $(this).children('.check').attr( 'checked', true)
+        $(this).children('i').addClass('fa-circle-check')
+        capitanes_check.push($(this).children('.check').val())
+        console.log(capitanes_check)
+      }
+
+ 
+   });
+ 
+
+  }
+
+
+ 
+
+
+/* EMBARCACIONES END */

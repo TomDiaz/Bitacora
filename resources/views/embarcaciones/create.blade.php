@@ -36,21 +36,13 @@
     </div>
 
 
+
   <div class="mb-3">
-    
-
-    <select class="form-control" name="capitanes[]" required multiple >
-
-      @foreach($capitanes as $capitan)
-        <option value="{{$capitan -> id}}">{{$capitan -> nombres}} {{$capitan -> apellidos}}</option>
-      @endforeach 
-    </select>
+     <button type="button" onclick="popupCapitanes({{json_encode($capitanes)}})" class="btn btn-dark">Agregar Capitan/es</button>
   </div>
 
-  <div class="butons">
-
+   <div class="butons">
        <button type="submit" style="display:block; width:100%; margin-bottom: 5px" class="btn btn-outline-primary">Guardar</button>
-      
        <a  class="btn btn-outline-danger" style="display:block; width:100%;"  href="{{route('embarcaciones.index')}}">Cancelar</a> 
 
    </div>
@@ -71,6 +63,10 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"/>
 @stop
 
+@section('plugins.Sweetalert2', true)
+
 @section('js')
-    <script> console.log('Hi!'); </script>
+  <script src="https://code.jquery.com/jquery-3.6.0.js" integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk=" crossorigin="anonymous"></script>  
+  <script src="/js/controllers.js"></script>
+  <script src="https://kit.fontawesome.com/874ba803fc.js" crossorigin="anonymous"></script>
 @stop

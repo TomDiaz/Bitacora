@@ -263,16 +263,6 @@ input[type="number"]
   position: relative;
 }
 
-.formulario label{
-  font-weight: 400 !important;
-  position: absolute;
-  left: 10px;
-  top: 10px;
-  color: #a7aeb3;
-  transition: 1s;
-  
-}
-
 .formulario .icono i{
   position: absolute;
   right: 15px;
@@ -282,3 +272,63 @@ input[type="number"]
 }
 
 /* FORMULARIO END*/
+
+
+.capitanes-visor{
+  width: 34% !important;
+  height: 70vh !important;
+  border-radius: 20px !important;
+  border-left: solid 5px !important;
+    
+}
+
+.capitanes-visor .capitanes{
+  height: 60vh;
+  padding: 50px;
+  overflow-y: scroll;  
+}
+
+.capitanes-visor .capitanes .capitan{
+  margin-top: 10px;
+  padding: 20px;
+  display: flex;
+  justify-content: space-between;
+  border-radius: 10px;
+  box-shadow: 2px 2px 5px 2px rgba(0, 0, 0, 0.2);
+  border: solid 1px #007bff;
+  border-left: solid 3px #007bff;
+  border-right:  solid 3px #007bff;
+  transition: .5s;
+}
+
+.capitanes-visor .capitanes .capitan i {
+  font-size: 30px;
+  color: #22a94a;
+}
+
+.capitanes-visor .capitanes .capitan:hover{
+  background: #007bff;
+  transform: scale3d(1.1, 1.1, 0.3);
+  cursor: pointer;
+}
+
+.capitanes-visor .capitanes .capitan:hover span, .capitanes-visor .capitanes .capitan:hover i{
+  color: #fff;
+}
+
+.capitanes-visor .capitanes .capitan span
+{
+  font-weight: 600;
+}
+
+.capitanes-visor .capitanes .capitan .check{
+  width: 100px;
+  cursor: pointer;
+  opacity: 0;
+}
+
+.capitanes-visor .capitanes h3{
+  font-weight: 600;
+}
+
+
