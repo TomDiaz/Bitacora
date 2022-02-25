@@ -14,7 +14,7 @@ return [
     |
     */
 
-    'title' => 'AdminLTE 3',
+    'title' => 'Bitacora Electronica de Pesca',
     'title_prefix' => '',
     'title_postfix' => '',
 
