@@ -22,4 +22,5 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 
 Route::post('login',[LoginController::class,'login']);
 Route::get('recursos',[RecursosController::class,'index']);
+Route::post('especies',[RecursosController::class,'importEspecies']);
 Route::post('bitacora',[BitacorasController::class,'store']);

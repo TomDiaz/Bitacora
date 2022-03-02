@@ -86,6 +86,10 @@
 
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 <script src="/js/graficos.js"></script>
+
+ <?php  use App\Models\User; ?>
+@if(auth()->user() -> terminos_condiciones != 1)
+
 <script>
 
 Swal.fire({
@@ -112,8 +116,19 @@ Swal.fire({
     confirmButtonText: 'Acepto los terminos y codiciones <i class="fa fa-thumbs-up"></i>'
  
 })
+.then((result) => {
+   if(result.value){
+     <?php  
+        $user = User::find(auth()->user() -> id);
+        $user -> terminos_condiciones = 1;
+        $user -> save();
+     ?>
+  }
+})
 
 </script>
+
+@endif
 
   
 @stop
