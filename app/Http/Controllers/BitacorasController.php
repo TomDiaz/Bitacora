@@ -57,6 +57,7 @@ class BitacorasController extends Controller
                    ->where('lances.id_bitacora',$id)
                    ->first();
 
+    
         $data = [
            'bitacora' =>  $bitacora,
            'embarcacion' => $embarcacion =  Embarcacion::find($bitacora -> id_embarcacion),
@@ -64,7 +65,8 @@ class BitacorasController extends Controller
            'times' => $this -> separarFecha($bitacora -> fecha_inicial, $bitacora -> fecha_final),
            'puerto' =>  $this -> getPuertos($bitacora -> id_puerto_zarpe, $bitacora -> id_puerto_arribo),
            'especies' => $especies,
-           'arte_pesca' => $arte_pesca
+           'arte_pesca' => $arte_pesca,
+           'lances' => $arte_pesca ? true : false
         ];
 
       

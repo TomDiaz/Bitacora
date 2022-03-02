@@ -231,7 +231,11 @@ span{
         <thead>
           <tr>
             <th>ARTE PESCA PRINCIPAL</th>
-            <th style="text-align:center"> <span>{{ $data['arte_pesca'] -> nombre}}</span></th>
+            <th style="text-align:center"> 
+              @if($data['lances'])
+                <span>{{ $data['arte_pesca'] -> nombre}}</span>
+              @endif
+            </th>
           </tr>
           <tr>
             <th>ARTE PESCA SECUNDARIO</th>
@@ -250,10 +254,28 @@ span{
     <table class="table-6" >
         <thead>
           <tr>
-            <th>NOMBRE:  <span>{{ $data['arte_pesca'] -> nombre}}</span></th>
-            <th>TAMAÑO: <span>{{ $data['arte_pesca'] -> tamanio}}</span></th>
-            <th>TIPO DE MALLA: <span>{{ $data['arte_pesca'] -> tipo_malla}}</span></th>
-            <th>LUZ DE MALLA: <span>{{ $data['arte_pesca'] -> luz_malla}}</span></th>
+            
+            <th>NOMBRE: 
+               @if($data['lances']) 
+                  <span>{{ $data['arte_pesca'] -> nombre}}</span>
+               @endif
+            </th>
+            <th>TAMAÑO: 
+                @if($data['lances']) 
+                   <span>{{ $data['arte_pesca'] -> tamanio}}
+                @endif
+               </span></th>
+            <th>TIPO DE MALLA: 
+                @if($data['lances']) 
+                   <span>{{ $data['arte_pesca'] -> tipo_malla}}
+                @endif
+               </span></th>
+            <th>LUZ DE MALLA: 
+                @if($data['lances']) 
+                   <span>{{ $data['arte_pesca'] -> luz_malla}}
+                @endif
+               </span></th>
+           
           </tr>
        
         </thead>

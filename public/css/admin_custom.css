@@ -78,7 +78,7 @@ input[type="number"]
   }
   
   .dashboard .card .icono span{
-    font-size: 50px;
+    font-size: 40px;
     text-align: center;
     position: absolute;
     bottom: 15px;
@@ -87,6 +87,10 @@ input[type="number"]
     padding-left: 25px;
     padding-right: 25px;
     color: #fff;
+    width: 90px;
+    height: 90px;
+    padding-top: 14px;
+    left: -10px;
   }
   
   .dashboard .card .icono {
@@ -98,7 +102,8 @@ input[type="number"]
     background: #d4d6d9;
     text-align: center;
     display: block;
-    width: 100%;
+    width: 150px;
+    margin-left: -20px;
     border-radius: 50%;
     color: #fff;
   }

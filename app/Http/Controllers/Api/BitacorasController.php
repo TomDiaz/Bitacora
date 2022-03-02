@@ -109,7 +109,7 @@ class BitacorasController extends Controller
 
         } catch (\Exception $e) {
             report($e);
-            return response()->json(['msj'=>'Server error','err'=>  $lance['artes_de_pesca'] -> tamanio],500);
+            return response()->json(['msj'=>'Server error','err'=>  $e],500);
         }
     
 
