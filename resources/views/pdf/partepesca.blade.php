@@ -262,17 +262,17 @@ span{
             </th>
             <th>TAMAÑO: 
                 @if($data['lances']) 
-                   <span>{{ $data['arte_pesca'] -> tamanio}}
+                 <span>{{ $data['arte_pesca'] -> tamanio}}
                 @endif
                </span></th>
             <th>TIPO DE MALLA: 
                 @if($data['lances']) 
-                   <span>{{ $data['arte_pesca'] -> tipo_malla}}
+                 <span>{{ $data['arte_pesca'] -> tipo_malla}}
                 @endif
                </span></th>
             <th>LUZ DE MALLA: 
                 @if($data['lances']) 
-                   <span>{{ $data['arte_pesca'] -> luz_malla}}
+                 <span>{{ $data['arte_pesca'] -> luz_malla}}
                 @endif
                </span></th>
            
@@ -319,15 +319,15 @@ span{
             @foreach($data['especies'] as $especie)
 
             <tr>
-              <td style="text-align:center"><span>{{  date("d/m/Y", strtotime( $especie -> fecha_inicial)) }}</span></td>
+              <td style="text-align:center"><span>{{  date("d/m/Y", strtotime( $especie['especie'] -> fecha_inicial)) }}</span></td>
+              <td style="text-align:center"><span>{{ $especie['coordenada'][0] -> latitud .", ". $especie['coordenada'][0] -> longitud}}</span></td>
+              <td style="text-align:center"></td>
+              <td style="text-align:center"><span>{{ $especie['zona']}}</span></td>
               <td style="text-align:center"></td>
               <td style="text-align:center"></td>
-              <td style="text-align:center"></td>
-              <td style="text-align:center"></td>
-              <td style="text-align:center"></td>
-              <td style="text-align:center"><span>{{ $especie -> nombre }}</span></td>
-              <td style="text-align:center"><span>{{ $especie -> kilogramos }}</span></td>
-              <td style="text-align:center"> <span>{{ $especie -> cajones }}</span></td>
+              <td style="text-align:center"><span>{{ $especie['especie'] -> nombre }}</span></td>
+              <td style="text-align:center"><span>{{ $especie['especie'] -> kilogramos }}</span></td>
+              <td style="text-align:center"> <span>{{ $especie['especie'] -> cajones }}</span></td>
             </tr>
 
             @endforeach

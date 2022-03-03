@@ -45,18 +45,33 @@ class BitacorasController extends Controller
 
         $bitacora = bitacora::find($id);
 
-        $especies = DB::table('especie_lance')
+        $especies_db = DB::table('especie_lance')
                    ->join('lances', 'especie_lance.id_lance', '=', 'lances.id')
                    ->join('especies', 'especie_lance.id_especie', '=', 'especies.id')
                    ->where('lances.id_bitacora',$id)
                    ->get();
 
+        $especies = Array();
+        foreach($especies_db as $especie){
+
+            $zona = explode(":", zonaPesca::find( $especie -> id_zona_de_pesca) -> nombre);
+            
+            $especie = [
+                "especie" => $especie,
+                "coordenada" =>  coordenada::where('id_lance', $especie -> id_lance)->get(),
+                "zona" => $zona[0]
+            ];
+
+            $especies[] =  $especie;
+        }       
+        
+                   
         $arte_pesca = DB::table('lance_arte_de_pesca')
-                   ->join('lances', 'lance_arte_de_pesca.id_lance', '=', 'lances.id')
                    ->join('artepesca', 'lance_arte_de_pesca.id_arte', '=', 'artepesca.id')
+                   ->join('lances', 'lance_arte_de_pesca.id_lance', '=', 'lances.id')
                    ->where('lances.id_bitacora',$id)
                    ->first();
-
+        
     
         $data = [
            'bitacora' =>  $bitacora,
