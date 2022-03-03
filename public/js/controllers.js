@@ -215,6 +215,8 @@ function getMap(inicio, fin){
   
 async function popupCapitanes(capitanes){
 
+    if(capitanes.length > 0){
+
      let data = await fetch('/capchecked')
                      .then( res => res.json())
                      .then( data => {
@@ -290,6 +292,14 @@ async function popupCapitanes(capitanes){
            })
 
            console.log(capitanes_check)
+
+           let cont_text = ''
+           if(capitanes_check.length > 0){
+             cont_text = `<span> ${capitanes_check.length} </span>`
+           }
+
+           $('.btn-list-capitanes').html(`Agregar Capitan/es ${cont_text}`)
+
          }
     })
 
@@ -319,9 +329,25 @@ async function popupCapitanes(capitanes){
         console.log(capitanes_check)
       }
 
+      
  
    });
- 
+
+     
+   }
+   else{
+     $('.btn-list-capitanes').attr("disabled", "disabled")
+     Swal.fire({
+      icon: 'error',
+      title: 'Sin capitanes para agregar',
+      text: 'Por favor agregue un nuevo capitan para continuar..',
+      type: "error",
+      showConfirmButton: false,
+      timer: 2000
+
+    })
+
+   }
 
   }
 

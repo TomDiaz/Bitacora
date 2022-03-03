@@ -28,20 +28,26 @@
     <input type="text" class="form-control" name="permiso" placeholder="Permiso de Pesca de la embarcación" id="exampleInputEmail1" aria-describedby="emailHelp" required>
   </div>
 
-  <div class="mb-3 col">
-    
-    <input id="date" name="fecha_caducidad" required type="date">
+  <div class="mb-3 col fecha">
+    <label for="">Fecha caducidad</label>
+    <input id="date" class="form-control" name="fecha_caducidad"  required type="date">
   </div>
+
+  
      
     </div>
 
 
+    <div class="row">
+      <div class="mb-3" style="margin-left: 10px;">
+         <button type="button" onclick="popupCapitanes({{json_encode($capitanes)}})"  class="btn btn-dark btn-list-capitanes">Agregar Capitan/es</button>
+      </div>
+    </div>
 
-  <div class="mb-3">
-     <button type="button" onclick="popupCapitanes({{json_encode($capitanes)}})" class="btn btn-dark">Agregar Capitan/es</button>
-  </div>
+    <hr>
 
    <div class="butons">
+    
        <button type="submit" style="display:block; width:100%; margin-bottom: 5px" class="btn btn-outline-primary">Guardar</button>
        <a  class="btn btn-outline-danger" style="display:block; width:100%;"  href="{{route('embarcaciones.index')}}">Cancelar</a> 
 

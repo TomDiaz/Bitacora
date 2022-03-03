@@ -277,14 +277,34 @@ input[type="number"]
 }
 
 /* FORMULARIO END*/
+.btn-list-capitanes {
+  display: flex;
+}
+
+.btn-list-capitanes span{
+  background: #22a94a;
+  border-radius: 50px;
+  display: block;
+  width: 28px;
+  margin-left: 10px;
+  font-weight: 600;
+  padding-top: 1px;
+}
+
+.fecha label{
+  position: absolute;
+  right: 50px;
+  bottom: 5px;
+  color: #939ba2;
+  font-weight: 500 !important;
+}
 
 
 .capitanes-visor{
   width: 34% !important;
-  height: 70vh !important;
+  height: 80vh !important;
   border-radius: 20px !important;
   border-left: solid 5px !important;
-    
 }
 
 .capitanes-visor .capitanes{

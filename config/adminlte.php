@@ -250,12 +250,12 @@ return [
         // ],
 
         [
-            'text' => 'Home',
+            'text' => 'Inicio',
             'url'  => 'home',
             'icon' => 'fas fa-home',
         ],
         [
-            'text' => 'About',
+            'text' => 'Sobre BEP',
             'url'  => 'about',
             'icon' => 'fas fa-address-card',
         ],
