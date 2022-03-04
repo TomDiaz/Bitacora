@@ -10,14 +10,14 @@
 
   <div class="datos contenido">
 
-    <h3>DATOS DE LA EMBARCACION</h3>
+    <h3>EDICIÓN - DATOS DE LA EMBARCACION </h3>
 
     <div class="mb-3 ">
-         <input type="text" class="form-control" name="embarcacion" value="{{$embarcacion -> Nombre}}" placeholder="Nombre de la embarcación" id="exampleInputEmail1" aria-describedby="emailHelp" required>
+         <input type="text" class="form-control" name="embarcacion" value="{{$embarcacion -> Nombre}}" placeholder="Nombre de la embarcación" id="exampleInputEmail1" aria-describedby="emailHelp" >
        </div>
      
        <div class="mb-3 ">
-         <input type="text" class="form-control" name="matricula" value="{{$embarcacion -> Matricula}}"  placeholder="Matrícula de la embarcación" id="exampleInputEmail1" aria-describedby="emailHelp" required>
+         <input type="text" class="form-control" name="matricula" value="{{$embarcacion -> Matricula}}"  placeholder="Matrícula de la embarcación" id="exampleInputEmail1" aria-describedby="emailHelp" >
        </div>
 
     <div class="row">
@@ -26,30 +26,21 @@
     <input type="text" class="form-control" name="permiso" value="{{$embarcacion -> PermisoPesca}}"  placeholder="Permiso de Pesca de la embarcación" id="exampleInputEmail1" aria-describedby="emailHelp" required>
   </div>
 
-  <div class="mb-3 col">
-    <input id="date" name="fecha_caducidad" value="{{$embarcacion -> FechaVigenciaPermisoPesca}}" required type="date">
+  <div class="mb-3 col fecha">
+    <label for="">Fecha caducidad</label>
+    <input id="date" class="form-control" name="fecha_caducidad" value="{{$embarcacion -> FechaVigenciaPermisoPesca}}" required type="date">
   </div>
      
     </div>
 
 
-  <div class="mb-3">
+  <div class="row">
+      <div class="mb-3" style="margin-left: 10px;">
+         <button type="button" onclick="popupCapitanes({{json_encode($capitanes)}})"  class="btn btn-dark btn-list-capitanes">Agregar Capitan/es <span>{{ count($capitanes_array) }}</span></button>
+      </div>
+    </div>
 
-    <select class="form-control" name="pais" id="" required>
-        <option value="Argentina">Argentina</option>
-        <option value="España">España</option>
-    </select>
-  </div>
-
-  <div class="mb-3">
-
-    <select class="form-control" name="capitanes[]"  multiple >
-
-      @foreach($capitanes as $capitan)
-        <option value="{{$capitan -> id}}">{{$capitan -> nombres}} {{$capitan -> apellidos}}</option>
-      @endforeach 
-    </select>
-  </div>
+    <hr>
  
 
   
@@ -68,25 +59,6 @@
 </form>
 
 
-<style>
-    .formulario .contenido{
-  box-shadow: 1px 2px 10px 3px rgba(0, 0, 0, 0.1);
-  padding: 50px;
-  border-radius: 10px;
-  margin-bottom: 20px
-}
-
-.formulario h3{
-  color: #343a40;
-  text-align: center;
-  font-weight: 600;
-}
-
-.formulario input, .formulario select{
-  width: 100%;
-  height: 50px
-}
-</style>
 
 @stop
 
@@ -94,6 +66,19 @@
     <link rel="stylesheet" href="/css/admin_custom.css">
 @stop
 
+@section('plugins.Sweetalert2', true)
+
+
+
 @section('js')
-    <script> console.log('Hi!'); </script>
+  <script src="https://code.jquery.com/jquery-3.6.0.js" integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk=" crossorigin="anonymous"></script>  
+  <script src="/js/controllers.js"></script>
+  <script src="/js/errors.js"></script>
+  <script src="https://kit.fontawesome.com/874ba803fc.js" crossorigin="anonymous"></script>
+  
+@if ($errors->any())
+   <script>
+     alertError(<?php echo json_encode($errors->all()) ?>)
+   </script>
+@endif
 @stop

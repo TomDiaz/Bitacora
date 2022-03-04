@@ -18,18 +18,18 @@ class EmbarcacionesController extends Controller
      */
     public function index(Request $req)
     {
-        $embarcaciones = Embarcacion::where('IdArmador', auth()->user()->id)->paginate(10);
+        $embarcaciones = Embarcacion::latest('FechaRegistro')->where('IdArmador', auth()->user()->id)->paginate(10);
      
        if($req->adminlteSearch){
-         $embarcaciones = Embarcacion::where('IdArmador', auth()->user()->id)->where('Nombre', 'LIKE' ,'%'.$req->adminlteSearch.'%')->paginate(10);
+         $embarcaciones = Embarcacion::latest('FechaRegistro')->where('IdArmador', auth()->user()->id)->where('Nombre', 'LIKE' ,'%'.$req->adminlteSearch.'%')->paginate(10);
        };
 
        if(count($embarcaciones)==0){
-          $embarcaciones = Embarcacion::where('IdArmador', auth()->user()->id)->where('Matricula', 'LIKE' ,'%'.$req->adminlteSearch.'%')->paginate(10);
+          $embarcaciones = Embarcacion::latest('FechaRegistro')->where('IdArmador', auth()->user()->id)->where('Matricula', 'LIKE' ,'%'.$req->adminlteSearch.'%')->paginate(10);
        }
 
        if(count($embarcaciones)==0){
-          $embarcaciones = Embarcacion::where('IdArmador', auth()->user()->id)->where('PermisoPesca', 'LIKE' ,'%'.$req->adminlteSearch.'%')->paginate(10);
+          $embarcaciones = Embarcacion::latest('FechaRegistro')->where('IdArmador', auth()->user()->id)->where('PermisoPesca', 'LIKE' ,'%'.$req->adminlteSearch.'%')->paginate(10);
        }
 
 
@@ -65,6 +65,14 @@ class EmbarcacionesController extends Controller
 
         session_start();
 
+        $validated = $request->validate([
+            'embarcacion' => 'required',
+            'matricula' => 'required',
+            'permiso' => 'required',
+            'fecha_caducidad' => 'required',
+        ]);
+
+
         $embarcacion = Embarcacion::create([
             'IdArmador' => auth()->user() -> id,
             'Nombre' => $request -> embarcacion,
@@ -81,6 +89,7 @@ class EmbarcacionesController extends Controller
             'IdEmbarcacion' =>  $embarcacion -> IdEmbarcacion
            ]);
         }
+
 
         return redirect('/embarcaciones');
     }
@@ -104,11 +113,22 @@ class EmbarcacionesController extends Controller
      */
     public function edit($id)
     {
+      
+
         $embarcacion = Embarcacion::find($id);
-        $capitanes = Capitan::all();
+        $capitanes = Capitan::where('id_armador',  auth()->user()->id)->get();
+        $capitanes_array = array();
         $artepesca = ArtePesca::all();
 
-        return view('embarcaciones.edit', compact('embarcacion','capitanes', 'artepesca'));
+        foreach(capitanembarcacion::where('IdEmbarcacion', $id)->get() as $capitan){
+            $capitanes_array[] = Capitan::find($capitan -> IdCapitan)-> id;
+        }
+
+        session_start();
+        $_SESSION['capitanes'] = $capitanes_array;
+
+
+        return view('embarcaciones.edit', compact('embarcacion','capitanes', 'artepesca', 'capitanes_array'));
     }
 
     /**
@@ -120,15 +140,33 @@ class EmbarcacionesController extends Controller
      */
     public function update(Request $request, $id)
     {
+        session_start();
+
+        $validated = $request->validate([
+            'embarcacion' => 'required',
+            'matricula' => 'required',
+            'permiso' => 'required',
+            'fecha_caducidad' => 'required',
+        ]);
+
+       
         $embarcacion = Embarcacion::find($id);
 
-        $embarcacion -> IdArmador = auth()->user() -> id;
         $embarcacion -> Nombre = $request -> embarcacion;
         $embarcacion -> Matricula = $request -> matricula;
         $embarcacion -> PermisoPesca = $request -> permiso;
         $embarcacion -> FechaVigenciaPermisoPesca = $request -> fecha_caducidad;
-        $embarcacion -> Estado = 'A';
-        $embarcacion -> Pais = $request -> pais;
+   
+        foreach(capitanembarcacion::where('IdEmbarcacion', $id)->get() as $capitan){
+            $capitan -> delete();
+        }   
+
+        foreach( $_SESSION['capitanes'] as $capitan){
+            CapitanEmbarcacion::create([
+             'IdCapitan' => $capitan,
+             'IdEmbarcacion' =>  $embarcacion -> IdEmbarcacion
+            ]);
+         }
 
         $embarcacion -> save();
 

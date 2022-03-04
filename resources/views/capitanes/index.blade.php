@@ -7,7 +7,7 @@
 
 @section('content')
  <br>
- <a class="btn btn-secondary animate__animated animate__lightSpeedInLeft " href="{{ route('capitanes.create')}}">Nuevo capitan  <i class="fas fa-plus"></i></a>
+ <a class="btn btn-dark animate__animated animate__lightSpeedInLeft " href="{{ route('capitanes.create')}}">Nuevo capitan  <i class="fas fa-plus"></i></a>
  <hr>
 
  <meta name="csrf-token" content="{{ csrf_token() }}">

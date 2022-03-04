@@ -46,6 +46,8 @@ Route::middleware(['auth:sanctum', 'verified'])->group(function () {
     Route::get('lances',[LancesController::class,'index']);
     Route::post('capchecked',function(Request $req){
         session_start();
+
+        
         $_SESSION['capitanes'] = $req -> capitanes; 
 
         return response()->json(["msj" => "Capitan agregado con exito!!", "type" => $req -> capitanes],201);

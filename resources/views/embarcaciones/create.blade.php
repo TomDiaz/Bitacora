@@ -13,24 +13,24 @@
 
     <div class="mb-3 ">
          
-         <input type="text" class="form-control" name="embarcacion" placeholder="Nombre de la embarcación" id="exampleInputEmail1" aria-describedby="emailHelp" required>
+         <input type="text" class="form-control" name="embarcacion" placeholder="Nombre de la embarcación" id="exampleInputEmail1" aria-describedby="emailHelp" >
        </div>
      
        <div class="mb-3 ">
          
-         <input type="text" class="form-control" name="matricula" placeholder="Matrícula de la embarcación" id="exampleInputEmail1" aria-describedby="emailHelp" required>
+         <input type="text" class="form-control" name="matricula" placeholder="Matrícula de la embarcación" id="exampleInputEmail1" aria-describedby="emailHelp" >
        </div>
 
     <div class="row">
 
     <div class="mb-3 col">
     
-    <input type="text" class="form-control" name="permiso" placeholder="Permiso de Pesca de la embarcación" id="exampleInputEmail1" aria-describedby="emailHelp" required>
+    <input type="text" class="form-control" name="permiso" placeholder="Permiso de Pesca de la embarcación" id="exampleInputEmail1" aria-describedby="emailHelp" >
   </div>
 
   <div class="mb-3 col fecha">
     <label for="">Fecha caducidad</label>
-    <input id="date" class="form-control" name="fecha_caducidad"  required type="date">
+    <input id="date" class="form-control" name="fecha_caducidad"   type="date">
   </div>
 
   
@@ -74,5 +74,12 @@
 @section('js')
   <script src="https://code.jquery.com/jquery-3.6.0.js" integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk=" crossorigin="anonymous"></script>  
   <script src="/js/controllers.js"></script>
+  <script src="/js/errors.js"></script>
   <script src="https://kit.fontawesome.com/874ba803fc.js" crossorigin="anonymous"></script>
+  
+@if ($errors->any())
+   <script>
+     alertError(<?php echo json_encode($errors->all()) ?>)
+   </script>
+@endif
 @stop

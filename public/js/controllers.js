@@ -233,9 +233,9 @@ async function popupCapitanes(capitanes){
     let capitanes_check = data;
 
     capitanes.forEach(element => {
-       
+        console.log(data)
         if(data.find(x => x == element.id)){
-
+          
           tamplate += `
           <div class="capitan"><span>${element.nombres}</span><input disabled="false" class="check " type="checkbox" checked value="${element.id}" id="capitan-${element.id}"> <i class="fa-solid fa-circle-check"></i></div>
           `
@@ -244,7 +244,7 @@ async function popupCapitanes(capitanes){
         else{
 
           tamplate += `
-             <div class="capitan"><span>${element.nombres}</span><input disabled="false" class="check " type="checkbox" value="${element.id}" id="capitan-${element.id}"> <i class="fa-solid"></i></div>
+             <div class="capitan"><span>${element.nombres}${element.id}</span><input disabled="false" class="check " type="checkbox" value="${element.id}" id="capitan-${element.id}"> <i class="fa-solid"></i></div>
           `
         }
 
@@ -291,7 +291,8 @@ async function popupCapitanes(capitanes){
                 console.log(data)
            })
 
-           console.log(capitanes_check)
+           
+           console.log("check: " + capitanes_check)
 
            let cont_text = ''
            if(capitanes_check.length > 0){
