@@ -75,8 +75,8 @@ class BitacorasController extends Controller
                    ->join('artepesca', 'lance_arte_de_pesca.id_arte', '=', 'artepesca.id')
                    ->join('lances', 'lance_arte_de_pesca.id_lance', '=', 'lances.id')
                    ->where('lances.id_bitacora',$id)
+                   ->select('artepesca.nombre', 'lance_arte_de_pesca.tamanio', 'lance_arte_de_pesca.tipo_malla', 'lance_arte_de_pesca.luz_malla')
                    ->first();
-        
     
         $data = [
            'bitacora' =>  $bitacora,
