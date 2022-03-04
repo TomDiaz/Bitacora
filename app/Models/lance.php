@@ -24,5 +24,6 @@ class lance extends Model
         'temperatura',
         'otro',
         'mitigacion',
+        'progreso'
     ];
 }

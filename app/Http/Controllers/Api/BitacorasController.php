@@ -57,6 +57,7 @@ class BitacorasController extends Controller
               'temperatura' => $lance['temperatura'], 
               'otro' => $lance['otro'], 
               'mitigacion' => $lance['mitigacion'], 
+              'progreso' => $lance['progreso'], 
             ]);
 
 

@@ -105,7 +105,7 @@ body { font-family: "Gill Sans Extrabold", Helvetica, sans-serif  }
 }
 
 span{
-    color: blue;
+    color: #303030;
 }
 
     </style>
@@ -323,8 +323,8 @@ span{
               <td style="text-align:center"><span>{{ $especie['coordenada'][0] -> latitud .", ". $especie['coordenada'][0] -> longitud}}</span></td>
               <td style="text-align:center"></td>
               <td style="text-align:center"><span>{{ $especie['zona']}}</span></td>
-              <td style="text-align:center"></td>
-              <td style="text-align:center"></td>
+              <td style="text-align:center"><span>{{ $especie['lance']}}</span></td>
+              <td style="text-align:center"><span>{{ $especie['progreso']}}</span></td>
               <td style="text-align:center"><span>{{ $especie['especie'] -> nombre }}</span></td>
               <td style="text-align:center"><span>{{ $especie['especie'] -> kilogramos }}</span></td>
               <td style="text-align:center"> <span>{{ $especie['especie'] -> cajones }}</span></td>
