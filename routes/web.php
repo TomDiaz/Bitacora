@@ -43,6 +43,7 @@ Route::middleware(['auth:sanctum', 'verified'])->group(function () {
 
     Route::get('bitacoras',[BitacorasController::class,'index']);
     Route::get('pdf/parte_de_pesca/{id}',[BitacorasController::class,'PDF_PartePesca']);
+    Route::get('pdf/general/{id}',[BitacorasController::class,'PDF_General']);
     Route::get('lances',[LancesController::class,'index']);
     Route::post('capchecked',function(Request $req){
         session_start();

@@ -7,6 +7,7 @@ use App\Models\tipoEspecie;
 use App\Models\especie;
 use App\Models\puerto;
 use App\Models\Embarcacion;
+use App\Models\Capitan;
 use App\Models\zonaPesca;
 use App\Models\ArtePesca;
 use App\Models\bitacora;
@@ -39,6 +40,70 @@ class BitacorasController extends Controller
         return view('reportes.bitacora',  compact('bitacoras','bitacoras_bd'));
      
     }
+
+
+     public function PDF_General($id){
+
+        $bitacora = bitacora::find($id);
+        $embarcacion =  Embarcacion::find($bitacora -> id_embarcacion);
+
+        $general = [
+            "armador" => User::find($embarcacion -> IdArmador) -> name,
+            "embarcacion" => $embarcacion,
+            "capitan" => Capitan::find($bitacora -> id_capitan) -> nombres . " " . Capitan::find($bitacora -> id_capitan) -> apellidos,
+            "inico" =>  $bitacora -> fecha_inicial,
+            "cierre" =>  $bitacora -> fecha_final,
+            "zarpe" => puerto::find( $bitacora -> id_puerto_zarpe) -> nombre,
+            "arribo" => puerto::find( $bitacora -> id_puerto_arribo) -> nombre,
+            "total_lances" => lance::where('id_bitacora', $id)->count(),
+            "obsevaciones" => $bitacora -> observaciones
+        ];
+
+         
+         $lances = array();
+         //Lances de la mi bitacora
+         foreach(lance::where('id_bitacora', $id)->get() as $lance){
+
+            $especies = array();
+   
+            foreach(especieLance::where('id_lance', $lance -> id)->get() as $especie){
+
+                 $especie = [
+                    "nombre_comun" =>  especie::find($especie -> id_especie) -> nombre,
+                    "nombre_cientifico" => especie::find($especie -> id_especie) -> nombre_cientifico,
+                    "peso" => $especie -> kilogramos,
+                    "cantidad" => $especie -> unidades,
+                   
+                 ];
+
+                 $especies[] = $especie;
+            }
+
+            $coordenadas = coordenada::where('id_lance',  $lance -> id)->get();
+
+            $zona = explode(":", zonaPesca::find( $lance -> id_zona_de_pesca) -> nombre);
+
+            $lance = [
+                "lance" => $lance -> nombre,
+                "arte_pesca" => ArtePesca::find(lanceArtePesca::where('id_lance', $lance -> id) -> first() -> id_arte)-> nombre,
+                "zona_pesca" => $zona[0],
+                "inico" => $lance -> fecha_inicial,
+                "fin" => $lance -> fecha_final,
+                "laitud_i" =>  $coordenadas[0] -> latitud,
+                "longitud_i" => $coordenadas[0] -> longitud,
+                "laitud_f" =>  $coordenadas[1] -> latitud,
+                "longitud_f" =>  $coordenadas[1] -> longitud,
+                "especies" => $especies
+            ];
+
+            $lances[] =  $lance;
+
+         }
+
+
+        $pdf = PDF::loadView('pdf.general', compact('general','lances'));
+        return $pdf->stream();
+     }
 
 
      public function PDF_PartePesca($id){

@@ -116,4 +116,11 @@ class BitacorasController extends Controller
 
     }
 
+
+    public function historial($id){
+
+        
+
+    }
+
 }

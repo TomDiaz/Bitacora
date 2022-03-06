@@ -40,7 +40,7 @@
          <td style="text-align: center">{{$bitacora['fecha_final'] }} </td>
          <td style="text-align: center">{{$bitacora['capitan'] }} </td>
          <td style="text-align: center"><button type="button" style="width:100%;" onclick="getiframe('{{ env('APP_URL') . 'pdf/parte_de_pesca/' . $bitacora['id'] }}')" class="btn btn-danger"> PESCA  <i style="margin-left: 5px;"class="fa fa-file-pdf"></i></button></td>
-         <td><button type="button" style="width:100%;" onclick="getiframe('{{ env('APP_URL') . 'pdf/parte_de_pesca/' . $bitacora['id'] }}')" class="btn btn-danger"> GENERAL  <i style="margin-left: 5px;"class="fa fa-file-pdf"></i></button></td>
+         <td><button type="button" style="width:100%;" onclick="getiframe('{{ env('APP_URL') . 'pdf/general/' . $bitacora['id'] }}')" class="btn btn-danger"> GENERAL  <i style="margin-left: 5px;"class="fa fa-file-pdf"></i></button></td>
        </tr>
     @endforeach
    
