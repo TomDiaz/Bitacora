@@ -43,7 +43,6 @@ class LanceResource extends JsonResource
             'coordenadas_fin' =>  $coord_f,
             'arte_pesca' => ArtePesca::find($arte_lance[0] -> id_arte) -> nombre,
             'especies_objetivo' => "Sin",
-            ''
 
         ];
     }

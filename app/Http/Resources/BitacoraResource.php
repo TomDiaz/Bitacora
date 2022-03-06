@@ -6,7 +6,16 @@ use Illuminate\Http\Resources\Json\JsonResource;
 use App\Models\Embarcacion;
 use App\Models\Capitan;
 use App\Models\CapitanEmbarcacion;
-
+use App\Models\puerto;
+use App\Models\zonaPesca;
+use App\Models\coordenada;
+use App\Models\lanceArtePesca;
+use App\Models\ArtePesca;
+use App\Models\especieLance;
+use App\Models\lance;
+use App\Http\Resources\CoordenadasResource;
+use App\Http\Resources\ArtePescaResource;
+use App\Http\Resources\EspeciesResource;
 
 class BitacoraResource extends JsonResource
 {
@@ -19,6 +28,28 @@ class BitacoraResource extends JsonResource
     public function toArray($request)
     {
 
+        $lances = array();
+
+        foreach(lance::where('id_bitacora', $this -> id )-> get() as $data){
+         
+
+            $lance = [
+                'nombre' => $data -> nombre,
+                'zona_de_pesca' => zonaPesca::find($data -> id_zona_de_pesca) -> nombre,
+                'fecha_inicial' => $data -> fecha_inicial,
+                'fecha_final' => $data -> fecha_final,
+                'sin_captura' => $data -> sin_captura,
+                'temperatura' => $data -> temperatura,
+                'otro' => $data -> otro,
+                'mitigacion' => $data -> mitigacion,
+                'progreso' => $data -> progreso,
+                'coordenadas'=> CoordenadasResource::collection(coordenada::where('id_lance',  $data -> id)->get()),
+                'artes_de_pesca' => ArtePescaResource::collection(lanceArtePesca::where('id_lance',  $data -> id)->get()),
+                'especies' => EspeciesResource::collection(especieLance::where('id_lance',  $data -> id)->get())
+            ];
+
+            $lances[] =  $lance;
+        }
 
         return [
             'id' => $this -> id,
@@ -28,7 +59,15 @@ class BitacoraResource extends JsonResource
             'embarcacion' => Embarcacion::find($this -> id_embarcacion) -> Nombre,
             'matricula' => Embarcacion::find($this -> id_embarcacion) -> Matricula, 
             'tripulantes' => $this -> tripulantes,
-            'capitan' => Capitan::find($this -> id_capitan) -> nombres . ' ' . Capitan::find($this -> id_capitan) -> apellidos
+            'capitan' => Capitan::find($this -> id_capitan) -> nombres . ' ' . Capitan::find($this -> id_capitan) -> apellidos,
+            'puerto_zarpe'=> puerto::find($this -> id_puerto_zarpe ) -> nombre,
+            'puerto_arribo'=> puerto::find($this -> id_puerto_arribo) -> nombre,
+            'viaje_anual'=> $this -> viaje_anual ,
+            'combustible'=> $this -> combustible ,
+            'millas_recogidas'=> $this -> millas_recogidas ,
+            'produccion'=> $this -> produccion ,
+            'observaciones'=> $this -> observaciones ,
+            'lances' => $lances
         ];
     }
 }

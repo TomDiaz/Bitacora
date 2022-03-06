@@ -15,6 +15,7 @@ use App\Models\lance;
 use App\Models\coordenada;
 use App\Models\especieLance;
 use App\Models\lanceArtePesca;
+use App\Http\Resources\BitacoraResource;
 
 class BitacorasController extends Controller
 {
@@ -119,7 +120,16 @@ class BitacorasController extends Controller
 
     public function historial($id){
 
-        
+      try{
+
+      $bitacora = BitacoraResource::collection(bitacora::where('id_capitan', $id)->get());
+
+      return  response()->json(['msj' => 'Historial', 'bitacora' => $bitacora ],201);
+
+    } catch (\Exception $e) {
+      report($e);
+      return response()->json(['msj'=>'Server error','err'=>  $e],500);
+    }
 
     }
 
