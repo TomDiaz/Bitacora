@@ -82,6 +82,7 @@ class BitacorasController extends Controller
               'tamanio' => $lance['artes_de_pesca']['tamanio'],
               'tipo_malla' => $lance['artes_de_pesca']['tipo_malla'],
               'luz_malla' => $lance['artes_de_pesca']['luz_malla'],
+              'nombre_dispositivo' => $lance['artes_de_pesca']['nombre_dispositivo']
 
             ]);
 

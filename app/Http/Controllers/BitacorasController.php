@@ -126,7 +126,7 @@ class BitacorasController extends Controller
                     "especie" => $especie,
                     "coordenada" =>  coordenada::where('id_lance', $especie -> id_lance)->get(),
                     "zona" => $zona[0],
-                    "progreso" => lance::find( $especie -> id_lance) -> progreso,
+                    "progreso" => "HI: ". date("H:i", strtotime( $especie -> fecha_inicial)) . " | HF: " .  date("H:i", strtotime( $especie -> fecha_final)) . " | T: " . date("H:i", strtotime( lance::find( $especie -> id_lance) -> progreso)),
                     "lance" => lance::find( $especie -> id_lance) -> nombre . " del " . date("d/m/Y", strtotime(lance::find( $especie -> id_lance) -> fecha_inicial))  
 
                 ];
@@ -140,7 +140,7 @@ class BitacorasController extends Controller
                    ->join('artepesca', 'lance_arte_de_pesca.id_arte', '=', 'artepesca.id')
                    ->join('lances', 'lance_arte_de_pesca.id_lance', '=', 'lances.id')
                    ->where('lances.id_bitacora',$id)
-                   ->select('artepesca.nombre', 'lance_arte_de_pesca.tamanio', 'lance_arte_de_pesca.tipo_malla', 'lance_arte_de_pesca.luz_malla')
+                   ->select('artepesca.nombre', 'lance_arte_de_pesca.tamanio', 'lance_arte_de_pesca.tipo_malla', 'lance_arte_de_pesca.luz_malla','lance_arte_de_pesca.nombre_dispositivo')
                    ->first();
     
         $data = [

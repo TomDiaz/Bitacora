@@ -20,5 +20,6 @@ class lanceArtePesca extends Model
         'tamanio',
         'tipo_malla',
         'luz_malla',
+        'nombre_dispositivo',
     ];
 }

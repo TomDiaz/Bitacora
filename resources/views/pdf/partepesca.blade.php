@@ -135,7 +135,7 @@ span{
           <tr>
             <th></th>
             <th>VIAJE ANUAL Nº</th>
-            <th>  </th>
+            <th style="text-align:center"> <span>{{ $data['bitacora'] -> viaje_anual}}</span>  </th>
           </tr>
         </thead>
         <thead>
@@ -257,7 +257,7 @@ span{
             
             <th>NOMBRE: 
                @if($data['lances']) 
-                  <span>{{ $data['arte_pesca'] -> nombre}}</span>
+                  <span>{{ $data['arte_pesca'] -> nombre_dispositivo}}</span>
                @endif
             </th>
             <th>TAMAÑO: 
