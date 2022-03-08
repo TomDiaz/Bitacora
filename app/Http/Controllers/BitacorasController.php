@@ -205,6 +205,54 @@ class BitacorasController extends Controller
         ];
      }
 
+
+    public function getCantEspecies($cant){
+
+        $mes = date('n');
+        $anio =  intval(date('Y'));
+
+        $cont = intval($mes) ;
+        $kilogramos = array(); 
+
+  
+      
+
+        for($i = 0; $i < $cant; $i++){
+           
+           $cantidad = 0;
+
+           if($cont == 0){
+             $cont = 12;
+             $anio --;
+           }
+
+           $especies_retenidas = DB::table('lances')
+           ->join('especie_lance', 'lances.id', '=', 'especie_lance.id_lance')
+           ->where('id_armador', auth()->user() -> id)
+           ->where('id_tipo', 1)
+           -> whereMonth("fecha_final", $cont)
+           -> whereYear("fecha_final",  $anio)
+           ->get();
+
+           foreach($especies_retenidas as $especie){
+              $cantidad  +=  $especie -> kilogramos;
+           }
+
+           $data = [
+              "kg" =>  $cantidad,
+              "mes" =>  $cont,
+              "anio" =>  $anio 
+           ];
+
+           $cont--;
+
+           $kilogramos[] = $cantidad;
+
+        }
+
+        return  response()->json($kilogramos,200);
+   }
+
      
 
 }

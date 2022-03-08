@@ -22,5 +22,6 @@ class especieLance extends Model
         'cajones',
         'talla_tamanio',
         'unidades',
+        'id_armador'
     ];
 }

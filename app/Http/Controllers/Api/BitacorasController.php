@@ -12,6 +12,8 @@ use App\Models\zonaPesca;
 use App\Models\ArtePesca;
 use App\Models\bitacora;
 use App\Models\lance;
+use App\Models\User;
+use App\Models\Capitan;
 use App\Models\coordenada;
 use App\Models\especieLance;
 use App\Models\lanceArtePesca;
@@ -98,7 +100,7 @@ class BitacorasController extends Controller
                 'cajones' =>  $especie['cajones'],
                 'talla_tamanio' =>  $especie['talla_tamanio'],
                 'unidades' =>  $especie['unidades'],
-
+                'id_armador' => User::find( Capitan::find($req -> id_capitan) -> id_armador) -> id
               ]);
 
             }
@@ -133,5 +135,8 @@ class BitacorasController extends Controller
     }
 
     }
+
+
+  
 
 }

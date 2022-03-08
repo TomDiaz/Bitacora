@@ -59,6 +59,6 @@ Route::middleware(['auth:sanctum', 'verified'])->group(function () {
         return response()->json($_SESSION['capitanes'],200);
     });
 
-      
-
+    Route::get('especies/{cant}',[BitacorasController::class,'getCantEspecies']);
+ 
 });
