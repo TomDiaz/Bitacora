@@ -262,20 +262,17 @@ return [
 
         ['header' => 'Administración'],
         [
-            'text' => 'Embarcaciones',
-            'url'  => 'embarcaciones',
-            'icon' => 'fas fa-ship',
-        ],
-        [
             'text' => 'Capitanes',
             'url'  => 'capitanes',
             'icon' => 'fas fa-users',
         ],
         [
-            'text' => 'Cambio de clave',
-            'url'  => 'admin/settings',
-            'icon' => 'fas fa-fw fa-lock',
+            'text' => 'Embarcaciones',
+            'url'  => 'embarcaciones',
+            'icon' => 'fas fa-ship',
         ],
+      
+    
         // [
         //     'text'    => 'multilevel',
         //     'icon'    => 'fas fa-fw fa-share',
