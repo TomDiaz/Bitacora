@@ -154,7 +154,7 @@ span{
         </thead>
         <thead>
           <tr>
-            <th>ARMADOR: <span>{{ $data['armador'] -> name}}</span> </th>
+            <th>ARMADOR: <span>{{ $data['armador'] -> name . " " . $data['armador'] -> last_name}}</span> </th>
             <th>TRIPULANTES</th>
             <th style="text-align:center"> <span>{{ $data['bitacora'] -> tripulantes}}</span> </th>
           </tr>
