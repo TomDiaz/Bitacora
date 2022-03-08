@@ -12,7 +12,7 @@
     <div class="row contenido justify-content-around animate__animated animate__lightSpeedInLeft">
 
     
-          <div class="col-6">
+          <div class="col-12">
 
             <div class="datos ">
           
@@ -50,30 +50,8 @@
           </div>
 
 
-          <div class="col-4">
-
-            <div class="app ">
-          
-              
-              <div class="inputs">
-               <h3>USUARIO APP</h3>
-
-               <div class="mb-3">
-                 <input type="text" class="form-control active" name="usuario" placeholder="Usuario"  value="{{$capitan ->usuario}}" id="usuario" aria-describedby="emailHelp">
-                 <div class="icono"></div>
-               </div>
-               
-               <div class="mb-3"> 
-                 <input type="password" class="form-control active" name="clave1" placeholder="Clave"  value="{{$capitan ->clave}}"  id="clave1" aria-describedby="emailHelp">
-                 <div class="icono"></div>
-               </div>
-               
-               
-               <div class="mb-3">
-                 <input type="password" class="form-control active" name="clave2" placeholder="Confirmar clave"  value="{{$capitan ->clave}}"  id="clave2" aria-describedby="emailHelp">
-                 <div class="icono"></div>
-               </div>
-             </div>
+          <div class="col-12">
+     
           
              <div class="butons">
 

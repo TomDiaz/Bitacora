@@ -139,9 +139,6 @@ class CapitanesController extends Controller
         $capitan -> apellidos = $request -> apellido;
         $capitan -> celular = $request -> celular;
         $capitan -> email = $request -> email;
-        $capitan -> usuario = $request -> usuario;
-        $capitan -> clave = Hash::make($request -> clave1);
-        $capitan -> Estado = 1;
         $capitan -> id_armador =  auth()->user() -> id; 
 
         $capitan->save();
