@@ -48,7 +48,8 @@ class BitacorasController extends Controller
         $embarcacion =  Embarcacion::find($bitacora -> id_embarcacion);
 
         $general = [
-            "armador" => User::find($embarcacion -> IdArmador) -> name,
+            "bitacora" => $bitacora,
+            "armador" => User::find($embarcacion -> IdArmador) -> name . " " . User::find($embarcacion -> IdArmador) -> last_name,
             "embarcacion" => $embarcacion,
             "capitan" => Capitan::find($bitacora -> id_capitan) -> nombres . " " . Capitan::find($bitacora -> id_capitan) -> apellidos,
             "inico" =>  $bitacora -> fecha_inicial,
@@ -56,27 +57,54 @@ class BitacorasController extends Controller
             "zarpe" => puerto::find( $bitacora -> id_puerto_zarpe) -> nombre,
             "arribo" => puerto::find( $bitacora -> id_puerto_arribo) -> nombre,
             "total_lances" => lance::where('id_bitacora', $id)->count(),
-            "obsevaciones" => $bitacora -> observaciones
+            "obsevaciones" => $bitacora -> observaciones,
+            "arte_pesca" => lanceArtePesca::where('id_lance',lance::where('id_bitacora', $id)-> first() -> id) -> first()
         ];
 
          
          $lances = array();
+         $procuccion_total = 0;
          //Lances de la mi bitacora
          foreach(lance::where('id_bitacora', $id)->get() as $lance){
 
-            $especies = array();
+            $especies_retenidas = array();
+            $especies_otras = array();
    
             foreach(especieLance::where('id_lance', $lance -> id)->get() as $especie){
 
-                 $especie = [
-                    "nombre_comun" =>  especie::find($especie -> id_especie) -> nombre,
-                    "nombre_cientifico" => especie::find($especie -> id_especie) -> nombre_cientifico,
-                    "peso" => $especie -> kilogramos,
-                    "cantidad" => $especie -> unidades,
-                   
-                 ];
+               $procuccion_total += $especie -> kilogramos;
 
-                 $especies[] = $especie;
+               if($especie -> id_tipo == 1){
+
+                  $especie = [
+                     "nombre_comun" =>  especie::find($especie -> id_especie) -> nombre,
+                     "nombre_cientifico" => especie::find($especie -> id_especie) -> nombre_cientifico,
+                     "peso" => $especie -> kilogramos,
+                     "cajones" => $especie -> cajones,
+                     "talla_tamanio" => $especie -> talla_tamanio,
+                    
+                  ];
+   
+                  $especies_retenidas[] = $especie;
+               }
+
+               else{
+
+                  $tipo = explode(" ", tipoEspecie::find($especie -> id_tipo) -> nombre);
+
+                  $especie = [
+                     "nombre_comun" =>  especie::find($especie -> id_especie) -> nombre,
+                     "nombre_cientifico" => especie::find($especie -> id_especie) -> nombre_cientifico,
+                     "tipo" =>  $tipo[1],
+                    
+                  ];
+   
+                  $especies_otras[] = $especie;
+
+               }
+
+               
+
             }
 
             $coordenadas = coordenada::where('id_lance',  $lance -> id)->get();
@@ -84,16 +112,20 @@ class BitacorasController extends Controller
             $zona = explode(":", zonaPesca::find( $lance -> id_zona_de_pesca) -> nombre);
 
             $lance = [
-                "lance" => $lance -> nombre,
+                "lance" => strtoupper($lance -> nombre),
                 "arte_pesca" => ArtePesca::find(lanceArtePesca::where('id_lance', $lance -> id) -> first() -> id_arte)-> nombre,
-                "zona_pesca" => $zona[0],
+                "zona_pesca" => zonaPesca::find( $lance -> id_zona_de_pesca) -> nombre,
                 "inico" => $lance -> fecha_inicial,
                 "fin" => $lance -> fecha_final,
                 "laitud_i" =>  $coordenadas[0] -> latitud,
                 "longitud_i" => $coordenadas[0] -> longitud,
                 "laitud_f" =>  $coordenadas[1] -> latitud,
                 "longitud_f" =>  $coordenadas[1] -> longitud,
-                "especies" => $especies
+                "especies_retenidas" => $especies_retenidas,
+                "especies_otras" => $especies_otras,
+                "temperatura" => $lance -> temperatura,
+                "mitigacion" => $lance -> mitigacion,
+                "otro" => $lance -> otro,
             ];
 
             $lances[] =  $lance;
@@ -101,7 +133,7 @@ class BitacorasController extends Controller
          }
 
 
-        $pdf = PDF::loadView('pdf.general', compact('general','lances'));
+        $pdf = PDF::loadView('pdf.general', compact('general','lances','procuccion_total'));
         return $pdf->stream();
      }
 

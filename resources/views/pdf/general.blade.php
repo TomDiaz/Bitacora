@@ -35,7 +35,6 @@ table td{
 
 .table-1 th, .table-2 th {
    border: solid 1px;
-   border-top: none
 }
 
 .table-3 th:nth-child(1){
@@ -49,250 +48,324 @@ table td{
 .titulo{
     background: #e6e6e6;
 }
+.sub-titulo{
+    background: #F0F3F4;
+}
 
-.table-4 th:nth-child(1){
-  width: 50.3%;
+.table-4 th{
+  width: 50.4%;
 }
 
 .lance th:nth-child(1), .lance th:nth-child(3){
   width: 30%;
 }
 
-.login-logo img{
-  width: 100px;
-  display: block;
-  margin: auto;
-  padding: 20px;
-  margin-top: -30px;
+
+
+ img{
+  width: 80px;
 }
 
-.login-logo{
-  text-align: center;
-}
-.login-logo h3{
-  margin-top: -10px;
-  fotn-weight: 200;
-}
 
-span{
-    color: #303030;
-    
-}
         
     </style>
 
 </head>
 <body>
 
-            <div class="login-logo">
-               <img src="vendor/adminlte/dist/img/logo.png" alt="">
-               <h3>REPRESENTACIÓN IMPRESA <br> DE BITÁCORA ELECTRÓNICA DE PESCA ARGENTINA</h3>
-            </div>
 
+   
+
+     <table >
+        <thead>
+          <tr>
+            <th style="text-align: center"> 
+            <h1 style="margin-left: 130px">Bitacora Electrónica de Pesca </h1>
+            <span style="margin-left: 130px">FECHA: {{ date("d/m/Y", strtotime($general['bitacora'] -> fecha_inicial))}}</span>
+          </th>
+            <th style="text-align: right"> <img src="vendor/adminlte/dist/img/logo.png" alt=""></th>
+          </tr>
+        </thead>
+    </table>
+
+    <br>
     
     <table  class="titulo"  border="1" >
         <thead>
           <tr>
-            <th>INFORMACIÓN GENERAL</th>
+            <th>Información general</th>
           </tr>
         </thead>
     </table>
     <table class="table-1" border="1" >
         <thead>
           <tr>
-            <th>ARMADOR</th>
-            <th>{{ $general['armador'] }}</th>
+            <th>Armador</th>
+            <th><span> {{ $general['armador'] }} </span></th>
           </tr>
           <tr>
-            <th>EMBARCACIÓN</th>
-            <th> <span>{{ $general['embarcacion'] -> Nombre}}</span> </th>
+            <th>Embarcación</th>
+            <th><span> {{ $general['embarcacion'] -> Nombre }} </span></th>
           </tr>
           <tr>
-            <th>MATRICULA</th>
-            <th><span>{{ $general['embarcacion'] -> Matricula}}</span> </th>
+            <th>Matricula</th>
+            <th><span> {{ $general['embarcacion'] -> Matricula }} </span></th>
           </tr>
           <tr>
-            <th>PERMISO PESCA</th>
-            <th><span>{{ $general['embarcacion'] -> PermisoPesca}}</span> </th>
+            <th>Permiso de Pesca</th>
+            <th><span> {{ $general['embarcacion'] -> PermisoPesca }} </span></th>
           </tr>
           <tr>
-            <th>CAPITAN</th>
-            <th><span>{{ $general['capitan']}}</span> </th>
+            <th>Capitán</th>
+            <th><span> {{ $general['capitan'] }} </span></th>
+          </tr>
+          <tr>
+            <th>N° de tripulantes</th>
+            <th><span> {{ $general['bitacora'] -> tripulantes}} </span></th>
+          </tr>
+          <tr>
+            <th>Viaje Anual N°</th>
+            <th><span> {{ $general['bitacora'] -> viaje_anual}} </span></th>
           </tr>
         </thead>
     </table>
 
-    <br>
-    <br>
-
  
-    <table class="table-3 titulo" border="1" >
+    <table class="table-3" border="1" >
         <thead>
           <tr>
-            <th>BITÁCORA</th>
-            <th>FECHA HORA</th>
-            <th>PUERTO</th>
+            <th></th>
+            <th class="titulo" style="width: 120px;">Fecha</th>
+            <th class="titulo" style="width: 120px;">Hora</th>
+            <th class="titulo">Puerto</th>
           </tr>
         </thead>
     </table>
     <table class="table-2" border="1" >
         <thead>
           <tr>
-            <th>INICO</th>
-            <th><span>{{ date("d/m/Y", strtotime($general['inico']))}}</span></th>
-            <th>ZARPE</th>
-            <th><span>{{ $general['zarpe']}}</span></th>
+            <th>Zarpe</th>
+            <th style="width: 120px;"><span> {{ date("d/m/Y", strtotime($general['bitacora'] -> fecha_inicial))}} </span></th>
+            <th style="width: 120px;"><span> {{ date("H:i", strtotime($general['bitacora'] -> fecha_inicial))}} </span></th>
+            <th><span> {{ $general['zarpe'] }} </span></th>
           </tr>
           <tr>
-            <th>CIERRE</th>
-            <th><span>{{ date("d/m/Y", strtotime($general['cierre']))}}</span></th>
-            <th>DESEMBARQUE</th>
-            <th><span>{{ $general['arribo']}}</span></th>
+            <th>Desembarque</th>
+            <th style="width: 120px;"><span> {{ date("d/m/Y", strtotime($general['bitacora'] -> fecha_final))}} </span></th>
+            <th style="width: 120px;"><span> {{ date("H:i", strtotime($general['bitacora'] -> fecha_final))}} </span></th>
+            <th><span> {{ $general['arribo'] }} </span></th>
           </tr>
         </thead>
     </table>
     <table class="table-1" border="1" >
         <thead>
           <tr>
-            <th>TOTAL DE LANCES</th>
-            <th><span>{{ $general['total_lances']}}</span></th>
+            <th>Cantidad total de lances</th>
+            <th><span> {{ $general['total_lances'] }} </span></th>
           </tr>
         </thead>
     </table>
-
-    <!-- <br>
-    <br>
+  
     <table  class="titulo"  border="1" >
         <thead>
           <tr>
-            <th>PESCA TOTAL POR ESPECIES</th>
+            <th>Dispositivo de selectividad</th>
           </tr>
         </thead>
     </table>
-    <table class="table-4 titulo" border="1" >
-        <thead>
-          <tr>
-            <th>ESPECIE</th>
-            <th>CAPTURA</th>
-          </tr>
-        </thead>
-    </table>
-    <table  border="1" >
-        <thead>
-          <tr>
-            <th>Nombre Común</th>
-            <th>Nombre Cientifico</th>
-            <th>Peso Total</th>
-            <th>Cantidad (#individuos)</th>
-          </tr>
-        </thead>
-
-        <tbody>
-            <tr>
-              <td>1</td>
-              <td>22</td>
-              <td>2</td>
-              <td>2</td>
-            </tr>
-          </tbody>
-    </table> -->
+    <table class="table-1" border="1" >
+      <thead>
+        <tr>
+          <th>Nombre</th>
+          <th><span> {{ $general['arte_pesca'] -> nombre_dispositivo }} </span></th>
+        </tr>
+        <tr>
+          <th>Tamaño</th>
+          <th><span> {{ $general['arte_pesca'] -> tamanio }} </span></th>
+        </tr>
+        <tr>
+          <th>Tipo de malla</th>
+          <th><span> {{ $general['arte_pesca'] -> tipo_malla }} </span></th>
+        </tr>
+        <tr>
+          <th>Luz de malla</th>
+          <th><span> {{ $general['arte_pesca'] -> luz_malla }} </span></th>
+        </tr>
+      </thead>
+  </table>
 
     <br>
     <br>
     <table  class="titulo"  border="1" >
         <thead>
           <tr>
-            <th>DETALLE DE LANCES</th>
+            <th>Detalles de cada lance</th>
           </tr>
         </thead>
     </table>
 
     @foreach($lances as $lance)
 
-    <table class="table-2 lance" border="1" >
+    <table  class="titulo"  border="1" >
         <thead>
           <tr>
-            <th>LANCE #</th>
-            <th><span>{{$lance['lance']}}</span></th>
-            <th>ARTE PESCA</th>
-             <th><span>{{$lance['arte_pesca']}}</span></th>
-          </tr>
-          <tr>
-            <th>ZONA DE PESCA</th>
-             <th><span>{{$lance['zona_pesca']}}</span></th>
-            <th>CANTIDAD ARTES DE PESCA</th>
-             <th><span> 1 </span></th>
-          </tr>
-          <tr>
-            <th>INICIO</th>
-             <th><span>{{ date("d/m/Y", strtotime($lance['inico']))}}</span></th>
-            <th>FIN</th>
-             <th><span>{{ date("d/m/Y", strtotime($lance['fin']))}}</span></th>
-          </tr>
-          <tr>
-            <th>Latitud (dd mm.mmm)</th>
-             <th><span>{{$lance['laitud_i']}}</span></th>
-            <th>Latitud (dd mm.mmm)</th>
-             <th><span>{{$lance['laitud_f']}}</span></th>
-          </tr>
-          <tr>
-            <th>Longitud (dd mm.mmm)</th>
-             <th><span>{{$lance['longitud_i']}}</span></th>
-            <th>Longitud (dd mm.mmm)</th>
-             <th><span>{{$lance['longitud_f']}}</span></th>
+            <th>{{ $lance['lance'] }}</th>
           </tr>
         </thead>
     </table>
-    <table class="table-4 titulo" border="1" >
-        <thead>
-          <tr>
-            <th>ESPECIE</th>
-            <th>CAPTURA</th>
-          </tr>
-        </thead>
-    </table>
+    <table class="table-1" border="1" >
+      <thead>
+        <tr>
+          <th>Arte de pesca</th>
+          <th><span>{{ $lance['arte_pesca'] }}</span></th>
+        </tr>
+        <tr>
+          <th>Zona de pesca</th>
+          <th><span>{{ $lance['zona_pesca'] }}</span></th>
+        </tr>
+      </thead>
+  </table>
+  <table class="table-2" border="1" >
+    <thead>
+      <tr>
+        <th>Latitud de inicio</th>
+        <th><span>{{ $lance['laitud_i'] }}</span></th>
+        <th style="width: 120px;">Latitud de final</th>
+        <th><span>{{ $lance['laitud_f'] }}</span></th>
+      </tr>
+      <tr>
+        <th>Longitud de inicio</th>
+        <th><span>{{ $lance['longitud_i'] }}</span></th>
+        <th style="width: 120px;">Longitud de final</th>
+        <th><span>{{ $lance['longitud_f'] }}</span></th>
+      </tr>
+    </thead>
+</table>
+<table class="table-1" border="1" >
+  <thead>
+    <tr>
+      <th>Temperatura</th>
+      <th><span>{{ $lance['temperatura'] }}</span></th>
+    </tr>
+    <tr>
+      <th>Viento</th>
+      <th></th>
+    </tr>
+    <tr>
+      <th>Otros</th>
+       <th><span>{{ $lance['otro'] }}</span></th>
+    </tr>
+    <tr>
+      <th>Mitigación bycatch</th>
+       <th><span>{{ $lance['mitigacion'] }}</span></th>
+    </tr>
+  </thead>
+</table>
+<table  class="sub-titulo"  border="1" >
+  <thead>
+    <tr>
+      <th>Especies retenidas</th>
+    </tr>
+  </thead>
+</table>
+
     <table  border="1" >
         <thead>
           <tr>
-            <th>Nombre Común</th>
-            <th>Nombre Cientifico</th>
-            <th>Peso Total</th>
-            <th>Cantidad (#individuos)</th>
+            <th style="width: 150px;">Nombre Común</th>
+            <th style="width: 150px;">Nombre científico</th>
+            <th>Peso total (kg)</th>
+            <th>Cajones</th>
+            <th>Talla/tamaño</th>
           </tr>
         </thead>
 
+        <tbody>
+         
+         @foreach($lance['especies_retenidas'] as $especie)
 
-        @foreach($lance['especies'] as $especie)
-
-         <tbody>
             <tr>
-              <td><span>{{$especie['nombre_comun']}}</span></td>
-              <td><span>{{$especie['nombre_cientifico']}}</span></td>
-              <td><span>{{$especie['peso']}}</span></td>
-              <td><span>{{$especie['cantidad']}}</span></td>
+              <td><span>{{ $especie['nombre_comun'] }}</span></td>
+              <td><span>{{ $especie['nombre_cientifico'] }}</span></td>
+              <td><span>{{ $especie['peso'] }}</span></td>
+              <td><span>{{ $especie['cajones'] }}</span></td>
+              <td><span>{{ $especie['talla_tamanio'] }}</span></td>
             </tr>
+
+          @endforeach
+
           </tbody>
-
-        @endforeach
-
     </table>
 
+<table  class="sub-titulo"  border="1" >
+  <thead>
+    <tr>
+      <th>Otras especies (Incidental o Descartada)</th>
+    </tr>
+  </thead>
+</table>
 
+    <table  border="1" >
+        <thead>
+          <tr>
+            <th style="width: 124px;">Tipo de especie</th>
+            <th style="width: 150px;">Nombre</th>
+            <th style="width: 150px;">Nombre científico</th>
+            <th>Detalle</th>
+          </tr>
+        </thead>
+
+        <tbody>
+
+          @foreach($lance['especies_otras'] as $especie)
+
+            <tr>
+                <td><span>{{ $especie['tipo'] }}</span></td>
+                <td><span>{{ $especie['nombre_comun'] }}</span></td>
+                <td><span>{{ $especie['nombre_cientifico'] }}</span></td>
+                <td><span></span></td>
+            </tr>
+
+          @endforeach
+
+          </tbody>
+    </table>
     @endforeach
     
-    <br>
-    <br>
-    <br>
-    <table border="1" >
-        <thead >
-          <tr>
-            <th class="titulo">OBSERVACIONES</th>
-            <th><span>{{ $general['obsevaciones']}}</span</th>
-          </tr>
-        </thead>
+    <table class="table-1" border="1" >
+      <thead>
+        <tr>
+          <th >Observaciones</th>
+          <th><span> {{ $general['obsevaciones'] }} </span></th>
+        </tr>
+      </thead>
+  </table>
+  <br>
+  <br>
 
-  
-    </table>
+  <table  class="titulo"  border="1" >
+    <thead>
+      <tr>
+        <th>Información adicional</th>
+      </tr>
+    </thead>
+  </table>
+    <table class="table-1" border="1" >
+      <thead>
+        <tr>
+          <th >Combustible (lt)</th>
+          <th><span> {{ $general['bitacora'] -> combustible }} </span></th>
+        </tr>
+        <tr>
+          <th >Millas recorridas</th>
+          <th><span> {{ $general['bitacora'] -> millas_recogidas}} </span></th>
+        </tr>
+        <tr>
+          <th >Producción total (kg)</th>
+          <th><span> {{$procuccion_total}} </span></th>
+        </tr>
+      </thead>
+  </table>
 
 </body>
 </html>
