@@ -6,6 +6,7 @@ use App\Http\Controllers\EmbarcacionesController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\BitacorasController;
 use App\Http\Controllers\LancesController;
+use App\Http\Controllers\MetricasController;
 use Illuminate\Http\Request;
 /*
 |--------------------------------------------------------------------------
@@ -60,5 +61,7 @@ Route::middleware(['auth:sanctum', 'verified'])->group(function () {
     });
 
     Route::get('especies/{cant}',[BitacorasController::class,'getCantEspecies']);
+
+    Route::get('metricas',[MetricasController::class,'index']);
  
 });

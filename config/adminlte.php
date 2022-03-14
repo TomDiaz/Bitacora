@@ -324,7 +324,7 @@ return [
         ],
         [
             'text' => 'Metricas',
-            'url'  => 'admin/settings',
+            'url'  => 'metricas',
             'icon' => 'fas fa-fish',
         ],
         // [

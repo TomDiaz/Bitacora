@@ -380,3 +380,98 @@ input[type="number"]
 }
 
 
+/*METRICA*/
+
+:root {
+  --retenidas: #abebc6;
+  --incidental: #fad7a0;
+  --descarte: #f1948a;
+}
+
+.metrica-contenido{
+  display: block;
+  height: 80vh;
+  padding: 40px;
+  margin-top: 5px
+}
+
+.metrica-contenido .card .col-md-12{
+  display: flex;
+  justify-content: space-between;
+  padding: 26px;
+  align-items: center;
+ 
+}
+
+.metrica-contenido .card .col-md-12 h5{
+  font-size: 20px;
+  font-weight: 600
+}
+
+.metrica-contenido .card .col-md-12 span{
+  font-size: 40px;
+  font-weight: 600;
+}
+
+.border-1 {
+  border-left: solid 5px var(--retenidas);
+}
+.border-2 {
+  border-left: solid 5px var(--incidental);
+}
+.border-3 {
+  border-left: solid 5px var(--descarte);
+}
+
+.metrica-especies{
+  overflow-y: scroll; 
+}
+
+.metrica-especies .especie{
+  margin-top: 10px;
+  padding: 15px;
+  border-radius: 10px;
+  font-weight: 600;
+  text-align: center;
+  box-shadow: 1px 2px 5px 1px rgba(0, 0, 0, 0.2);
+  color: #949494
+}
+
+.metrica-especies .especie-header{
+  text-align: center;
+}
+
+.filtro{
+  position: fixed;
+  z-index: 9999;
+  background: #fff;
+  width: 1200px;
+  left: 400px;
+  bottom: 400px;
+  padding: 50px;
+  box-shadow: 2px 2px 100px 105px rgba(0, 0, 0, 0.2);
+  border-radius: 10px;
+ display: none;
+}
+
+.metrica-header{
+  padding: 20px !important;
+  margin-top: 12px;
+  display: flex !important;
+  flex-direction: row;
+  justify-content: space-between;
+}
+
+.metrica-header button{
+  width: 200px;
+
+}
+
+.metrica-header button span{
+  font-size: 18px;
+  margin-left: 8px;
+  font-weight: 600;
+}
+
+
+/*METRICA END*/

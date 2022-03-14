@@ -24,3 +24,12 @@ $( ".form-control" ).change(function() {
 });
 
 
+$('#btn-filtro').click(function(){
+
+    $('.filtro').slideDown()
+
+
+})
+$('.btn-cancelar-filtro').click(function(){
+    $('.filtro').slideToggle()
+})
