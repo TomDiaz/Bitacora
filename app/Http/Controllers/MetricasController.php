@@ -23,12 +23,13 @@ class MetricasController extends Controller
         ->join('lance_arte_de_pesca', 'lances.id', '=', 'lance_arte_de_pesca.id_lance')
         ->join('especie_lance', 'lances.id', '=', 'especie_lance.id_lance')
         ->join('especies', 'especie_lance.id_especie', '=', 'especies.id')
+        ->select('especie_lance.id_especie','especie_lance.kilogramos','especie_lance.unidades','especie_lance.id_tipo')
         ->where('id_armador', auth()->user() -> id);
        
 
 
         if( $req -> get('tipo') ){
-            $especies_db ->where('id_tipo', $req -> get('tipo'));
+            $especies_db ->where('especie_lance.id_tipo', $req -> get('tipo'));
         }
         
         if( $req -> get('capitan') ){
@@ -54,7 +55,6 @@ class MetricasController extends Controller
 
 
         $especies = array();
-
 
         foreach ($especies_db  -> get() as $data){
 

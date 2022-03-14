@@ -6,7 +6,7 @@
 
 @section('content')
 
-<div class="filtro">
+<div class="filtro animate__animated animate__fadeInDown">
     <form>
 
         <div class="row">

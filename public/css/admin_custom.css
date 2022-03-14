@@ -449,7 +449,7 @@ input[type="number"]
   left: 400px;
   bottom: 400px;
   padding: 50px;
-  box-shadow: 2px 2px 100px 105px rgba(0, 0, 0, 0.2);
+  box-shadow: 2px 2px 100px 105px rgba(0, 0, 0, 0.1);
   border-radius: 10px;
  display: none;
 }

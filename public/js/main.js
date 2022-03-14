@@ -26,10 +26,10 @@ $( ".form-control" ).change(function() {
 
 $('#btn-filtro').click(function(){
 
-    $('.filtro').slideDown()
+    $('.filtro').show()
 
 
 })
 $('.btn-cancelar-filtro').click(function(){
-    $('.filtro').slideToggle()
+    $('.filtro').hide()
 })
