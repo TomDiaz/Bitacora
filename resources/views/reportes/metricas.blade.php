@@ -80,7 +80,7 @@
     </form>
 </div>
    
-<div class="container-fluid">
+<div class="container-fluid metricas">
 
 
   <div class="row">
@@ -95,7 +95,7 @@
     
         <div class="card mb-3 metrica-contenido">
 
-         @component('graficos.doughnut')
+         @component('graficos.doughnut', ['totales' => $totales])
          @endcomponent
         
         </div>
@@ -108,14 +108,14 @@
         <div class="especie-header">
            <div class="row">
              <div class="col-6">
-               Nombre
+               <span>Nombre</span> 
              </div>
           
              <div class="col">
-               Kilogramos
+                <span>Kilogramos</span> 
              </div>
              <div class="col">
-               Cantidad
+                <span>Cantidad</span> 
              </div>
            </div>
         </div>

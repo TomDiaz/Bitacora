@@ -445,7 +445,7 @@ input[type="number"]
   position: fixed;
   z-index: 9999;
   background: #fff;
-  width: 1200px;
+  width: 70%;
   left: 400px;
   bottom: 400px;
   padding: 50px;
@@ -473,5 +473,35 @@ input[type="number"]
   font-weight: 600;
 }
 
+.especie-header span{
+  font-size: 17px;
+  font-weight: 600;
+  color: #6a6c6f;
+}
+
+@media (max-width: 1600px) {
+  .metricas .col-8{
+    min-width: 100%;
+  }
+  
+  .metricas .grafico .col-8{
+    min-width: 100px !important;
+  }
+  
+  
+  .metricas .grafico .doughnut{
+    width: 580px;
+    margin-left: -20px;
+  }
+
+  .filtro{
+     left: 300px;
+  }
+}
 
 /*METRICA END*/
+
+
+.main-sidebar {
+  position: fixed !important;
+}

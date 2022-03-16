@@ -55,6 +55,9 @@ class MetricasController extends Controller
 
 
         $especies = array();
+        $retenidas = 0;
+        $incidental = 0;
+        $descarte = 0;
 
         foreach ($especies_db  -> get() as $data){
 
@@ -65,11 +68,29 @@ class MetricasController extends Controller
                 'tipo' => $data -> id_tipo,
             ];
 
+            switch($data -> id_tipo){
+                case 1:
+                    $retenidas +=  $data -> kilogramos;
+                break;
+                case 2:
+                    $incidental +=  $data -> kilogramos;
+                break;
+                case 3:
+                    $descarte +=  $data -> kilogramos;
+                break;
+            }
+
             $especies[] =  $especie;
         }
 
+        $totales = [
+            'retenida' => $retenidas,
+            'incidental' => $incidental,
+            'descarte' => $descarte,
+        ];
 
-        return view('reportes.metricas', compact('especies', 'arte_pesca', 'embarcaciones', 'capitanes'));
+
+        return view('reportes.metricas', compact('especies', 'arte_pesca', 'embarcaciones', 'capitanes','totales'));
     }
 
 }

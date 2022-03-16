@@ -3,23 +3,17 @@ grafico()
 
 async function grafico(){
 
-const cantidad = 4 
 
-let kilogramos = await fetch('/especies/' + cantidad)
-.then( res => res.json())
-.then( data => {
-     return data
- })
-
- console.log(kilogramos)
-
+ let retenida = $(".retenida").attr("valor")
+ let incidental = $(".incidental").attr("valor")
+ let descarte = $(".descarte").attr("valor")
 
 const data = {
   labels: ['Retenidas', 'Incidentales', 'Descarte'],
   datasets: [{
     label: 'Especies Retenidas',
     backgroundColor: ['rgb( 171, 235, 198)','rgb( 250, 215, 160 )','rgb( 241, 148, 138 )'],
-    data: [10,20,10],
+    data: [retenida,incidental,descarte],
   }]
 };
 

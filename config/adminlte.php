@@ -325,11 +325,11 @@ return [
         [
             'text' => 'Metricas',
             'url'  => 'metricas',
-            'icon' => 'fas fa-fish',
+            'icon' => 'fa fa-chart-pie',
         ],
         // [
         //     'text'       => 'important',
-        //     'icon_color' => 'red',
+        //     'icon_color' => 'red',<i class="fa-solid fa-chart-pie"></i>
         //     'url'        => '#',
         // ],
         // [
