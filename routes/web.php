@@ -8,6 +8,7 @@ use App\Http\Controllers\BitacorasController;
 use App\Http\Controllers\LancesController;
 use App\Http\Controllers\MetricasController;
 use Illuminate\Http\Request;
+use App\Http\Livewire\Metricas\Graficos;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -62,6 +63,6 @@ Route::middleware(['auth:sanctum', 'verified'])->group(function () {
 
     Route::get('especies/{cant}',[BitacorasController::class,'getCantEspecies']);
 
-    Route::get('metricas',[MetricasController::class,'index']);
+    Route::get('metricas',Graficos::class);
  
 });

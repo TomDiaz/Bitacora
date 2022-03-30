@@ -1,5 +1,4 @@
 
-grafico()
 
 async function grafico(){
 

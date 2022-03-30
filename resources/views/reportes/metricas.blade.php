@@ -95,52 +95,13 @@
     
         <div class="card mb-3 metrica-contenido">
 
-         @component('graficos.doughnut', ['totales' => $totales])
-         @endcomponent
+           @include('livewire.metricas.graficos')
         
         </div>
 
 
     </div>
-    <div class="col">
-    <div class="card mb-3 metrica-contenido metrica-especies">
-
-        <div class="especie-header">
-           <div class="row">
-             <div class="col-6">
-               <span>Nombre</span> 
-             </div>
-          
-             <div class="col">
-                <span>Kilogramos</span> 
-             </div>
-             <div class="col">
-                <span>Cantidad</span> 
-             </div>
-           </div>
-        </div>
-
-        <hr>
-        @foreach( $especies as $especie)
-        <div class="especie border-{{$especie['tipo']}} ">
-           <div class="row">
-             <div class="col-6">
-               {{  $especie['nombre']}}
-             </div>
-       
-             <div class="col">
-             {{  $especie['kilogramos']}} kg
-             </div>
-             <div class="col">
-             {{  $especie['cantidad']}} U
-             </div>
-           </div>
-        </div>
-
-        @endforeach
-
-    </div>
-    </div>
+  
   </div>
 </div>
  

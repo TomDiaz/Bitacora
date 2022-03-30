@@ -505,3 +505,13 @@ input[type="number"]
 .main-sidebar {
   position: fixed !important;
 }
+
+
+.grafico {
+  width: 100%;
+  margin: auto;
+}
+
+.doughnut{
+  width: 500px;
+}
