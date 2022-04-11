@@ -9,6 +9,7 @@ use App\Http\Controllers\LancesController;
 use App\Http\Controllers\MetricasController;
 use Illuminate\Http\Request;
 use App\Http\Livewire\Metricas\Graficos;
+use App\Http\Livewire\Metricas\Excel;
 use App\Http\Livewire\Perfil;
 /*
 |--------------------------------------------------------------------------
@@ -64,7 +65,7 @@ Route::middleware(['auth:sanctum', 'verified'])->group(function () {
 
     Route::get('especies/{cant}',[BitacorasController::class,'getCantEspecies']);
 
-    Route::get('metricas',Graficos::class);
+    Route::get('metricas',Excel::class);
     Route::get('profile/username',Perfil::class);
  
 });
