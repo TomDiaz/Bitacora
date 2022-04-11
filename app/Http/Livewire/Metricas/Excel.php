@@ -10,7 +10,7 @@ use App\Exports\BitacoraExport;
 class Excel extends Component
 {
 
-    public $bitacora = false, $lance = false, $especie = false;
+    public $bitacora = false, $lance = false, $especie = false, $desde, $hasta, $valido;
     public $embarcacion_nombre, 
            $embarcacion_matricula,
            $capitan,
@@ -41,6 +41,8 @@ class Excel extends Component
 
         $especies = DB::table('bitacora');
         $encabezado = array();
+
+        $this -> valido = 0;
          
         //Bitacora
            if($this -> embarcacion_nombre){
@@ -48,6 +50,7 @@ class Excel extends Component
                $this -> bitacora = true;
 
                $encabezado[] = 'Nombre de Embarcacion';
+               $this -> valido = 1;
            }    
    
            if($this -> embarcacion_matricula){
@@ -55,6 +58,7 @@ class Excel extends Component
                $this -> bitacora = true;
 
                $encabezado[] = 'Matricula de la Embarcacion';
+               $this -> valido = 1;
            }    
            
            if($this -> capitan){
@@ -63,6 +67,7 @@ class Excel extends Component
 
                $encabezado[] = 'Nombre del Capitan';
                $encabezado[] = 'Apellido del Capitan';
+               $this -> valido = 1;
            }
            
            if($this -> fecha_inicial){
@@ -70,6 +75,7 @@ class Excel extends Component
                $this -> bitacora = true;
 
                $encabezado[] = 'Fecha';
+               $this -> valido = 1;
            }
            
            if($this -> puerto_zarpe){
@@ -77,6 +83,7 @@ class Excel extends Component
                $this -> bitacora = true;
 
                $encabezado[] = 'Puerto de Zarpe';
+               $this -> valido = 1;
            }
 
            if($this -> nro_bitacora){
@@ -84,6 +91,7 @@ class Excel extends Component
                $this -> bitacora = true;
 
                $encabezado[] = 'Nº Bitacora';
+               $this -> valido = 1;
            }
 
            if($this -> observaciones){
@@ -91,6 +99,7 @@ class Excel extends Component
                $this -> bitacora = true;
 
                $encabezado[] = 'Observaciones';
+               $this -> valido = 1;
            }
 
            if($this -> millas_recorridas){
@@ -98,6 +107,7 @@ class Excel extends Component
                $this -> bitacora = true;
 
                $encabezado[] = 'Millas Recorridas';
+               $this -> valido = 1;
            }
 
            if($this -> produccion_total){
@@ -105,6 +115,7 @@ class Excel extends Component
                $this -> bitacora = true;
 
                $encabezado[] = 'Produccion Total';
+               $this -> valido = 1;
            }
 
            if($this -> combustible){
@@ -112,6 +123,7 @@ class Excel extends Component
                $this -> bitacora = true;
 
                $encabezado[] = 'Combustible';
+               $this -> valido = 1;
            }
         //Bitacora end    
 
@@ -122,6 +134,7 @@ class Excel extends Component
                $this -> lance = true;
 
                $encabezado[] = 'Nº Lance';
+               $this -> valido = 1;
            }
    
            if($this -> mitigacion_bycatch){
@@ -129,6 +142,7 @@ class Excel extends Component
                $this -> lance = true;
 
                $encabezado[] = 'Mitigacion Bycatch';
+               $this -> valido = 1;
            }
    
            if($this -> temperatura){
@@ -136,6 +150,7 @@ class Excel extends Component
                $this -> lance = true;
 
                $encabezado[] = 'Temperatura';
+               $this -> valido = 1;
            }
    
            if($this -> dispositivo_selectividad){
@@ -143,6 +158,7 @@ class Excel extends Component
                $this -> lance = true;
 
                $encabezado[] = 'Nombre dispositivo';
+               $this -> valido = 1;
            }
    
            if($this -> coordenadas){
@@ -151,26 +167,43 @@ class Excel extends Component
 
                $encabezado[] = 'Latitud';
                $encabezado[] = 'Longitud';
+               $this -> valido = 1;
            }
 
         //Lance end
 
         // Especies
 
-           if($this -> retenida || $this -> descartada){
-               $especies -> addSelect('especies.nombre as Nombre_Especie', 'especies.nombre_cientifico as Nombre_Científico'); 
-               $this -> especie = true;
-           }
-           if($this -> incidental){
-               $especies -> addSelect('especies.nombre as Nombre_Especie', 'especies.nombre_cientifico as Nombre_Científico');
-               $especies -> orWhere('especie_lance.id_tipo', '=', 2);
-               $this -> especie = true;
-           }
+           $especies_cont = array();
+           $valores_tipo = [1,2,3];
 
            if($this -> retenida || $this -> descartada || $this -> incidental){
-             $encabezado[] = 'Nombre Científico';
-             $encabezado[] = 'Nombre Especie';
+               $especies -> addSelect('especies.nombre as Nombre_Especie', 'especies.nombre_cientifico as Nombre_Científico','especie_lance.kilogramos', 'especie_lance.cajones', 'especie_lance.unidades', 'tipo_de_especie.nombre as Tipo'); 
+               $this -> especie = true;
+
+               $encabezado[] = 'Nombre Científico';
+               $encabezado[] = 'Nombre Especie';
+               $encabezado[] = 'kg';
+               $encabezado[] = 'Cajones';
+               $encabezado[] = 'Unidades';
+               $encabezado[] = 'Tipo de especie';
+               $this -> valido = 1;
            }
+
+           if($this -> retenida) {
+              $especies_cont[] = 1;
+              $valores_tipo[0] = null;
+           }
+           if($this -> incidental) {
+              $especies_cont[] = 2;
+              $valores_tipo[1] = null;
+           }
+           if($this -> descartada) {
+              $especies_cont[] = 3;
+              $valores_tipo[3] = null;
+           }
+
+
 
         // Especies end
 
@@ -195,28 +228,86 @@ class Excel extends Component
             }
 
             $especies  ->join('especie_lance', 'lances.id', '=', 'especie_lance.id_lance')
-                       ->join('especies', 'especie_lance.id_especie', '=', 'especies.id');
+                       ->join('especies', 'especie_lance.id_especie', '=', 'especies.id')
+                       ->join('tipo_de_especie', 'especie_lance.id_tipo', '=', 'tipo_de_especie.id');
         }
 
 
          //$especies -> select('capitan.nombres', 'especies.nombre', 'especies.nombre_cientifico', 'especie_lance.id_tipo', 'kilogramos', 'unidades') ->where('especie_lance.id_armador', auth()->user() -> id);
 
-         if($this -> retenida ){
-            $especies -> where('especie_lance.id_tipo', 1);
-          }
-        if($this -> incidental){
-             $especies -> where('especie_lance.id_tipo', 2);
+         if( count($especies_cont) < 3 &&  count($especies_cont) != 0){
+
+            $expulsado = array_filter($valores_tipo, function($var){
+                if($var){
+                    return $var;
+                }
+            });
+            $especies -> where('especie_lance.id_tipo', '<=' , max($especies_cont))-> where('especie_lance.id_tipo', '!=', $expulsado);
          }
-         if($this -> descartada){
-             $especies -> where('especie_lance.id_tipo', 3);
+
+         if($this -> desde && $this -> hasta){
+            $especies -> where('bitacora.fecha_inicial', '>=' , $this -> desde )->where('bitacora.fecha_inicial', '<=' , $this -> hasta );
          }
+      
 
          $especies ->where('capitan.id_armador', auth()->user() -> id);
          $datos =  $especies ->get();
 
+         if($this -> valido == 1){
+
+             return ExportExcel::download(new BitacoraExport($datos,   $encabezado), 'planilla.xlsx');
+         }
+
+         session()->flash('message', 'Debe elejir al menos un dato a exportar.');
+          //return dd( $datos);
+    }
+
+    public function all(){
         
-          return ExportExcel::download(new BitacoraExport($datos,   $encabezado), 'planilla.xlsx');
-          return dd( $datos);
+        $this -> embarcacion_nombre = true;
+        $this -> embarcacion_matricula = true;
+        $this -> capitan = true;
+        $this -> fecha_inicial = true;
+        $this -> puerto_zarpe = true;
+        $this -> dispositivo_selectividad = true;
+        $this -> mitigacion_bycatch = true;
+        $this -> viento = true;
+        $this -> temperatura = true;
+        $this -> observaciones = true;
+        $this -> nro_bitacora = true;
+        $this -> combustible = true;
+        $this -> millas_recorridas = true;
+        $this -> produccion_total = true;
+        $this -> total_captura_retenida = true;
+        $this -> nro_lance = true;
+        $this -> coordenadas = true;
+        $this -> retenida = true;
+        $this -> incidental = true;
+        $this -> descartada = true;
+    }
+
+    public function none(){
+        
+        $this -> embarcacion_nombre = false;
+        $this -> embarcacion_matricula = false;
+        $this -> capitan = false;
+        $this -> fecha_inicial = false;
+        $this -> puerto_zarpe = false;
+        $this -> dispositivo_selectividad = false;
+        $this -> mitigacion_bycatch = false;
+        $this -> viento = false;
+        $this -> temperatura = false;
+        $this -> observaciones = false;
+        $this -> nro_bitacora = false;
+        $this -> combustible = false;
+        $this -> millas_recorridas = false;
+        $this -> produccion_total = false;
+        $this -> total_captura_retenida = false;
+        $this -> nro_lance = false;
+        $this -> coordenadas = false;
+        $this -> retenida = false;
+        $this -> incidental = false;
+        $this -> descartada = false;
     }
 
 }

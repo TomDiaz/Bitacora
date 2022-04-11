@@ -4,6 +4,7 @@
 
 
 @section('content_header')
+<script src="https://kit.fontawesome.com/60e25ae04f.js" crossorigin="anonymous"></script>
 @stop
 
 @section('content')
@@ -11,10 +12,11 @@
 
   <div class="container-fluid metricas">
 
-     <div class="metrica-contenido">
-        <form>
-            <div class="form-group">
-                <label for="exampleInputEmail1">Datos a incluir en planilla</label>
+     <div class="metrica-contenido card" style="padding:20px">
+        <form id="form-exel" valido="{{$valido}}">
+            <div class="form-group  datos-aincluir" >
+                <h4>Datos a incluir en planilla</h4>
+                <br>
               <div class="row">
               
               <div class="col">
@@ -104,26 +106,61 @@
                     </div>
                     <div class="form-group form-check">
                        <input type="checkbox" class="form-check-input" wire:model="retenida">
-                       <label class="form-check-label" for="exampleCheck1">Captura retenida - (Nombre común + nombre científico + kg + cajones)</label>
+                       <label class="form-check-label" for="exampleCheck1">Captura retenida </label>
                     </div>
                     <div class="form-group form-check">
                        <input type="checkbox" class="form-check-input" wire:model="incidental">
-                       <label class="form-check-label" for="exampleCheck1">Captura incidental - (Nombre común + nombre científico + unidades)</label>
+                       <label class="form-check-label" for="exampleCheck1">Captura incidental </label>
                     </div>
                     <div class="form-group form-check">
                        <input type="checkbox" class="form-check-input" wire:model="descartada">
-                       <label class="form-check-label" for="exampleCheck1">Captura descartada - (Nombre común + nombre científico + kg + cajones)</label>
+                       <label class="form-check-label" for="exampleCheck1">Captura descartada </label>
                     </div>
               </div>
            
           </div>  
           </div>
-          <button type="button" wire:click="exportar()" class="btn btn-primary">Exportar Excel</button>
+          <hr>
+          <br>
+        
+          <h4>Fecha de inicio de bitacora</h4>
+
+          <div class="row">
+                
+                <div class="col-3">
+                  <label for="exampleInputEmail1">Desde</label>
+                  <input class="form-control" type="date" name="" id="" wire:model="desde">
+                </div>
+                <div class="col-3">
+                   <label for="exampleInputEmail1">Hasta</label>
+                   <input class="form-control" type="date" name="" id="" wire:model="hasta">
+                </div>
+          </div>
+          <br>
+          <hr>
+         
+
+          @if (session()->has('message'))
+            <div class="alert alert-danger">
+                {{ session('message') }}
+            </div>
+         @endif
+
+           <div class="botones-exel">
+
+
+              <button type="button" wire:click="all()" class="btn btn btn-dark">Selecionar Todos</button>
+              <button type="button" wire:click="none()" class="btn btn btn-dark"> Deselecionar Todos</button>
+              <button type="button" wire:click="exportar()" class="btn btn-success">Exportar Excel</button>
+           </div> 
         </form>
      </div>
 
 
    </div>
+
+   
+      
 
    </div>
 
@@ -132,9 +169,9 @@
 @section('css')
     <link rel="stylesheet" href="css/admin_custom.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"/>
+  
 @stop
 
-@section('plugins.Sweetalert2', true)
 
 @section('js')
 

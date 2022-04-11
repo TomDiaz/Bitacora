@@ -515,3 +515,17 @@ input[type="number"]
 .doughnut{
   width: 500px;
 }
+
+.form-check 
+{
+  background: #f4f6f9;
+  padding: 10px;
+  border-radius: 10px;
+}
+
+.form-check  input{
+  position: absolute;
+  right: 10px;
+  border-radius: 20px;
+  
+}
