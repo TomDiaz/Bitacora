@@ -30,6 +30,7 @@ class Excel extends Component
            $coordenadas,
            $retenida,
            $incidental,
+           $cuil,
            $descartada;
 
     public function render()
@@ -49,7 +50,7 @@ class Excel extends Component
                $especies -> addSelect('embarcacion.Nombre as Embarcacion_Nombre');
                $this -> bitacora = true;
 
-               $encabezado[] = 'Nombre de Embarcacion';
+               $encabezado[] = 'Nombre de la embarcación';
                $this -> valido = 1;
            }    
    
@@ -57,7 +58,7 @@ class Excel extends Component
                $especies -> addSelect('embarcacion.Matricula');
                $this -> bitacora = true;
 
-               $encabezado[] = 'Matricula de la Embarcacion';
+               $encabezado[] = 'Matrícula de la embarcación';
                $this -> valido = 1;
            }    
            
@@ -65,8 +66,16 @@ class Excel extends Component
                $especies -> addSelect('capitan.nombres as Nombre_Capitan', 'capitan.apellidos as Apellido_Capitan');
                $this -> bitacora = true;
 
-               $encabezado[] = 'Nombre del Capitan';
-               $encabezado[] = 'Apellido del Capitan';
+               $encabezado[] = 'Nombre del capitán';
+               $encabezado[] = 'Apellido del capitán';
+               $this -> valido = 1;
+           }
+
+           if($this -> cuil){
+               $especies -> addSelect('capitan.cuil');
+               $this -> bitacora = true;
+
+               $encabezado[] = 'Cuil del capitán';
                $this -> valido = 1;
            }
            
@@ -90,7 +99,7 @@ class Excel extends Component
                $especies -> addSelect('bitacora.nombre as Nro_Bitacora');
                $this -> bitacora = true;
 
-               $encabezado[] = 'Nº Bitacora';
+               $encabezado[] = 'Nº bitácora';
                $this -> valido = 1;
            }
 
@@ -114,7 +123,7 @@ class Excel extends Component
                $especies -> addSelect('bitacora.produccion as Produccion_Total');
                $this -> bitacora = true;
 
-               $encabezado[] = 'Produccion Total';
+               $encabezado[] = 'Producción total';
                $this -> valido = 1;
            }
 
@@ -141,7 +150,7 @@ class Excel extends Component
                $especies -> addSelect('lances.mitigacion as Mitigacion_Bycatch');
                $this -> lance = true;
 
-               $encabezado[] = 'Mitigacion Bycatch';
+               $encabezado[] = 'Mitigación bycatch';
                $this -> valido = 1;
            }
    
@@ -154,10 +163,14 @@ class Excel extends Component
            }
    
            if($this -> dispositivo_selectividad){
-               $especies -> addSelect('lance_arte_de_pesca.nombre_dispositivo as nombre_dispositivo');
+               $especies -> addSelect('lance_arte_de_pesca.nombre_dispositivo as nombre_dispositivo', 'lance_arte_de_pesca.tamanio', 'lance_arte_de_pesca.tipo_malla', 'lance_arte_de_pesca.luz_malla');
                $this -> lance = true;
 
                $encabezado[] = 'Nombre dispositivo';
+               $encabezado[] = 'Tamaño dispositivo';
+               $encabezado[] = 'Tipo de malla';
+               $encabezado[] = 'Luz de malla';
+
                $this -> valido = 1;
            }
    
@@ -181,8 +194,8 @@ class Excel extends Component
                $especies -> addSelect('especies.nombre as Nombre_Especie', 'especies.nombre_cientifico as Nombre_Científico','especie_lance.kilogramos', 'especie_lance.cajones', 'especie_lance.unidades', 'tipo_de_especie.nombre as Tipo'); 
                $this -> especie = true;
 
-               $encabezado[] = 'Nombre Científico';
-               $encabezado[] = 'Nombre Especie';
+               $encabezado[] = 'Nombre científico';
+               $encabezado[] = 'Nombre común';
                $encabezado[] = 'kg';
                $encabezado[] = 'Cajones';
                $encabezado[] = 'Unidades';

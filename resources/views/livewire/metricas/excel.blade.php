@@ -33,6 +33,10 @@
                         <label class="form-check-label" for="exampleCheck1">Capitán - Nombre y Apellido</label>
                      </div>
                     <div class="form-group form-check">
+                        <input type="checkbox" class="form-check-input" wire:model="cuil">
+                        <label class="form-check-label" for="exampleCheck1">Capitán - Cuil</label>
+                     </div>
+                    <div class="form-group form-check">
                         <input type="checkbox" class="form-check-input" wire:model="fecha_inicial">
                         <label class="form-check-label" for="exampleCheck1">Fecha</label>
                      </div>
@@ -149,8 +153,8 @@
            <div class="botones-exel">
 
 
-              <button type="button" wire:click="all()" class="btn btn btn-dark">Selecionar Todos</button>
-              <button type="button" wire:click="none()" class="btn btn btn-dark"> Deselecionar Todos</button>
+              <button type="button" wire:click="all()" class="btn btn btn-dark">Seleccionar todos</button>
+              <button type="button" wire:click="none()" class="btn btn btn-dark"> Eliminar selección</button>
               <button type="button" wire:click="exportar()" class="btn btn-success">Exportar Excel</button>
            </div> 
         </form>
