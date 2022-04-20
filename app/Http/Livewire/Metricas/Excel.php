@@ -87,6 +87,14 @@ class Excel extends Component
                $this -> valido = 1;
            }
            
+           if($this -> viento){
+               $especies -> addSelect('bitacora.viento');
+               $this -> bitacora = true;
+
+               $encabezado[] = 'Viento';
+               $this -> valido = 1;
+           }
+           
            if($this -> puerto_zarpe){
                $especies -> addSelect('puerto.nombre as Puerto_Zarpe');
                $this -> bitacora = true;
@@ -175,7 +183,7 @@ class Excel extends Component
            }
    
            if($this -> coordenadas){
-               $especies -> addSelect('coordenadas.latitud as Latitud', 'coordenadas.latitud as Longitud');
+               $especies -> addSelect('coordenadas.latitud as Latitud', 'coordenadas.longitud as Longitud');
                $this -> lance = true;
 
                $encabezado[] = 'Latitud';
@@ -194,8 +202,8 @@ class Excel extends Component
                $especies -> addSelect('especies.nombre as Nombre_Especie', 'especies.nombre_cientifico as Nombre_Científico','especie_lance.kilogramos', 'especie_lance.cajones', 'especie_lance.unidades', 'tipo_de_especie.nombre as Tipo'); 
                $this -> especie = true;
 
-               $encabezado[] = 'Nombre científico';
                $encabezado[] = 'Nombre común';
+               $encabezado[] = 'Nombre científico';
                $encabezado[] = 'kg';
                $encabezado[] = 'Cajones';
                $encabezado[] = 'Unidades';
@@ -297,6 +305,7 @@ class Excel extends Component
         $this -> retenida = true;
         $this -> incidental = true;
         $this -> descartada = true;
+        $this -> cuil = true;
     }
 
     public function none(){
@@ -321,6 +330,7 @@ class Excel extends Component
         $this -> retenida = false;
         $this -> incidental = false;
         $this -> descartada = false;
+        $this -> cuil = false;
     }
 
 }

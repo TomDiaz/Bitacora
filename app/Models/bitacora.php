@@ -28,5 +28,6 @@ class bitacora extends Model
         'millas_recogidas',
         'produccion',
         'observaciones',
+        'viento',
     ];
 }

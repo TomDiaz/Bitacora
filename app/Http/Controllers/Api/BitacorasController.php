@@ -42,6 +42,7 @@ class BitacorasController extends Controller
             'millas_recogidas'=> $req -> millas_recogidas ,
             'produccion'=> $req -> produccion ,
             'observaciones'=> $req -> observaciones ,
+            'viento' => $req -> viento 
 
           ]);
 
