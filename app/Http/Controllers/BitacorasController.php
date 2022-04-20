@@ -96,7 +96,8 @@ class BitacorasController extends Controller
                      "nombre_comun" =>  especie::find($especie -> id_especie) -> nombre,
                      "nombre_cientifico" => especie::find($especie -> id_especie) -> nombre_cientifico,
                      "tipo" =>  $tipo[1],
-                    
+                     "peso" => $especie -> kilogramos,
+                     "unidades" => $especie -> unidades,
                   ];
    
                   $especies_otras[] = $especie;

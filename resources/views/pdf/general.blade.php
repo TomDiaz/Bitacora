@@ -323,7 +323,16 @@ table td{
                 <td><span>{{ $especie['tipo'] }}</span></td>
                 <td><span>{{ $especie['nombre_comun'] }}</span></td>
                 <td><span>{{ $especie['nombre_cientifico'] }}</span></td>
-                <td><span></span></td>
+
+                @if($especie == 'Incidental')
+                  
+                  <td><span> {{$especie['unidades']}} U</span></td>
+                  
+                  @else
+
+                  <td><span>{{$especie['peso']}} KG </span></td>
+
+                @endif
             </tr>
 
           @endforeach
