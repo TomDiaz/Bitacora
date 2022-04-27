@@ -324,7 +324,7 @@ table td{
                 <td><span>{{ $especie['nombre_comun'] }}</span></td>
                 <td><span>{{ $especie['nombre_cientifico'] }}</span></td>
 
-                @if($especie == 'Incidental')
+                @if($especie['tipo'] == 'Incidental')
                   
                   <td><span> {{$especie['unidades']}} U</span></td>
                   

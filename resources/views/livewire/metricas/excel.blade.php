@@ -127,7 +127,7 @@
           <hr>
           <br>
         
-          <h4>Fecha de inicio de bitacora</h4>
+          <h4>Fecha de inicio de bitácora</h4>
 
           <div class="row">
                 

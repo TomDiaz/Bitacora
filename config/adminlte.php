@@ -323,7 +323,7 @@ return [
             'icon' => 'fas fa-map-marked-alt',
         ],
         [
-            'text' => 'Metricas',
+            'text' => 'Métricas',
             'url'  => 'metricas',
             'icon' => 'fa fa-chart-pie',
         ],
