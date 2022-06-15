@@ -46,6 +46,7 @@ Route::middleware(['auth:sanctum', 'verified'])->group(function () {
     Route::resource('embarcaciones',EmbarcacionesController::class);
 
     Route::get('bitacoras',[BitacorasController::class,'index']);
+    Route::get('bitacoras/delete/{id}',[BitacorasController::class,'destroy']);
     Route::get('pdf/parte_de_pesca/{id}',[BitacorasController::class,'PDF_PartePesca']);
     Route::get('pdf/general/{id}',[BitacorasController::class,'PDF_General']);
     Route::get('lances',[LancesController::class,'index']);

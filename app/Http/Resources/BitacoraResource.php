@@ -67,6 +67,7 @@ class BitacoraResource extends JsonResource
             'millas_recogidas'=> $this -> millas_recogidas ,
             'produccion'=> $this -> produccion ,
             'observaciones'=> $this -> observaciones ,
+            'marea' => $this -> marea,
             'lances' => $lances
         ];
     }

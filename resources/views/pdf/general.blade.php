@@ -370,6 +370,10 @@ table td{
           <th><span> {{ $general['bitacora'] -> millas_recogidas}} </span></th>
         </tr>
         <tr>
+          <th >Total retenido (kg)</th>
+          <th><span> {{$procuccion_total_retenidas}} </span></th>
+        </tr>
+        <tr>
           <th >Producción total (kg)</th>
           <th><span> {{$procuccion_total}} </span></th>
         </tr>

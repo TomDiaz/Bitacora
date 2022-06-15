@@ -86,6 +86,65 @@ form_cap.addEventListener('submit', function(e){
 })
 
 
+function deleteBitacora(id){
+
+  console.log("Se eleimino el bitacora con el id: " + id)
+
+    const csrfToken = document.head.querySelector("[name~=csrf-token][content]").content;
+
+
+     Swal.fire({
+       title: '¿Está seguro?',
+       text: "¡No podrás revertir esto!",
+       icon: 'warning',
+       showCancelButton: true,
+       confirmButtonColor: '#3085d6',
+       cancelButtonColor: '#d33',
+       confirmButtonText: 'Si, borrar bitacora!',
+       cancelButtonText: 'Cancelar'
+     }).then((result) => {
+
+       if (result.value) {
+
+        console.log("Pasa por aca")
+
+        fetch('/bitacoras/delete/' + id,{
+
+            method: 'GET',
+            headers: {
+                'Content-Type': 'application/json',
+                "X-CSRF-Token": csrfToken
+            }
+    
+        })
+        .then( res => res.json())
+        .then( data => {
+    
+           console.log(data)
+
+           Swal.fire(
+             'Eliminada!',
+             'La bitacora ' + data.bitacora + ' ha sido eliminada.',
+             'success'
+           )
+           .then((result) => {
+               console.log(result)
+
+               if(result.value){
+                 window.location.reload(true);
+               }
+
+           })
+
+        })
+
+
+       }
+     })
+
+}
+
+
 function deleteCapitan(id){
 
 

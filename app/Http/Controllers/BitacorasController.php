@@ -37,8 +37,20 @@ class BitacorasController extends Controller
         $bitacoras = BitacoraResource::collection($filtro)->resolve();
         $bitacoras_bd = $filtro;
 
+
         return view('reportes.bitacora',  compact('bitacoras','bitacoras_bd'));
      
+    }
+
+
+    public function destroy($id){
+
+      $bitacora = bitacora::find($id);
+      $data = $bitacora -> nombre;
+      $bitacora->delete();
+
+
+      return response()->json(["bitacora" => $data],201);
     }
 
 
@@ -64,6 +76,7 @@ class BitacorasController extends Controller
          
          $lances = array();
          $procuccion_total = 0;
+         $procuccion_total_retenidas = 0;
          //Lances de la mi bitacora
          foreach(lance::where('id_bitacora', $id)->get() as $lance){
 
@@ -75,6 +88,8 @@ class BitacorasController extends Controller
                $procuccion_total += $especie -> kilogramos;
 
                if($especie -> id_tipo == 1){
+
+                  $procuccion_total_retenidas +=  $especie -> kilogramos;
 
                   $especie = [
                      "nombre_comun" =>  especie::find($especie -> id_especie) -> nombre,
@@ -134,7 +149,7 @@ class BitacorasController extends Controller
          }
 
 
-        $pdf = PDF::loadView('pdf.general', compact('general','lances','procuccion_total'));
+        $pdf = PDF::loadView('pdf.general', compact('general','lances','procuccion_total','procuccion_total_retenidas'));
         return $pdf->stream();
      }
 

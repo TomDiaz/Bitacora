@@ -29,5 +29,6 @@ class bitacora extends Model
         'produccion',
         'observaciones',
         'viento',
+        'marea'
     ];
 }
