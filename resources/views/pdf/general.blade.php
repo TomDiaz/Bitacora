@@ -345,7 +345,7 @@ table td{
       <thead>
         <tr>
           <th >Observaciones</th>
-          <th><span> {{ $general['obsevaciones'] }} </span></th>
+          <th><span> {{ $general['bitacora']['observacion_parte_pesca'] }} </span></th>
         </tr>
       </thead>
   </table>
@@ -376,6 +376,10 @@ table td{
         <tr>
           <th >Producción total (kg)</th>
           <th><span> {{$procuccion_total}} </span></th>
+        </tr>
+        <tr>
+          <th >Observacion general</th>
+          <th><span> {{$general['bitacora']['observaciones_generales']}} </span></th>
         </tr>
       </thead>
   </table>

@@ -15,7 +15,7 @@ use App\Models\lance;
 use App\Models\User;
 use App\Models\coordenada;
 use App\Models\especieLance;
-use App\Models\lanceArtePesca;
+use App\Models\BitacoraArtePesca;
 use App\Http\Resources\BitacoraResource;
 use Illuminate\Support\Facades\DB;
 use PDF;
@@ -47,8 +47,25 @@ class BitacorasController extends Controller
 
       $bitacora = bitacora::find($id);
       $data = $bitacora -> nombre;
-      $bitacora->delete();
 
+      foreach(BitacoraArtePesca::where('id_bitacora', $id)->get() as $arte){
+         $arte ->delete();
+      }
+
+      foreach(lance::where('id_bitacora', $id)->get() as $lance){
+
+         foreach(coordenada::where('id_lance',$lance->id)->get() as $coordenada){
+            $coordenada -> delete();
+         }
+
+         foreach(especieLance::where('id_lance',$lance->id)->get() as $especie){
+            $especie  -> delete();
+         }
+
+         $lance -> delete();
+      }
+
+      $bitacora->delete();
 
       return response()->json(["bitacora" => $data],201);
     }
@@ -69,8 +86,7 @@ class BitacorasController extends Controller
             "zarpe" => puerto::find( $bitacora -> id_puerto_zarpe) -> nombre,
             "arribo" => puerto::find( $bitacora -> id_puerto_arribo) -> nombre,
             "total_lances" => lance::where('id_bitacora', $id)->count(),
-            "obsevaciones" => $bitacora -> observaciones,
-            "arte_pesca" => lanceArtePesca::where('id_lance',lance::where('id_bitacora', $id)-> first() -> id) -> first()
+            "arte_pesca" => BitacoraArtePesca::where('id_bitacora',   $bitacora ->id) -> first()
         ];
 
          
@@ -125,12 +141,11 @@ class BitacorasController extends Controller
 
             $coordenadas = coordenada::where('id_lance',  $lance -> id)->get();
 
-            $zona = explode(":", zonaPesca::find( $lance -> id_zona_de_pesca) -> nombre);
 
             $lance = [
                 "lance" => strtoupper($lance -> nombre),
-                "arte_pesca" => ArtePesca::find(lanceArtePesca::where('id_lance', $lance -> id) -> first() -> id_arte)-> nombre,
-                "zona_pesca" => zonaPesca::find( $lance -> id_zona_de_pesca) -> nombre,
+                "arte_pesca" => ArtePesca::find(BitacoraArtePesca::where('id_bitacora', $bitacora -> id) -> first() -> id_arte)-> nombre,
+                "zona_pesca" => zonaPesca::find( $bitacora -> id_zona_de_pesca) -> nombre,
                 "inico" => $lance -> fecha_inicial,
                 "fin" => $lance -> fecha_final,
                 "laitud_i" =>  $coordenadas[0] -> latitud,
@@ -166,9 +181,11 @@ class BitacorasController extends Controller
                    ->get();
 
         $especies = Array();
+
+
         foreach($especies_db as $especie){
                 
-                $zona = explode(":", zonaPesca::find( $especie -> id_zona_de_pesca) -> nombre);
+                $zona = explode(":", zonaPesca::find( $bitacora -> id_zona_de_pesca) -> nombre);
                 
                 $especie = [
                     "especie" => $especie,
@@ -184,11 +201,10 @@ class BitacorasController extends Controller
         }       
         
                    
-        $arte_pesca = DB::table('lance_arte_de_pesca')
-                   ->join('artepesca', 'lance_arte_de_pesca.id_arte', '=', 'artepesca.id')
-                   ->join('lances', 'lance_arte_de_pesca.id_lance', '=', 'lances.id')
-                   ->where('lances.id_bitacora',$id)
-                   ->select('artepesca.nombre', 'lance_arte_de_pesca.tamanio', 'lance_arte_de_pesca.tipo_malla', 'lance_arte_de_pesca.luz_malla','lance_arte_de_pesca.nombre_dispositivo')
+        $arte_pesca = DB::table('bitacora_arte_de_pesca')
+                   ->join('artepesca', 'bitacora_arte_de_pesca.id_arte', '=', 'artepesca.id')
+                   ->where('bitacora_arte_de_pesca.id_bitacora',$id)
+                   ->select('artepesca.nombre', 'bitacora_arte_de_pesca.tamanio', 'bitacora_arte_de_pesca.tipo_malla', 'bitacora_arte_de_pesca.luz_malla','bitacora_arte_de_pesca.nombre_dispositivo')
                    ->first();
     
         $data = [

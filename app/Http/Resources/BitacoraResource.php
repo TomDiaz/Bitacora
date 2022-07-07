@@ -35,7 +35,6 @@ class BitacoraResource extends JsonResource
 
             $lance = [
                 'nombre' => $data -> nombre,
-                'zona_de_pesca' => zonaPesca::find($data -> id_zona_de_pesca) -> nombre,
                 'fecha_inicial' => $data -> fecha_inicial,
                 'fecha_final' => $data -> fecha_final,
                 'sin_captura' => $data -> sin_captura,
@@ -44,7 +43,6 @@ class BitacoraResource extends JsonResource
                 'mitigacion' => $data -> mitigacion,
                 'progreso' => $data -> progreso,
                 'coordenadas'=> CoordenadasResource::collection(coordenada::where('id_lance',  $data -> id)->get()),
-                'artes_de_pesca' => ArtePescaResource::collection(lanceArtePesca::where('id_lance',  $data -> id)->get()),
                 'especies' => EspeciesResource::collection(especieLance::where('id_lance',  $data -> id)->get())
             ];
 
@@ -66,7 +64,6 @@ class BitacoraResource extends JsonResource
             'combustible'=> $this -> combustible ,
             'millas_recogidas'=> $this -> millas_recogidas ,
             'produccion'=> $this -> produccion ,
-            'observaciones'=> $this -> observaciones ,
             'marea' => $this -> marea,
             'lances' => $lances
         ];

@@ -19,6 +19,7 @@ class bitacora extends Model
         'id_embarcacion',
         'id_puerto_zarpe',
         'id_puerto_arribo',
+        'id_zona_de_pesca',
         'nombre',
         'viaje_anual',
         'tripulantes',
@@ -27,8 +28,12 @@ class bitacora extends Model
         'combustible',
         'millas_recogidas',
         'produccion',
-        'observaciones',
         'viento',
-        'marea'
+        'marea',
+        'observador_a_bordo',
+        'prospeccion',
+        'subarea',
+        'observaciones_generales',
+        'observacion_parte_pesca'
     ];
 }

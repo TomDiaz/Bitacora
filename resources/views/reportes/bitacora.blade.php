@@ -3,6 +3,7 @@
 
 
 @section('content_header')
+<script src="https://kit.fontawesome.com/db792297f6.js" crossorigin="anonymous"></script>
 @stop
 
 @section('content')
@@ -46,7 +47,7 @@
          <td style="text-align: center">{{$bitacora['capitan'] }} </td>
          <td style="text-align: center"><button type="button" style="width:100%;" onclick="getiframe('{{ env('APP_URL') . 'pdf/parte_de_pesca/' . $bitacora['id'] }}')" class="btn btn-danger"> PESCA  <i style="margin-left: 5px;"class="fa fa-file-pdf"></i></button></td>
          <td><button type="button" style="width:100%;" onclick="getiframe('{{ env('APP_URL') . 'pdf/general/' . $bitacora['id'] }}')" class="btn btn-danger"> GENERAL  <i style="margin-left: 5px;"class="fa fa-file-pdf"></i></button></td>
-         <td><button onClick="deleteBitacora({{$bitacora['id']}})" style="display:block; width:100%;" class="btn btn-danger">Eliminar</button></td>
+         <td><button onClick="deleteBitacora({{$bitacora['id']}})" style="display:block; width:100%;" class="btn btn-danger"><i class="fa-solid fa-trash-can"></i></button></td>
          
         </tr>
     @endforeach

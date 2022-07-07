@@ -48,7 +48,8 @@ class EmbarcacionesController extends Controller
         session_start();
         $_SESSION['capitanes'] = [];
 
-        $capitanes = Capitan::where('id_armador',  auth()->user()->id)->get();
+        //$capitanes = Capitan::where('id_armador',  auth()->user()->id)->get();
+        $capitanes = Capitan::all();
         $artepesca = ArtePesca::all();
 
         return view('embarcaciones.create', compact('capitanes', 'artepesca'));

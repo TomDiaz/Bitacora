@@ -337,7 +337,7 @@ span{
      <table  style="border: solid 1px; border-top:none;" >
         <thead>
           <tr>
-            <th style=" text-align: left;">OBSERVACIONES:  <span>{{ $data['bitacora'] -> observaciones}}</span> </th>
+            <th style=" text-align: left;">OBSERVACIONES:  <span>{{ $data['bitacora'] -> observacion_parte_pesca}}</span> </th>
           </tr>
         </thead>
     </table>

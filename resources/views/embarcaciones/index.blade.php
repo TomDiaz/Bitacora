@@ -3,6 +3,7 @@
 
 
 @section('content_header')
+<script src="https://kit.fontawesome.com/db792297f6.js" crossorigin="anonymous"></script>
 @stop
 
 @section('content')
@@ -38,12 +39,12 @@
         <td>{{$embarcacion -> FechaVigenciaPermisoPesca}}</td>
         <td>0</td>
         
-        <td ><a href="{{ route('embarcaciones.edit',$embarcacion -> IdEmbarcacion )}}" style="display:block; width:100%;" class="btn btn-primary ">Editar</a></td>
+        <td ><a href="{{ route('embarcaciones.edit',$embarcacion -> IdEmbarcacion )}}" style="display:block; width:50%;" class="btn btn-primary "><i class="fa-solid fa-pen"></i></a></td>
          <td>
             <form action="{{route('embarcaciones.destroy',$embarcacion -> IdEmbarcacion)}}" method="POST">
                 @csrf
                 @method('DELETE')
-                <button style="display:block; width:100%;" class="btn btn-danger " type="submit">Eliminar</button>
+                <button style="display:block; width:50%;" class="btn btn-danger " type="submit"><i class="fa-solid fa-trash-can"></i></button>
             </form>
         </td>
       </tr>
