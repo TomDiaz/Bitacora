@@ -39,13 +39,20 @@
         <td>{{$embarcacion -> FechaVigenciaPermisoPesca}}</td>
         <td>0</td>
         
-        <td ><a href="{{ route('embarcaciones.edit',$embarcacion -> IdEmbarcacion )}}" style="display:block; width:50%;" class="btn btn-primary "><i class="fa-solid fa-pen"></i></a></td>
+        <td ></td>
          <td>
-            <form action="{{route('embarcaciones.destroy',$embarcacion -> IdEmbarcacion)}}" method="POST">
-                @csrf
-                @method('DELETE')
-                <button style="display:block; width:50%;" class="btn btn-danger " type="submit"><i class="fa-solid fa-trash-can"></i></button>
-            </form>
+            <div class="row">
+              <div class="mb-3 col" >
+                <a href="{{ route('embarcaciones.edit',$embarcacion -> IdEmbarcacion )}}" style="display:block; width:50%; margin-left: 90px;" class="btn btn-primary "><i class="fa-solid fa-pen"></i></a>
+              </div>
+              <div class="mb-3 col">
+                <form action="{{route('embarcaciones.destroy',$embarcacion -> IdEmbarcacion)}}" method="POST">
+                    @csrf
+                    @method('DELETE')
+                    <button style="display:block; width:50%;" class="btn btn-danger " type="submit"><i class="fa-solid fa-trash-can"></i></button>
+                </form>
+              </div>
+            </div>
         </td>
       </tr>
    @endforeach

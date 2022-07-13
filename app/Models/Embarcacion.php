@@ -23,6 +23,6 @@ class Embarcacion extends Model
         'Estado',
         'FechaRegistro',
         'Pais',
-       
+        'id_tipo_barco'
     ];
 }

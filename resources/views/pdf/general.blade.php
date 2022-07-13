@@ -112,6 +112,10 @@ table td{
             <th><span> {{ $general['embarcacion'] -> Matricula }} </span></th>
           </tr>
           <tr>
+            <th>Tipo de Barco</th>
+            <th><span> {{ $general['barco']}} </span></th>
+          </tr>
+          <tr>
             <th>Permiso de Pesca</th>
             <th><span> {{ $general['embarcacion'] -> PermisoPesca }} </span></th>
           </tr>

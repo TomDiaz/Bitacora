@@ -18,8 +18,9 @@ use App\Models\especieLance;
 use App\Models\BitacoraArtePesca;
 use App\Http\Resources\BitacoraResource;
 use Illuminate\Support\Facades\DB;
+use App\Http\Resources\EmbarcacionResource;
 use PDF;
-
+use App\Models\TipoBarco;
 class BitacorasController extends Controller
 {
     
@@ -76,8 +77,11 @@ class BitacorasController extends Controller
         $bitacora = bitacora::find($id);
         $embarcacion =  Embarcacion::find($bitacora -> id_embarcacion);
 
+        $barco = TipoBarco::find($embarcacion -> id_tipo_barco) -> nombre;
+
         $general = [
             "bitacora" => $bitacora,
+            "barco" =>  $barco,
             "armador" => User::find($embarcacion -> IdArmador) -> name . " " . User::find($embarcacion -> IdArmador) -> last_name,
             "embarcacion" => $embarcacion,
             "capitan" => Capitan::find($bitacora -> id_capitan) -> nombres . " " . Capitan::find($bitacora -> id_capitan) -> apellidos,
@@ -89,7 +93,6 @@ class BitacorasController extends Controller
             "arte_pesca" => BitacoraArtePesca::where('id_bitacora',   $bitacora ->id) -> first()
         ];
 
-         
          $lances = array();
          $procuccion_total = 0;
          $procuccion_total_retenidas = 0;

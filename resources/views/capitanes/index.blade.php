@@ -3,7 +3,9 @@
 
 
 @section('content_header')
+<script src="https://kit.fontawesome.com/db792297f6.js" crossorigin="anonymous"></script>
 @stop
+
 
 @section('content')
  <br>
@@ -46,15 +48,22 @@
          @endforeach
          </td>
 
-         <td ><a  href="{{ route('capitanes.edit',$capitan['capitan'] -> id )}}" style="display:block; width:100%;" class="btn btn-primary ">Editar</a></td>
          <td>
+           <div class="row">
+              <div class="mb-3 col" >
+                 <a  href="{{ route('capitanes.edit',$capitan['capitan'] -> id )}}" style="display:block; width:50%; margin-left: 100px;"  class="btn btn-primary "><i class="fa-solid fa-pen"></i></a>
+              </div>
+              <div class="mb-3 col" >
+                 <button onClick="deleteCapitan({{$capitan['capitan'] -> id}})" style="display:block; width:50%;" class="btn btn-danger"><i class="fa-solid fa-trash-can"></i></button>
+              </div>
+           </div>
             <!-- <form action="{{route('capitanes.destroy', $capitan['capitan'] -> id)}}" method="POST">
                 @csrf
                 @method('DELETE')
                 <button style="display:block; width:100%;" class="btn btn-danger " type="submit">Eliminar</button>
             </form> -->
 
-            <button onClick="deleteCapitan({{$capitan['capitan'] -> id}})" style="display:block; width:100%;" class="btn btn-danger">Eliminar</button>
+           
         </td>
        </tr>
 

@@ -1,6 +1,10 @@
 @extends('adminlte::page')
 
 
+@section('content_header')
+<script src="https://kit.fontawesome.com/db792297f6.js" crossorigin="anonymous"></script>
+@stop
+
 @section('content')
 <br>
 <form class="formulario" action="{{route('embarcaciones.store')}}" method="POST">
@@ -15,11 +19,24 @@
          
          <input type="text" class="form-control" name="embarcacion" placeholder="Nombre de la embarcación" id="exampleInputEmail1" aria-describedby="emailHelp" >
        </div>
-     
-       <div class="mb-3 ">
-         
+
+     <div class="row">
+
+       <div class="mb-3 col">
+         <select class="form-control" name="barco"  id="" aria-describedby="emailHelp">
+                <option value="" > Tipo de embarcacion</option>
+                @foreach($tipo_barcos as $barco)
+                   <option value="{{$barco->id}}">{{$barco->nombre}}</option>
+                @endforeach
+         </select>
+       </div>
+
+       <div class="mb-3 col">
          <input type="text" class="form-control" name="matricula" placeholder="Matrícula de la embarcación" id="exampleInputEmail1" aria-describedby="emailHelp" >
        </div>
+
+     </div>  
+     
 
     <div class="row">
 
