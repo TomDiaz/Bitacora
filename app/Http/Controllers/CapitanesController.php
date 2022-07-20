@@ -161,4 +161,17 @@ class CapitanesController extends Controller
 
         return response()->json(["capitan" => $data],201);
     }
+
+
+    public function filterCapitan($cuil){
+        
+        $capitan = Capitan::where('cuil', $cuil)->first();
+        
+        if($capitan){
+            return response()->json( $capitan -> id,200);
+        }
+
+        return response()->json( ['msj' => 'Cuil no registrado'],404);
+    }
+
 }

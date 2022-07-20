@@ -64,6 +64,8 @@ Route::middleware(['auth:sanctum', 'verified'])->group(function () {
         return response()->json($_SESSION['capitanes'],200);
     });
 
+    Route::get('capitan/{cuil}', [CapitanesController::class, 'filterCapitan']);
+
     Route::get('especies/{cant}',[BitacorasController::class,'getCantEspecies']);
 
     Route::get('metricas',Excel::class);

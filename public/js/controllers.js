@@ -290,6 +290,7 @@ async function popupCapitanes(capitanes){
 
     let tamplate = ''
     let capitanes_check = data;
+    let capitanes_cuil;
 
     capitanes.forEach(element => {
         console.log(data)
@@ -303,7 +304,7 @@ async function popupCapitanes(capitanes){
         else{
 
           tamplate += `
-             <div class="capitan"><span>${element.nombres}${element.id}</span><input disabled="false" class="check " type="checkbox" value="${element.id}" id="capitan-${element.id}"> <i class="fa-solid"></i></div>
+             <div class="capitan"><span>${element.nombres} - CUIL:${element.cuil}</span><input disabled="false" class="check " type="checkbox" value="${element.id}" id="capitan-${element.id}"> <i class="fa-solid"></i></div>
           `
         }
 
@@ -315,6 +316,8 @@ async function popupCapitanes(capitanes){
       html: `
            <div class="capitanes">
              <h3>Capitanes</h3>
+             <hr>
+              <input type="text" class="form-control cuil-capitan" name="cuil_capitan" placeholder="Sumar capitan por cuil" id="exampleInputEmail1" aria-describedby="emailHelp" >
              <hr>
               ${tamplate}
            </div>
@@ -352,6 +355,7 @@ async function popupCapitanes(capitanes){
 
            
            console.log("check: " + capitanes_check)
+           console.log("Cuil: " + capitanes_cuil)
 
            let cont_text = ''
            if(capitanes_check.length > 0){
@@ -362,6 +366,24 @@ async function popupCapitanes(capitanes){
 
          }
     })
+
+
+    $(".cuil-capitan").change(function(){
+      capitanCuil($(this).val())
+    });
+
+    async function capitanCuil(cuil){
+
+      let data = await fetch('/capitan/' + cuil)
+                    .then( res => res.json())
+                    .then( data => {
+                         return data
+                     })
+       console.log(data)
+       $('#capitan-' + data).next('i').addClass('fa-circle-check')
+       capitanes_check.push(data)
+       
+    }
 
     $('.capitan').click(function(){
 
