@@ -23,7 +23,7 @@ class lance extends Model
         'sin_captura',
         'temperatura',
         'otro',
-        'mitigacion',
+        'viento',
         'progreso'
     ];
 }

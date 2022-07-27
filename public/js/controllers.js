@@ -145,6 +145,47 @@ function deleteBitacora(id){
 }
 
 
+function keyCapitan(id){
+
+  Swal.fire({
+    html: `
+         <div class="clave-capitan">
+           <h3>Cambio de clave</h3>
+           <hr>
+            <input type="password" class="form-control " name="cuil_capitan" placeholder="Clave" id="exampleInputEmail1" aria-describedby="emailHelp" >
+            </br>
+            <input type="password" class="form-control " name="cuil_capitan" placeholder="Confirmar Clave" id="exampleInputEmail1" aria-describedby="emailHelp" >
+           <hr>
+         
+         </div>
+      `,
+    showCancelButton: true,
+    confirmButtonText: 'Aceptar y guardar',
+    cancelButtonText: 'Cancelar',
+    cancelButtonColor: '#d33',
+
+  }).then((result) => {
+    if (result.value) {
+
+      Swal.fire(
+        '',
+        'Se ah modificado la clave correctamente!',
+        'success'
+      )
+      .then((result) => {
+          console.log(result)
+
+          if(result.value){
+            window.location.reload(true);
+          }
+
+      })
+     }
+  });
+
+}
+
+
 function deleteCapitan(id){
 
 

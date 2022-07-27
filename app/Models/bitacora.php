@@ -28,7 +28,7 @@ class bitacora extends Model
         'combustible',
         'millas_recogidas',
         'produccion',
-        'viento',
+        'mitigacion',
         'marea',
         'observador_a_bordo',
         'prospeccion',

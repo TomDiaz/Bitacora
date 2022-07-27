@@ -49,13 +49,13 @@ class BitacorasController extends Controller
             'id_puerto_zarpe'=> $req -> id_puerto_zarpe ,
             'id_puerto_arribo'=> $req -> id_puerto_arribo ,
             'combustible'=> $req -> combustible ,
-            'viento' => $req -> viento,
             'millas_recogidas'=> $req -> millas_recogidas ,
             'produccion'=> $req -> produccion ,
             'observaciones_generales'=> $req -> observaciones_generales,
             'observacion_parte_pesca'=> $req -> observacion_parte_pesca,
             'prospeccion'  => $req -> prospeccion,
             'subarea' => $req -> subarea,
+            'mitigacion' => $req -> mitigacion, 
           ]);
 
 
@@ -81,8 +81,8 @@ class BitacorasController extends Controller
                 'sin_captura' => $lance['sin_captura'], 
                 'temperatura' => $lance['temperatura'], 
                 'otro' => $lance['otro'], 
-                'mitigacion' => $lance['mitigacion'], 
                 'progreso' => $lance['progreso'], 
+                'viento' => $lance['viento']
               ]);
 
               foreach($lance['coordenadas'] as $coordenada){

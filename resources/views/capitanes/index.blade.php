@@ -49,20 +49,12 @@
          </td>
 
          <td>
-           <div class="row">
-              <div class="mb-3 col" >
-                 <a  href="{{ route('capitanes.edit',$capitan['capitan'] -> id )}}" style="display:block; width:50%; margin-left: 100px;"  class="btn btn-primary "><i class="fa-solid fa-pen"></i></a>
-              </div>
-              <div class="mb-3 col" >
-                 <button onClick="deleteCapitan({{$capitan['capitan'] -> id}})" style="display:block; width:50%;" class="btn btn-danger"><i class="fa-solid fa-trash-can"></i></button>
-              </div>
-           </div>
-            <!-- <form action="{{route('capitanes.destroy', $capitan['capitan'] -> id)}}" method="POST">
-                @csrf
-                @method('DELETE')
-                <button style="display:block; width:100%;" class="btn btn-danger " type="submit">Eliminar</button>
-            </form> -->
 
+           <div class="btn-capitan">
+              <a  href="{{ route('capitanes.edit',$capitan['capitan'] -> id )}}"  class="btn btn-primary "><i class="fa-solid fa-pen"></i></a>
+              <button onClick="keyCapitan({{$capitan['capitan'] -> id}})"  class="btn btn-warning"><i style="color: #fff;" class="fa-solid fa-key"></i></button>
+              <button onClick="deleteCapitan({{$capitan['capitan'] -> id}})"  class="btn btn-danger"><i class="fa-solid fa-trash-can"></i></button>
+           </div>
            
         </td>
        </tr>

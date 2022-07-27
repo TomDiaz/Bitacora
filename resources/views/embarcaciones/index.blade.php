@@ -19,7 +19,7 @@
       <th scope="col">Matrícula</th>
       <th scope="col">Permiso de Pesca</th>
       <th scope="col">Fecha de Caducidad</th>
-      <th scope="col"> Días sin Bitacora</th>
+      <th scope="col"> </th>
       <th scope="col"></th>
       <th scope="col"></th>
     </tr>
@@ -29,7 +29,6 @@
     <?php
       $cont = 1;
     ?>
-
   @foreach($embarcaciones as $embarcacion)
      <tr>
         <th scope="row">{{ $cont++ }}</th>
@@ -37,7 +36,7 @@
         <td>{{$embarcacion -> Matricula}}</td>
         <td>{{$embarcacion -> PermisoPesca}}</td>
         <td>{{$embarcacion -> FechaVigenciaPermisoPesca}}</td>
-        <td>0</td>
+        <td></td>
         
         <td ></td>
          <td>

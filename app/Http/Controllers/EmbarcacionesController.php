@@ -36,6 +36,7 @@ class EmbarcacionesController extends Controller
 
        $embarcaciones = EmbarcacionResource::collection($embarcaciones2);
 
+
         return view('embarcaciones.index', compact('embarcaciones'));
     }
 
