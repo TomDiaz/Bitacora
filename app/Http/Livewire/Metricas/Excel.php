@@ -109,7 +109,7 @@ class Excel extends Component
            }
 
            if($this -> nro_bitacora){
-               $especies -> addSelect('bitacora.marea ');
+               $especies -> addSelect('bitacora.marea');
                $this -> bitacora = true;
 
                $encabezado[] = 'Marea';
@@ -195,7 +195,7 @@ class Excel extends Component
            }
    
            if($this -> dispositivo_selectividad){
-               $especies -> addSelect('lance_arte_de_pesca.nombre_dispositivo as nombre_dispositivo', 'lance_arte_de_pesca.tamanio', 'lance_arte_de_pesca.tipo_malla', 'lance_arte_de_pesca.luz_malla');
+               $especies -> addSelect('bitacora_arte_de_pesca.nombre_dispositivo as nombre_dispositivo', 'bitacora_arte_de_pesca.tamanio', 'bitacora_arte_de_pesca.tipo_malla', 'bitacora_arte_de_pesca.luz_malla');
                $this -> lance = true;
 
                $encabezado[] = 'Nombre dispositivo';
@@ -257,12 +257,12 @@ class Excel extends Component
         /// JOIN DINAMICO
         if( $this -> bitacora){
              $especies ->join('embarcacion', 'bitacora.id_embarcacion', '=', 'embarcacion.IdEmbarcacion')
-                       ->join('puerto', 'bitacora.id_puerto_zarpe', '=', 'puerto.id');
+                       ->join('puerto', 'bitacora.id_puerto_zarpe', '=', 'puerto.id')
+                       ->join('bitacora_arte_de_pesca', 'bitacora.id', '=', 'bitacora_arte_de_pesca.id_bitacora');
         }
 
         if( $this -> lance){
             $especies ->join('lances', 'bitacora.id', '=', 'lances.id_bitacora')
-                      ->join('lance_arte_de_pesca', 'lances.id', '=', 'lance_arte_de_pesca.id_lance')
                       ->join('coordenadas', 'lances.id', '=', 'coordenadas.id_lance');
         }
 
