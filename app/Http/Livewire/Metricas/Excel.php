@@ -20,7 +20,8 @@ class Excel extends Component
            $mitigacion_bycatch,
            $viento,
            $temperatura,
-           $observaciones,
+           $observaciones_generales,
+           $observaciones_parte_de_pesca,
            $nro_bitacora,
            $combustible,
            $millas_recorridas,
@@ -31,7 +32,9 @@ class Excel extends Component
            $retenida,
            $incidental,
            $cuil,
-           $descartada;
+           $descartada,
+           $anio,
+           $marea;
 
     public function render()
     {
@@ -87,13 +90,7 @@ class Excel extends Component
                $this -> valido = 1;
            }
            
-           if($this -> viento){
-               $especies -> addSelect('bitacora.viento');
-               $this -> bitacora = true;
-
-               $encabezado[] = 'Viento';
-               $this -> valido = 1;
-           }
+         
            
            if($this -> puerto_zarpe){
                $especies -> addSelect('puerto.nombre as Puerto_Zarpe');
@@ -111,11 +108,27 @@ class Excel extends Component
                $this -> valido = 1;
            }
 
-           if($this -> observaciones){
-               $especies -> addSelect('bitacora.observaciones as Observaciones');
+           if($this -> nro_bitacora){
+               $especies -> addSelect('bitacora.marea ');
                $this -> bitacora = true;
 
-               $encabezado[] = 'Observaciones';
+               $encabezado[] = 'Marea';
+               $this -> valido = 1;
+           }
+
+           if($this -> observaciones_generales){
+               $especies -> addSelect('bitacora.observaciones_generales');
+               $this -> bitacora = true;
+
+               $encabezado[] = 'Observaciones generales';
+               $this -> valido = 1;
+           }
+
+           if($this -> observaciones_parte_de_pesca){
+               $especies -> addSelect('bitacora.observacion_parte_pesca');
+               $this -> bitacora = true;
+
+               $encabezado[] = 'Observacion parte de pesca';
                $this -> valido = 1;
            }
 
@@ -142,6 +155,15 @@ class Excel extends Component
                $encabezado[] = 'Combustible';
                $this -> valido = 1;
            }
+
+           if($this -> mitigacion_bycatch){
+            $especies -> addSelect('bitacora.mitigacion as Mitigacion_Bycatch');
+            $this -> bitacora = true;
+
+            $encabezado[] = 'Mitigación bycatch';
+            $this -> valido = 1;
+        }
+
         //Bitacora end    
 
         //Lance
@@ -153,14 +175,16 @@ class Excel extends Component
                $encabezado[] = 'Nº Lance';
                $this -> valido = 1;
            }
-   
-           if($this -> mitigacion_bycatch){
-               $especies -> addSelect('lances.mitigacion as Mitigacion_Bycatch');
-               $this -> lance = true;
 
-               $encabezado[] = 'Mitigación bycatch';
-               $this -> valido = 1;
+           if($this -> viento){
+            $especies -> addSelect('lances.viento');
+            $this -> lance = true;
+
+            $encabezado[] = 'Viento';
+            $this -> valido = 1;
            }
+   
+           
    
            if($this -> temperatura){
                $especies -> addSelect('lances.temperatura as Temperatura');
@@ -294,7 +318,8 @@ class Excel extends Component
         $this -> mitigacion_bycatch = true;
         $this -> viento = true;
         $this -> temperatura = true;
-        $this -> observaciones = true;
+        $this -> observaciones_generales = true;
+        $this -> observaciones_parte_de_pesca = true;
         $this -> nro_bitacora = true;
         $this -> combustible = true;
         $this -> millas_recorridas = true;
@@ -306,6 +331,8 @@ class Excel extends Component
         $this -> incidental = true;
         $this -> descartada = true;
         $this -> cuil = true;
+        $this -> anio = true;
+        $this -> marea = true;
     }
 
     public function none(){
@@ -319,7 +346,8 @@ class Excel extends Component
         $this -> mitigacion_bycatch = false;
         $this -> viento = false;
         $this -> temperatura = false;
-        $this -> observaciones = false;
+        $this -> observaciones_generales = false;
+        $this -> observaciones_parte_de_pesca = false;
         $this -> nro_bitacora = false;
         $this -> combustible = false;
         $this -> millas_recorridas = false;
@@ -331,6 +359,8 @@ class Excel extends Component
         $this -> incidental = false;
         $this -> descartada = false;
         $this -> cuil = false;
+        $this -> anio = false;
+        $this -> marea = false;
     }
 
 }

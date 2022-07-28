@@ -50,29 +50,47 @@
                            <input type="checkbox" class="form-check-input" wire:model="nro_bitacora">
                            <label class="form-check-label" for="exampleCheck1">Nº de bitácora</label>
                         </div>
+
+                    <div class="form-group form-check">
+                           <input type="checkbox" class="form-check-input" wire:model="marea">
+                           <label class="form-check-label" for="exampleCheck1">Marea</label>
+                        </div>
+                        
+                    <div class="form-group form-check">
+                           <input type="checkbox" class="form-check-input" wire:model="anio">
+                           <label class="form-check-label" for="exampleCheck1">Año</label>
+                        </div>
+
                       <div class="form-group form-check">
-                        <input type="checkbox" class="form-check-input" wire:model="observaciones">
-                        <label class="form-check-label" for="exampleCheck1">Observaciones</label>
+                        <input type="checkbox" class="form-check-input" wire:model="observaciones_generales">
+                        <label class="form-check-label" for="exampleCheck1">Observaciones generales</label>
+                     </div>
+
+                     <div class="form-group form-check">
+                        <input type="checkbox" class="form-check-input" wire:model="observaciones_parte_de_pesca">
+                        <label class="form-check-label" for="exampleCheck1">Observacion parte de pesca</label>
                      </div>
 
                      <div class="form-group form-check">
                      <input type="checkbox" class="form-check-input" wire:model="millas_recorridas">
                      <label class="form-check-label" for="exampleCheck1">Millas recorridas</label>
                   </div>
-                  <div class="form-group form-check">
+                
+
+                
+                   
+              </div>
+              <div class="col">
+
+              <div class="form-group form-check">
                      <input type="checkbox" class="form-check-input" wire:model="produccion_total">
                      <label class="form-check-label" for="exampleCheck1">Producción total</label>
                   </div>
 
-                  <div class="form-group form-check">
+              <div class="form-group form-check">
                      <input type="checkbox" class="form-check-input" wire:model="combustible">
                      <label class="form-check-label" for="exampleCheck1">Combustible</label>
                   </div>
-                 
-                   
-                   
-              </div>
-              <div class="col">
               <div class="form-group form-check">
                        <input type="checkbox" class="form-check-input" wire:model="nro_lance">
                        <label class="form-check-label" for="exampleCheck1">Nº lance</label>
@@ -92,12 +110,14 @@
                         <label class="form-check-label" for="exampleCheck1">Viento</label>
                      </div>
                 
-                  <div class="form-group form-check">
+                
+             </div>
+              <div class="col">
+
+              <div class="form-group form-check">
                      <input type="checkbox" class="form-check-input" wire:model="total_captura_retenida">
                      <label class="form-check-label" for="exampleCheck1">Total captura retenida</label>
                   </div>
-             </div>
-              <div class="col">
 
               <div class="form-group form-check">
                         <input type="checkbox" class="form-check-input" wire:model="dispositivo_selectividad">
