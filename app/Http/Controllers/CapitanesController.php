@@ -71,7 +71,7 @@ class CapitanesController extends Controller
                 'nombre' => 'required',
                 'apellido' => 'required',
                 'usuario' => 'required',
-                'clave1' => 'required',
+                'clave' => 'required|string|confirmed',
                 'cuil' => 'required',
             ]);
 
@@ -83,7 +83,7 @@ class CapitanesController extends Controller
                 'celular' => $request -> celular,
                 'email' => $request -> email,
                 'usuario' => $request -> usuario,
-                'clave' => Hash::make($request -> clave1),
+                'clave' => Hash::make($request -> clave),
                 'estado' => 1,
                 'id_armador' => auth()->user() -> id 
     

@@ -66,13 +66,13 @@
                </div>
                
                <div class="mb-3">
-                 <input type="password" class="form-control active" name="clave1" placeholder="Clave"  id="clave1" aria-describedby="emailHelp">
+                 <input type="password" class="form-control active" name="clave" placeholder="Clave"  id="clave" aria-describedby="emailHelp">
                  <div class="icono"></div>
                </div>
                
                
                <div class="mb-3">
-                 <input type="password" class="form-control active" name="clave2" placeholder="Confirmar clave"   id="clave2" aria-describedby="emailHelp">
+                 <input type="password" class="form-control active" name="clave_confirmation" placeholder="Confirmar clave"  id="clave_confirmation" aria-describedby="emailHelp">
                  <div class="icono"></div>
                </div>
              </div>
