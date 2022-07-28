@@ -253,7 +253,7 @@ table td{
     </tr>
     <tr>
       <th>Viento</th>
-      <th><span>{{ $general['bitacora'] -> viento }}</span></th>
+      <th><span>{{ $lance['viento']  }}</span></th>
     </tr>
     <tr>
       <th>Otros</th>
