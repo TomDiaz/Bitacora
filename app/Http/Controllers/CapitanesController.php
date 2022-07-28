@@ -100,6 +100,28 @@ class CapitanesController extends Controller
         //return redirect('/capitanes')->with('mensaje', 'Capitan agregado con exito!!');
     }
 
+
+    public function storeKey($id, Request $request){
+
+        try{
+
+          $request->validate([
+              'clave' => 'required|string|confirmed',
+          ]);
+  
+          $capitan = Capitan::find($id);
+          $capitan -> clave = Hash::make($request -> clave);
+          $capitan -> save();
+  
+          return response()->json(["msj" => "Clave modificada", "type" => "success"],201);
+
+        } 
+        catch ( \Exception $e) {
+            return response()->json(['msj'=>'Datos incorrectos',"type" => "error", "err" => $e],500);
+        }
+     
+    }
+
     /**
      * Display the specified resource.
      *

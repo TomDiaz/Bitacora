@@ -144,7 +144,7 @@ function deleteBitacora(id){
 
 }
 
-
+/// Cambio de contraseña
 function keyCapitan(id){
 
   Swal.fire({
@@ -152,9 +152,9 @@ function keyCapitan(id){
          <div class="clave-capitan">
            <h3>Cambio de clave</h3>
            <hr>
-            <input type="password" class="form-control " name="cuil_capitan" placeholder="Clave" id="exampleInputEmail1" aria-describedby="emailHelp" >
+            <input type="password" class="form-control " name="clave" placeholder="Clave" id="clave" aria-describedby="emailHelp" >
             </br>
-            <input type="password" class="form-control " name="cuil_capitan" placeholder="Confirmar Clave" id="exampleInputEmail1" aria-describedby="emailHelp" >
+            <input type="password" class="form-control " name="clave_confirmation" placeholder="Confirmar Clave" id="clave_confirmation" aria-describedby="emailHelp" >
            <hr>
          
          </div>
@@ -165,21 +165,38 @@ function keyCapitan(id){
     cancelButtonColor: '#d33',
 
   }).then((result) => {
+
     if (result.value) {
+      
+      const csrfToken = document.head.querySelector("[name~=csrf-token][content]").content;
+      let clave = $('#clave').val()
+      let clave_confirmation = $('#clave_confirmation').val()
+      let data = {
+          'clave': clave,
+          'clave_confirmation': clave_confirmation
+      }
 
-      Swal.fire(
-        '',
-        'Se ah modificado la clave correctamente!',
-        'success'
-      )
-      .then((result) => {
-          console.log(result)
+      console.log(data)
 
-          if(result.value){
-            window.location.reload(true);
-          }
+      fetch('/storeKey/' + id,{
 
+        method: 'POST',
+        body: JSON.stringify(data),
+        headers: {
+            'Content-Type': 'application/json',
+            "X-CSRF-Token": csrfToken
+        }
       })
+      .then( res => res.json())
+      .then( data => {
+
+        Swal.fire(
+          '',
+          data.msj ,
+          data.type
+        )
+      })
+
      }
   });
 

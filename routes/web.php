@@ -70,5 +70,6 @@ Route::middleware(['auth:sanctum', 'verified'])->group(function () {
 
     Route::get('metricas',Excel::class);
     Route::get('profile/username',Perfil::class);
+    Route::post('storeKey/{id}', [CapitanesController::class,'storeKey']);
  
 });
