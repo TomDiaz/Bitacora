@@ -47,7 +47,9 @@ class Excel extends Component
         $encabezado = array();
 
         $this -> valido = 0;
-         
+        $this -> lance = false;
+        $this -> especie = false;
+        $this -> bitacora = false;
         //Bitacora
            if($this -> embarcacion_nombre){
                $especies -> addSelect('embarcacion.Nombre as Embarcacion_Nombre');
@@ -108,7 +110,7 @@ class Excel extends Component
                $this -> valido = 1;
            }
 
-           if($this -> nro_bitacora){
+           if($this -> marea){
                $especies -> addSelect('bitacora.marea');
                $this -> bitacora = true;
 
@@ -299,7 +301,7 @@ class Excel extends Component
          $datos =  $especies ->get();
 
          if($this -> valido == 1){
-
+            
              return ExportExcel::download(new BitacoraExport($datos,   $encabezado), 'planilla.xlsx');
          }
 
