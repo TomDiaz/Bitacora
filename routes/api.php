@@ -4,6 +4,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Api\RecursosController;
 use App\Http\Controllers\Api\BitacorasController;
+use App\Http\Controllers\BitacorasController as Bitacora;
 use App\Http\Controllers\Api\LoginController;
 /*
 |--------------------------------------------------------------------------
@@ -25,3 +26,6 @@ Route::get('recursos',[RecursosController::class,'index']);
 Route::post('especies',[RecursosController::class,'importEspecies']);
 Route::post('bitacora',[BitacorasController::class,'store']);
 Route::get('historial/{id}',[BitacorasController::class,'historial']);
+
+Route::get('pdf/parte_de_pesca/{id}',[Bitacora::class,'PDF_PartePesca']);
+Route::get('pdf/general/{id}',[Bitacora::class,'PDF_General']);
