@@ -8,8 +8,11 @@ use App\Models\ArtePesca;
 use App\Models\CapitanEmbarcacion;
 use App\Models\Capitan;
 use App\Models\TipoBarco;
+use App\Models\capitan_armador;
 use App\Http\Resources\EmbarcacionResource;
-
+use App\Notifications\SolicitudCapitan;
+use Illuminate\Support\Facades\Notification;
+use Illuminate\Support\Str;
 
 class EmbarcacionesController extends Controller
 {
@@ -52,8 +55,14 @@ class EmbarcacionesController extends Controller
         session_start();
         $_SESSION['capitanes'] = [];
 
-        //$capitanes = Capitan::where('id_armador',  auth()->user()->id)->get();
-        $capitanes = Capitan::all();
+        $capitan_armador = capitan_armador::where('id_armador',  auth()->user()->id)->get();
+
+        $capitanes = array();
+
+        foreach($capitan_armador as $cap){
+            $capitanes[] = Capitan::find($cap -> id_capitan);
+        }
+
         $artepesca = ArtePesca::all();
         $tipo_barcos = TipoBarco::all();
 
@@ -95,6 +104,21 @@ class EmbarcacionesController extends Controller
             'IdCapitan' => $capitan,
             'IdEmbarcacion' =>  $embarcacion -> IdEmbarcacion
            ]);
+
+           $capitan_armador = capitan_armador::where('id_capitan',  $capitan)->where('id_armador', auth()->user()->id)->first();
+
+           $token = Str::random(32);
+
+           if(empty($capitan_armador)){
+              capitan_armador::create([
+                  'id_capitan' =>  $capitan,
+                  'id_armador' =>  auth()->user() -> id,
+                  'token' =>   $token,
+                  'estado' => 0
+              ]);
+
+              Notification::route('mail', Capitan::find($capitan) -> email)->notify(new SolicitudCapitan($token));
+           }
         }
 
 
@@ -129,7 +153,12 @@ class EmbarcacionesController extends Controller
         $tipo_barcos = TipoBarco::all();
 
         foreach(capitanembarcacion::where('IdEmbarcacion', $id)->get() as $capitan){
-            $capitanes_array[] = Capitan::find($capitan -> IdCapitan)-> id;
+
+            $capitan_armador =  capitan_armador::where('id_armador', auth()->user()->id)->where('id_capitan', $capitan -> IdCapitan)->first();
+
+            if(!empty($capitan_armador) && $capitan_armador -> estado == 1){
+                $capitanes_array[] = $capitan -> IdCapitan;
+            }
         }
 
         session_start();

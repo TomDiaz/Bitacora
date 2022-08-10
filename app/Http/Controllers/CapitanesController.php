@@ -6,8 +6,9 @@ use Illuminate\Http\Request;
 use App\Models\Capitan;
 use App\Models\CapitanEmbarcacion;
 use App\Models\Embarcacion;
+use App\Models\capitan_armador;
 use Illuminate\Support\Facades\Hash;
-
+use Illuminate\Support\Str;
 class CapitanesController extends Controller
 {
     /**
@@ -75,7 +76,7 @@ class CapitanesController extends Controller
                 'cuil' => 'required',
             ]);
 
-            Capitan::create([
+            $capitan = Capitan::create([
     
                 'cuil' => $request -> cuil,
                 'nombres' =>  $request -> nombre,
@@ -87,6 +88,13 @@ class CapitanesController extends Controller
                 'estado' => 1,
                 'id_armador' => auth()->user() -> id 
     
+            ]);
+
+            capitan_armador::create([
+                'id_capitan' =>  $capitan -> id,
+                'id_armador' =>  auth()->user() -> id,
+                'token' =>  Str::random(32),
+                'estado' => 1
             ]);
     
             return response()->json(["msj" => "Capitan agregado con exito!!", "type" => "success"],201);
@@ -190,10 +198,20 @@ class CapitanesController extends Controller
         $capitan = Capitan::where('cuil', $cuil)->first();
         
         if($capitan){
-            return response()->json( $capitan -> id,200);
+            return response()->json( $capitan,200);
         }
 
         return response()->json( ['msj' => 'Cuil no registrado'],404);
+    }
+
+
+    public function solicitud($token){
+
+        $capitan_armador = capitan_armador::where('token', $token) -> first();
+        $capitan_armador -> estado = 1;
+        $capitan_armador -> save();
+
+        return "Aceptado";
     }
 
 }

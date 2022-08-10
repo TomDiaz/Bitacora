@@ -72,4 +72,6 @@ Route::middleware(['auth:sanctum', 'verified'])->group(function () {
     Route::get('profile/username',Perfil::class);
     Route::post('storeKey/{id}', [CapitanesController::class,'storeKey']);
  
+    Route::get('solicitud/{token}', [CapitanesController::class,'solicitud']);
+
 });

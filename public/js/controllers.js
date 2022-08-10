@@ -15,7 +15,8 @@ form_cap.addEventListener('submit', function(e){
         'email': document.getElementById('email').value,
         'celular': document.getElementById('celular').value,
         'usuario': document.getElementById('usuario').value,
-        'clave1': document.getElementById('clave1').value,
+        'clave': document.getElementById('clave').value,
+        'clave_confirmation': document.getElementById('clave_confirmation').value,
      }
 
     const csrfToken = document.head.querySelector("[name~=csrf-token][content]").content;
@@ -345,7 +346,7 @@ async function popupCapitanes(capitanes){
     console.log("----Capitanes elejidos end")                      
   
     console.log(capitanes)
-
+    let capitanes_nuevo = []
     let tamplate = ''
     let capitanes_check = data;
     let capitanes_cuil;
@@ -377,6 +378,8 @@ async function popupCapitanes(capitanes){
              <hr>
               <input type="text" class="form-control cuil-capitan" name="cuil_capitan" placeholder="Sumar capitan por cuil" id="exampleInputEmail1" aria-describedby="emailHelp" >
              <hr>
+             <div class="nuevo_capitan">
+             </div>
               ${tamplate}
            </div>
         `,
@@ -428,6 +431,7 @@ async function popupCapitanes(capitanes){
 
     $(".cuil-capitan").change(function(){
       capitanCuil($(this).val())
+      $(this).val('');
     });
 
     async function capitanCuil(cuil){
@@ -438,8 +442,47 @@ async function popupCapitanes(capitanes){
                          return data
                      })
        console.log(data)
-       $('#capitan-' + data).next('i').addClass('fa-circle-check')
-       capitanes_check.push(data)
+
+      
+       let tamplate2 = ''
+       capitanes_nuevo.push(data)
+
+       console.log(capitanes_nuevo)
+       capitanes_nuevo.forEach(element => {
+        tamplate2 += `
+          <div class="capitan"><span>${element.nombres} - CUIL:${element.cuil} </span><input disabled="false" class="check " type="checkbox" checked value="${element.id}" id="capitan-${element.id}"> <i class="fa-solid fa-circle-check"></i></div>
+          `
+        });
+
+      $('.nuevo_capitan').html(tamplate2)
+      capitanes_check.push(data.id.toString())
+      console.log(capitanes_check)
+
+      $('.nuevo_capitan .capitan').click(function(){
+        console.log("click")
+
+        if($(this).children('.check').is(':checked')){
+
+          $(this).children('.check').attr( 'checked', false )
+          $(this).children('i').removeClass('fa-circle-check')
+  
+  
+         let index =  capitanes_check.findIndex( x => x == $(this).children('.check').val());
+  
+         console.log(index)
+  
+        
+         capitanes_check.splice(index, 1)
+  
+        }
+        else{
+  
+          $(this).children('.check').attr( 'checked', true)
+          $(this).children('i').addClass('fa-circle-check')
+          capitanes_check.push($(this).children('.check').val())
+          console.log(capitanes_check)
+        }
+      })
        
     }
 
