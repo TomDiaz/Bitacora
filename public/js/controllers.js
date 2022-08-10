@@ -53,7 +53,7 @@ form_cap.addEventListener('submit', function(e){
               document.getElementById('email'),
               document.getElementById('celular'),
               document.getElementById('usuario'),
-              document.getElementById('clave1'),
+              document.getElementById('clave'),
           ]
 
         if(data.type == 'error'){
