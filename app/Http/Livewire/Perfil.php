@@ -8,8 +8,8 @@ use App\Models\User;
 class Perfil extends Component
 {
 
-    public $nombre, $apellido, $email;
-    public $v_nombre, $v_apellido, $v_email;
+    public $nombre, $apellido, $email, $empresa;
+    public $v_nombre, $v_apellido, $v_email, $v_empresa;
 
     public function __construct() {
 
@@ -29,6 +29,7 @@ class Perfil extends Component
         $this -> v_nombre = auth()->user() -> name;
         $this -> v_apellido = auth()->user() -> last_name;
         $this -> v_email = auth()->user() -> email;
+        $this -> v_empresa = auth()->user() -> empresa ? auth()->user() -> empresa : 'Sin empresa asignada';
     }
 
     public function modificar(){
@@ -47,6 +48,12 @@ class Perfil extends Component
         if($this -> email){
             
             $usuario -> email =  $this -> email;
+        }
+
+        
+        if($this -> empresa){
+            
+            $usuario -> empresa =  $this -> empresa;
         }
        
 

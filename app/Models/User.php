@@ -41,7 +41,8 @@ class User extends Authenticatable
         'email',
         'password',
         'terminos_condiciones',
-        'last_name'
+        'last_name',
+        'empresa'
     ];
 
     /**

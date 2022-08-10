@@ -13,9 +13,10 @@
             <h5 class="card-header">Mis Datos</h5>
             <div class="card-body">
               <ul>
-                  <li><b>Nombres:</b> {{$v_nombre}}</li>
-                  <li><b>Apellidos:</b> {{$v_apellido}}</li>
-                  <li><b>Email:</b> {{$v_email}}</li>
+                <li><b>Nombres:</b> {{$v_nombre}}</li>
+                <li><b>Apellidos:</b> {{$v_apellido}}</li>
+                <li><b>Email:</b> {{$v_email}}</li>
+                <li><b>Empresa:</b> {{$v_empresa}}</li>
               </ul>
 
             </div>
@@ -26,15 +27,20 @@
    <form>
        <div class="mb-3">
          <label for="exampleInputEmail1" class="form-label">Nombres</label>
-         <input type="text" class="form-control" id="exampleInputEmail1" " wire:model="nombre">
+         <input type="text" class="form-control" id="exampleInputEmail1"  wire:model="nombre">
        </div>
        <div class="mb-3">
          <label for="exampleInputEmail1" class="form-label">Apellidos</label>
-         <input type="text" class="form-control" id="exampleInputEmail1" " wire:model="apellido">
+         <input type="text" class="form-control" id="exampleInputEmail1"  wire:model="apellido">
        </div>
        <div class="mb-3">
          <label for="exampleInputEmail1" class="form-label">Email</label>
-         <input type="text" class="form-control" id="exampleInputEmail1" " wire:model="email">
+         <input type="text" class="form-control" id="exampleInputEmail1"  wire:model="email">
+       </div>
+       
+       <div class="mb-3">
+         <label for="exampleInputEmail1" class="form-label">Empresa</label>
+         <input type="text" class="form-control" id="exampleInputEmail1"  wire:model="empresa">
        </div>
        
        <button wire:click="modificar()" type="submit" class="btn btn-primary">Modificar</button>
