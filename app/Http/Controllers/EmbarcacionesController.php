@@ -36,8 +36,9 @@ class EmbarcacionesController extends Controller
 
        $embarcaciones = EmbarcacionResource::collection($embarcaciones2);
 
+       $tipo_barcos = TipoBarco::all();
 
-        return view('embarcaciones.index', compact('embarcaciones'));
+        return view('embarcaciones.index', compact('embarcaciones','tipo_barcos'));
     }
 
     /**

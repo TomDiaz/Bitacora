@@ -19,7 +19,7 @@
       <th scope="col">Matrícula</th>
       <th scope="col">Permiso de Pesca</th>
       <th scope="col">Fecha de Caducidad</th>
-      <th scope="col"> </th>
+      <th scope="col">Tipo de Barco</th>
       <th scope="col"></th>
       <th scope="col"></th>
     </tr>
@@ -36,9 +36,8 @@
         <td>{{$embarcacion -> Matricula}}</td>
         <td>{{$embarcacion -> PermisoPesca}}</td>
         <td>{{$embarcacion -> FechaVigenciaPermisoPesca}}</td>
-        <td></td>
+        <td>{{ $tipo_barcos[$embarcacion -> id_tipo_barco - 1] -> nombre }}</td>
         
-        <td ></td>
          <td>
             <div class="row">
               <div class="mb-3 col" >
