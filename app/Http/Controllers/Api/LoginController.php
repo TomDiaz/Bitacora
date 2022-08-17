@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Http\Request;
 use App\Models\Capitan;
+use App\Models\User;
 use App\Models\capitan_armador;
 use App\Http\Resources\CapitanResource;
 use Illuminate\Support\Facades\DB;
@@ -30,7 +31,20 @@ class LoginController extends Controller
 
                 if(!empty($capitan_armador) && $capitan_armador -> estado == 1){
 
-                    $embarcaciones_aceptada[] = $embarcacion;
+                    $embarcaciones_aceptada[] = [
+                        "IdEmbarcacion"=> $embarcacion -> IdEmbarcacion,
+                        "IdArmador" => $embarcacion -> IdArmador,
+                        "Nombre" => $embarcacion -> Nombre . " - " . User::find($capitan_armador -> id_armador) -> empresa,
+                        "Matricula" => $embarcacion -> Matricula,
+                        "PermisoPesca" => $embarcacion -> PermisoPesca,
+                        "FechaVigenciaPermisoPesca" => $embarcacion -> FechaVigenciaPermisoPesca,
+                        "Estado" => $embarcacion -> Estado,
+                        "FechaRegistro" => $embarcacion -> FechaRegistro,
+                        "Pais" => $embarcacion -> Pais,
+                        "id_tipo_barco" => $embarcacion -> id_tipo_barco,
+                        "IdCapitan" => $embarcacion -> IdCapitan,
+                        "FechaIngreso" => $embarcacion -> FechaIngreso
+                    ];
                 }
 
            }

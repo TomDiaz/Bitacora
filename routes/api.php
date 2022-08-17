@@ -23,6 +23,7 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 
 Route::post('login',[LoginController::class,'login']);
 Route::get('recursos',[RecursosController::class,'index']);
+Route::get('mayu',[RecursosController::class,'mayu']);
 Route::post('especies',[RecursosController::class,'importEspecies']);
 Route::post('bitacora',[BitacorasController::class,'store']);
 Route::get('historial/{id}',[BitacorasController::class,'historial']);

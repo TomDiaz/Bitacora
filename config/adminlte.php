@@ -14,7 +14,7 @@ return [
     |
     */
 
-    'title' => 'Bitacora Electronica de Pesca',
+    'title' => 'Bitácora Electrónica de Pesca',
     'title_prefix' => '',
     'title_postfix' => '',
 

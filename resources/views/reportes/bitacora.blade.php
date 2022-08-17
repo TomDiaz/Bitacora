@@ -17,7 +17,7 @@
       <th scope="col" style="text-align: center">Año</th>
       <th scope="col" style="text-align: center">Marea</th>
       <th scope="col" style="text-align: center">Nº de viaje</th>
-      <th scope="col" style="text-align: center">Embarcacion</th>
+      <th scope="col" style="text-align: center">Embarcación</th>
       <th scope="col" style="text-align: center">Bitácora</th>
       <th scope="col" style="text-align: center">Fecha de Ingreso</th>
       <th scope="col" style="text-align: center">Fecha de Salida</th>

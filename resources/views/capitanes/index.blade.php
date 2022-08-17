@@ -9,7 +9,7 @@
 
 @section('content')
  <br>
- <a class="btn btn-dark animate__animated animate__lightSpeedInLeft " href="{{ route('capitanes.create')}}">Nuevo capitan  <i class="fas fa-plus"></i></a>
+ <a class="btn btn-dark animate__animated animate__lightSpeedInLeft " href="{{ route('capitanes.create')}}">Nuevo Capitán  <i class="fas fa-plus"></i></a>
  <hr>
 
  <meta name="csrf-token" content="{{ csrf_token() }}">
@@ -21,7 +21,7 @@
       <th scope="col">Capitán</th>
       <th scope="col">Usuario</th>
       <th scope="col">E-mail</th>
-      <th scope="col">Cuil</th>
+      <th scope="col">CUIL</th>
       <th scope="col">Embarcaciones</th>
       <th scope="col"></th>
       <th scope="col"></th>

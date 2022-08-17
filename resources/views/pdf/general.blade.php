@@ -287,7 +287,7 @@ table td{
       <th><span>{{ $lance['temperatura'] }}</span></th>
     </tr>
     <tr>
-      <th>Viento (nudos)</th>
+      <th>Viento (k/h)</th>
       <th><span>{{ $lance['viento']  }}</span></th>
     </tr>
     <tr>

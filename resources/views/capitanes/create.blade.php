@@ -33,7 +33,7 @@
           
           
             <div class="mb-3">
-              <input type="number" class="form-control active" name="cuil" placeholder="Cuil"  id="cuil" aria-describedby="emailHelp" >
+              <input type="number" class="form-control active" name="cuil" placeholder="CUIL"  id="cuil" aria-describedby="emailHelp" >
               <div class="icono"></div>
             </div>
           

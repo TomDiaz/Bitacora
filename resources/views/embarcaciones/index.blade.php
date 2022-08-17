@@ -8,7 +8,7 @@
 
 @section('content')
 <br>
-<a class="btn btn-dark animate__animated animate__lightSpeedInLeft" href="{{ route('embarcaciones.create')}}">Nueva embarcacion  <i class="fas fa-plus"></i></a>
+<a class="btn btn-dark animate__animated animate__lightSpeedInLeft" href="{{ route('embarcaciones.create')}}">Nueva Embarcación  <i class="fas fa-plus"></i></a>
 <hr>
 
 <table class="table table-striped animate__animated animate__zoomIn">

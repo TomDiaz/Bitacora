@@ -7,6 +7,12 @@ input[type="number"]
     -moz-appearance:textfield !important;
 }
 
+
+.body-home{
+  position: absolute;
+  left: 30px
+}
+
 .error{
   border-left: solid 5px #f27474 !important;
   border-radius: 20px !important;

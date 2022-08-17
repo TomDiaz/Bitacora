@@ -18,7 +18,7 @@
        <span> {{ $embarcaciones }}  </span>
     </div>
     <div class="col-md-8">
-      <div class="card-body">
+      <div class="card-body body-home">
         <h5 class="card-title">EMBARCACIONES</h5>
         <p class="card-text"><small class="text-muted">Embarcaciones registradas en el sitio web</small></p>
 
@@ -38,7 +38,7 @@
     <span class="color_2"> {{ $capitanes }} </span>
   </div>
   <div class="col-md-8">
-    <div class="card-body">
+    <div class="card-body body-home">
       <h5 class="card-title">CAPITANES</h5>
       <p class="card-text"><small class="text-muted">Capitanes registrados en el sitio web</small></p>
 

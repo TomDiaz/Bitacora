@@ -54,4 +54,18 @@ class RecursosController extends Controller
 
     }
 
+
+    public function mayu(){
+     
+        foreach( especie::all() as $especie){
+
+            $especie -> nombre = ucfirst($especie -> nombre);
+            $especie -> nombre_cientifico = ucfirst($especie -> nombre_cientifico);
+            $especie -> save();
+        }
+        
+        return "listorti";
+
+    }
+
 }

@@ -153,9 +153,9 @@ function keyCapitan(id){
          <div class="clave-capitan">
            <h3>Cambio de clave</h3>
            <hr>
-            <input type="password" class="form-control " name="clave" placeholder="Clave" id="clave" aria-describedby="emailHelp" >
+            <input type="password" class="form-control " name="clave" placeholder="Nueva clave" id="clave" aria-describedby="emailHelp" >
             </br>
-            <input type="password" class="form-control " name="clave_confirmation" placeholder="Confirmar Clave" id="clave_confirmation" aria-describedby="emailHelp" >
+            <input type="password" class="form-control " name="clave_confirmation" placeholder="Confirmar nueva clave" id="clave_confirmation" aria-describedby="emailHelp" >
            <hr>
          
          </div>
@@ -333,6 +333,8 @@ function getMap(inicio, fin){
   
 async function popupCapitanes(capitanes){
 
+   console.log(capitanes)
+
     if(capitanes.length > 0){
 
      let data = await fetch('/capchecked')
@@ -356,14 +358,14 @@ async function popupCapitanes(capitanes){
         if(data.find(x => x == element.id)){
           
           tamplate += `
-          <div class="capitan"><span>${element.nombres}</span><input disabled="false" class="check " type="checkbox" checked value="${element.id}" id="capitan-${element.id}"> <i class="fa-solid fa-circle-check"></i></div>
+          <div class="capitan"><span>${element.nombres} ${element.apellidos} - CUIL:${element.cuil}</span><input disabled="false" class="check " type="checkbox" checked value="${element.id}" id="capitan-${element.id}"> <i class="fa-solid fa-circle-check"></i></div>
           `
         }
 
         else{
 
           tamplate += `
-             <div class="capitan"><span>${element.nombres} - CUIL:${element.cuil}</span><input disabled="false" class="check " type="checkbox" value="${element.id}" id="capitan-${element.id}"> <i class="fa-solid"></i></div>
+             <div class="capitan"><span>${element.nombres} ${element.apellidos} - CUIL:${element.cuil}</span><input disabled="false" class="check " type="checkbox" value="${element.id}" id="capitan-${element.id}"> <i class="fa-solid"></i></div>
           `
         }
 

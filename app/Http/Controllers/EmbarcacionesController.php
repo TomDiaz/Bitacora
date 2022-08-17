@@ -117,7 +117,7 @@ class EmbarcacionesController extends Controller
                   'estado' => 0
               ]);
 
-              Notification::route('mail', Capitan::find($capitan) -> email)->notify(new SolicitudCapitan($token));
+              Notification::route('mail', Capitan::find($capitan) -> email)->notify(new SolicitudCapitan($token, auth()->user()->id, $embarcacion -> Nombre));
            }
         }
 

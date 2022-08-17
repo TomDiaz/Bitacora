@@ -26,7 +26,7 @@
                      </div>
                     <div class="form-group form-check">
                         <input type="checkbox" class="form-check-input" wire:model="embarcacion_matricula">
-                        <label class="form-check-label" for="exampleCheck1">Embarcación - Matricula</label>
+                        <label class="form-check-label" for="exampleCheck1">Embarcación - Matrícula</label>
                      </div>
                     <div class="form-group form-check">
                         <input type="checkbox" class="form-check-input" wire:model="capitan">
@@ -34,7 +34,7 @@
                      </div>
                     <div class="form-group form-check">
                         <input type="checkbox" class="form-check-input" wire:model="cuil">
-                        <label class="form-check-label" for="exampleCheck1">Capitán - Cuil</label>
+                        <label class="form-check-label" for="exampleCheck1">Capitán - CUIL</label>
                      </div>
                     <div class="form-group form-check">
                         <input type="checkbox" class="form-check-input" wire:model="fecha_inicial">
@@ -68,7 +68,7 @@
 
                      <div class="form-group form-check">
                         <input type="checkbox" class="form-check-input" wire:model="observaciones_parte_de_pesca">
-                        <label class="form-check-label" for="exampleCheck1">Observacion parte de pesca</label>
+                        <label class="form-check-label" for="exampleCheck1">Observaciones parte de pesca</label>
                      </div>
 
                      <div class="form-group form-check">
