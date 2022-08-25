@@ -332,7 +332,6 @@ function getMap(inicio, fin){
 
   
 async function popupCapitanes(capitanes){
-
    console.log(capitanes)
 
     if(capitanes.length > 0){
@@ -347,15 +346,36 @@ async function popupCapitanes(capitanes){
     console.log(data)
     console.log("----Capitanes elejidos end")                      
   
-    console.log(capitanes)
+   
     let capitanes_nuevo = []
     let tamplate = ''
-    let capitanes_check = data;
+    let capitanes_check = data.id;
     let capitanes_cuil;
 
+    if(data.capitanes.length > 0){
+       data.capitanes.forEach(element => {
+           
+           let check = true;
+
+           if(capitanes.find(x => x.id == element.id)){
+               check = false;
+           }
+
+           if(check){
+             console.log("-----Capitanes elejidos 3")
+             console.log(element)
+             capitanes.push(element)
+           }
+
+       });
+    }
+
+    
+
     capitanes.forEach(element => {
-        console.log(data)
-        if(data.find(x => x == element.id)){
+
+        console.log(data.id)
+        if(data.id.find(x => x == element.id)){
           
           tamplate += `
           <div class="capitan"><span>${element.nombres} ${element.apellidos} - CUIL:${element.cuil}</span><input disabled="false" class="check " type="checkbox" checked value="${element.id}" id="capitan-${element.id}"> <i class="fa-solid fa-circle-check"></i></div>
@@ -452,7 +472,7 @@ async function popupCapitanes(capitanes){
        console.log(capitanes_nuevo)
        capitanes_nuevo.forEach(element => {
         tamplate2 += `
-          <div class="capitan"><span>${element.nombres} - CUIL:${element.cuil} </span><input disabled="false" class="check " type="checkbox" checked value="${element.id}" id="capitan-${element.id}"> <i class="fa-solid fa-circle-check"></i></div>
+          <div class="capitan"><span>${element.nombres} ${element.apellidos} - CUIL:${element.cuil} </span><input disabled="false" class="check " type="checkbox" checked value="${element.id}" id="capitan-${element.id}"> <i class="fa-solid fa-circle-check"></i></div>
           `
         });
 

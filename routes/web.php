@@ -11,6 +11,7 @@ use Illuminate\Http\Request;
 use App\Http\Livewire\Metricas\Graficos;
 use App\Http\Livewire\Metricas\Excel;
 use App\Http\Livewire\Perfil;
+use App\Models\Capitan;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -61,7 +62,13 @@ Route::middleware(['auth:sanctum', 'verified'])->group(function () {
     });
     Route::get('capchecked',function(Request $req){
         session_start();
-        return response()->json($_SESSION['capitanes'],200);
+        $capitanes = array();
+
+        foreach($_SESSION['capitanes'] as $capitan){
+            $capitanes[] = Capitan::find($capitan);
+        }
+
+        return response()->json([ 'id' => $_SESSION['capitanes'], 'capitanes' => $capitanes],200);
     });
 
     Route::get('capitan/{cuil}', [CapitanesController::class, 'filterCapitan']);

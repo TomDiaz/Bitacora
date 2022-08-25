@@ -55,7 +55,7 @@ class EmbarcacionesController extends Controller
         session_start();
         $_SESSION['capitanes'] = [];
 
-        $capitan_armador = capitan_armador::where('id_armador',  auth()->user()->id)->get();
+        $capitan_armador = capitan_armador::where('id_armador',  auth()->user()->id)->where('estado', 1)->get();
 
         $capitanes = array();
 
@@ -147,10 +147,17 @@ class EmbarcacionesController extends Controller
       
 
         $embarcacion = Embarcacion::find($id);
-        $capitanes = Capitan::where('id_armador',  auth()->user()->id)->get();
         $capitanes_array = array();
         $artepesca = ArtePesca::all();
         $tipo_barcos = TipoBarco::all();
+        $capitan_armador = capitan_armador::where('id_armador',  auth()->user()->id)->where('estado', 1)->get();
+
+        $capitanes = array();
+
+        foreach($capitan_armador as $cap){
+            $capitanes[] = Capitan::find($cap -> id_capitan);
+        }
+
 
         foreach(capitanembarcacion::where('IdEmbarcacion', $id)->get() as $capitan){
 
