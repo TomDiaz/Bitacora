@@ -362,7 +362,7 @@ class Excel extends Component
 
          //$especies -> select('capitan.nombres', 'especies.nombre', 'especies.nombre_cientifico', 'especie_lance.id_tipo', 'kilogramos', 'unidades') ->where('especie_lance.id_armador', auth()->user() -> id);
 
-         if( count($especies_cont) < 3 &&  count($especies_cont) != 0){
+         if( count($especies_cont) < 4 &&  count($especies_cont) != 0){
 
             $expulsado = array_filter($valores_tipo, function($var){
                 if($var){
