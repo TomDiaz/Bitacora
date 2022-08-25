@@ -16,6 +16,7 @@ class Excel extends Component
            $capitan,
            $fecha_inicial,
            $puerto_zarpe,
+           $puerto_desembarque,
            $dispositivo_selectividad,
            $mitigacion_bycatch,
            $viento,
@@ -34,6 +35,14 @@ class Excel extends Component
            $cuil,
            $descartada,
            $anio,
+           $pesca_incidental,
+           $prospeccion,
+           $observador_a_bordo,
+           $n_tripulantes,
+           $fecha_hora_zarpe,
+           $fecha_hora_desembarque,
+           $subarea,
+           $zona_pesca,
            $marea;
 
     public function render()
@@ -102,6 +111,15 @@ class Excel extends Component
                $this -> valido = 1;
            }
 
+           if($this -> puerto_desembarque){
+            $especies -> addSelect('puerto.nombre as Puerto_desembarque');
+            $this -> bitacora = true;
+
+            $encabezado[] = 'Puerto de desembarque';
+            $this -> valido = 1;
+        }
+
+
            if($this -> nro_bitacora){
                $especies -> addSelect('bitacora.nombre as Nro_Bitacora');
                $this -> bitacora = true;
@@ -158,13 +176,70 @@ class Excel extends Component
                $this -> valido = 1;
            }
 
+           if($this -> prospeccion){
+            $especies -> addSelect('bitacora.prospeccion');
+            $this -> bitacora = true;
+
+            $encabezado[] = 'Prospección';
+            $this -> valido = 1;
+            }
+           if($this -> observador_a_bordo){
+            $especies -> addSelect('bitacora.observador_a_bordo');
+            $this -> bitacora = true;
+
+            $encabezado[] = 'Observador a bordo';
+            $this -> valido = 1;
+            }
+           if($this -> n_tripulantes){
+            $especies -> addSelect('bitacora.tripulantes');
+            $this -> bitacora = true;
+
+            $encabezado[] = 'N° de tripulantes';
+            $this -> valido = 1;
+            }
+          
+
+           if($this -> fecha_hora_zarpe){
+            $especies -> addSelect('bitacora.fecha_inicial');
+            $this -> bitacora = true;
+
+            $encabezado[] = 'Fecha y hora de zarpe';
+            $this -> valido = 1;
+            }
+           if($this -> fecha_hora_desembarque){
+            $especies -> addSelect('bitacora.fecha_final');
+            $this -> bitacora = true;
+
+            $encabezado[] = 'Fecha y hora de desembarque';
+            $this -> valido = 1;
+            }
+
+
+           if($this -> subarea){
+            $especies -> addSelect('bitacora.subarea');
+            $this -> bitacora = true;
+
+            $encabezado[] = 'Subárea';
+            $this -> valido = 1;
+            }
+
+           if($this -> zona_pesca){
+            $especies -> addSelect('zonapesca.nombre');
+            $this -> bitacora = true;
+
+            $encabezado[] = 'Zona de pesca';
+            $this -> valido = 1;
+            }
+
+       
+
            if($this -> mitigacion_bycatch){
             $especies -> addSelect('bitacora.mitigacion as Mitigacion_Bycatch');
             $this -> bitacora = true;
 
             $encabezado[] = 'Mitigación bycatch';
             $this -> valido = 1;
-        }
+         }
 
         //Bitacora end    
 
@@ -222,9 +297,9 @@ class Excel extends Component
         // Especies
 
            $especies_cont = array();
-           $valores_tipo = [1,2,3];
+           $valores_tipo = [1,2,3,4];
 
-           if($this -> retenida || $this -> descartada || $this -> incidental){
+           if($this -> retenida || $this -> descartada || $this -> incidental || $this -> pesca_incidental){
                $especies -> addSelect('especies.nombre as Nombre_Especie', 'especies.nombre_cientifico as Nombre_Científico','especie_lance.kilogramos', 'especie_lance.cajones', 'especie_lance.unidades', 'tipo_de_especie.nombre as Tipo'); 
                $this -> especie = true;
 
@@ -249,6 +324,10 @@ class Excel extends Component
               $especies_cont[] = 3;
               $valores_tipo[3] = null;
            }
+           if($this -> pesca_incidental) {
+              $especies_cont[] = 4;
+              $valores_tipo[4] = null;
+           }
 
 
 
@@ -260,6 +339,7 @@ class Excel extends Component
         if( $this -> bitacora){
              $especies ->join('embarcacion', 'bitacora.id_embarcacion', '=', 'embarcacion.IdEmbarcacion')
                        ->join('puerto', 'bitacora.id_puerto_zarpe', '=', 'puerto.id')
+                       ->join('zonapesca', 'bitacora.id_zona_de_pesca', '=', 'zonapesca.id')
                        ->join('bitacora_arte_de_pesca', 'bitacora.id', '=', 'bitacora_arte_de_pesca.id_bitacora');
         }
 
@@ -316,6 +396,7 @@ class Excel extends Component
         $this -> capitan = true;
         $this -> fecha_inicial = true;
         $this -> puerto_zarpe = true;
+        $this -> puerto_desembarque = true;
         $this -> dispositivo_selectividad = true;
         $this -> mitigacion_bycatch = true;
         $this -> viento = true;
@@ -334,6 +415,14 @@ class Excel extends Component
         $this -> descartada = true;
         $this -> cuil = true;
         $this -> anio = true;
+        $this -> pesca_incidental = true;
+$this -> prospeccion = true;
+$this -> observador_a_bordo = true;
+$this -> n_tripulantes = true;
+$this -> fecha_hora_zarpe = true;
+$this -> fecha_hora_desembarque = true;
+$this -> subarea = true;
+$this -> zona_pesca = true;
         $this -> marea = true;
     }
 
@@ -344,6 +433,7 @@ class Excel extends Component
         $this -> capitan = false;
         $this -> fecha_inicial = false;
         $this -> puerto_zarpe = false;
+        $this -> puerto_desembarque = false;
         $this -> dispositivo_selectividad = false;
         $this -> mitigacion_bycatch = false;
         $this -> viento = false;
@@ -362,7 +452,15 @@ class Excel extends Component
         $this -> descartada = false;
         $this -> cuil = false;
         $this -> anio = false;
+        $this -> pesca_incidental = false;
         $this -> marea = false;
+        $this -> prospeccion = false;
+        $this -> observador_a_bordo = false;
+        $this -> n_tripulantes = false;
+        $this -> fecha_hora_zarpe = false;
+        $this -> fecha_hora_desembarque = false;
+        $this -> subarea = false;
+        $this -> zona_pesca = false;
     }
 
 }
