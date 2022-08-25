@@ -464,16 +464,31 @@ async function popupCapitanes(capitanes){
                          return data
                      })
        console.log(data)
-
+   
       
        let tamplate2 = ''
-       capitanes_nuevo.push(data)
+
+       if(!data.msj){
+         capitanes_nuevo.push(data)
+       }
+       else{
+        Swal.fire({
+          icon: 'error',
+          title: data.msj,
+          type: "error",
+          showConfirmButton: false,
+          timer: 4000
+    
+        })
+       }
 
        console.log(capitanes_nuevo)
        capitanes_nuevo.forEach(element => {
-        tamplate2 += `
-          <div class="capitan"><span>${element.nombres} ${element.apellidos} - CUIL:${element.cuil} </span><input disabled="false" class="check " type="checkbox" checked value="${element.id}" id="capitan-${element.id}"> <i class="fa-solid fa-circle-check"></i></div>
-          `
+
+             tamplate2 += `
+               <div class="capitan"><span>${element.nombres} ${element.apellidos} - CUIL:${element.cuil} </span><input disabled="false" class="check " type="checkbox" checked value="${element.id}" id="capitan-${element.id}"> <i class="fa-solid fa-circle-check"></i></div>
+               `
+
         });
 
       $('.nuevo_capitan').html(tamplate2)
