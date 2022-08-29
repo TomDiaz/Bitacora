@@ -26,6 +26,7 @@ Route::get('recursos',[RecursosController::class,'index']);
 Route::get('mayu',[RecursosController::class,'mayu']);
 Route::post('especies',[RecursosController::class,'importEspecies']);
 Route::post('bitacora',[BitacorasController::class,'store']);
+Route::post('bitacora/exportar',[BitacorasController::class,'exportar']);
 Route::get('historial/{id}',[BitacorasController::class,'historial']);
 
 Route::get('pdf/parte_de_pesca/{id}',[Bitacora::class,'PDF_PartePesca']);

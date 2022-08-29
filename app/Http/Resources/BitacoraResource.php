@@ -9,9 +9,10 @@ use App\Models\CapitanEmbarcacion;
 use App\Models\puerto;
 use App\Models\zonaPesca;
 use App\Models\coordenada;
-use App\Models\lanceArtePesca;
+use App\Models\BitacoraArtePesca;
 use App\Models\ArtePesca;
 use App\Models\especieLance;
+use App\Models\especie;
 use App\Models\lance;
 use App\Http\Resources\CoordenadasResource;
 use App\Http\Resources\ArtePescaResource;
@@ -30,6 +31,8 @@ class BitacoraResource extends JsonResource
 
         $lances = array();
 
+        $BitacoraArtePesca = BitacoraArtePesca::where('id_bitacora', $this -> id)->get();
+
         foreach(lance::where('id_bitacora', $this -> id )-> get() as $data){
          
 
@@ -39,8 +42,8 @@ class BitacoraResource extends JsonResource
                 'fecha_final' => $data -> fecha_final,
                 'sin_captura' => $data -> sin_captura,
                 'temperatura' => $data -> temperatura,
+                'viento' => $data -> viento,
                 'otro' => $data -> otro,
-                'mitigacion' => $data -> mitigacion,
                 'progreso' => $data -> progreso,
                 'coordenadas'=> CoordenadasResource::collection(coordenada::where('id_lance',  $data -> id)->get()),
                 'especies' => EspeciesResource::collection(especieLance::where('id_lance',  $data -> id)->get())
@@ -58,6 +61,7 @@ class BitacoraResource extends JsonResource
             'matricula' => Embarcacion::find($this -> id_embarcacion) -> Matricula, 
             'tripulantes' => $this -> tripulantes,
             'capitan' => Capitan::find($this -> id_capitan) -> nombres . ' ' . Capitan::find($this -> id_capitan) -> apellidos,
+            'capitan_cuil' => Capitan::find($this -> id_capitan) -> cuil,
             'puerto_zarpe'=> puerto::find($this -> id_puerto_zarpe ) -> nombre,
             'puerto_arribo'=> puerto::find($this -> id_puerto_arribo) -> nombre,
             'viaje_anual'=> $this -> viaje_anual ,
@@ -65,9 +69,16 @@ class BitacoraResource extends JsonResource
             'millas_recogidas'=> $this -> millas_recogidas ,
             'produccion'=> $this -> produccion ,
             'marea' => $this -> marea,
-            'lances' => $lances,
+            'prospeccion' => especie::find($this -> prospeccion) ? especie::find($this -> prospeccion) -> nombre : 'Sin Prospección',
             'observaciones_generales' => $this -> observaciones_generales,
-            'observacion_parte_pesca' => $this -> observacion_parte_pesca
+            'observacion_parte_pesca' => $this -> observacion_parte_pesca,
+            'mitigacion' => $this -> mitigacion,
+            'observador_a_bordo' => $this -> observador_a_bordo > 0 ? 'Si' : 'No',
+            'subarea' => $this -> subarea,
+            'zona_pesca' => zonaPesca::find($this -> id_zona_de_pesca) ? zonaPesca::find($this -> id_zona_de_pesca) -> nombre : null,
+            'arte_pesca' => $BitacoraArtePesca,
+            'lances' => $lances,
+
         ];
     }
 }

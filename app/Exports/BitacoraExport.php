@@ -14,18 +14,17 @@ class BitacoraExport implements FromCollection, ShouldAutoSize, WithHeadings
     */
 
     protected $data;
-    protected $encabezado;
+    protected $cabecera;
 
     public function headings(): array
     {
-        return  $this->encabezado;
+        return $this->cabecera;
     }
 
-
-    public function __construct($data, $encabezado)
+    public function __construct($data, $cabecera)
     {
         $this->data = $data;
-        $this->encabezado = $encabezado;
+        $this->cabecera = $cabecera;
     }
 
     public function collection()

@@ -14,6 +14,7 @@ class tipoEspecie extends Model
     protected $primaryKey= 'id';
 
     protected $fillable = [
+        'id',
         'nombre',
     ];
 }

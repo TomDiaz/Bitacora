@@ -18,90 +18,125 @@
                 <h4>Datos a incluir en planilla</h4>
                 <br>
               <div class="row">
-              
+
               <div class="col">
-                    <div class="form-group form-check">
-                        <input type="checkbox" class="form-check-input" wire:model="embarcacion_nombre" >
-                        <label class="form-check-label" for="exampleCheck1">Embarcación - Nombre</label>
-                     </div>
-                    <div class="form-group form-check">
-                        <input type="checkbox" class="form-check-input" wire:model="embarcacion_matricula">
-                        <label class="form-check-label" for="exampleCheck1">Embarcación - Matrícula</label>
-                     </div>
-                    <div class="form-group form-check">
-                        <input type="checkbox" class="form-check-input" wire:model="capitan">
-                        <label class="form-check-label" for="exampleCheck1">Capitán - Nombre y Apellido</label>
-                     </div>
-                    <div class="form-group form-check">
-                        <input type="checkbox" class="form-check-input" wire:model="cuil">
-                        <label class="form-check-label" for="exampleCheck1">Capitán - CUIL</label>
-                     </div>
-                    <div class="form-group form-check">
-                        <input type="checkbox" class="form-check-input" wire:model="fecha_inicial">
-                        <label class="form-check-label" for="exampleCheck1">Fecha</label>
-                     </div>
-                    <div class="form-group form-check">
-                        <input type="checkbox" class="form-check-input" wire:model="puerto_zarpe">
-                        <label class="form-check-label" for="exampleCheck1">Puerto de zarpe</label>
-                     </div>
-                      </div>
-              <div class="col">
-                    <div class="form-group form-check">
+
+                        <div class="form-group form-check">
                            <input type="checkbox" class="form-check-input" wire:model="nro_bitacora">
                            <label class="form-check-label" for="exampleCheck1">Nº de bitácora</label>
                         </div>
-
-                    <div class="form-group form-check">
-                           <input type="checkbox" class="form-check-input" wire:model="marea">
-                           <label class="form-check-label" for="exampleCheck1">Marea</label>
+                        <div class="form-group form-check">
+                            <input type="checkbox" class="form-check-input" wire:model="embarcacion_nombre" >
+                            <label class="form-check-label" for="exampleCheck1">Embarcación - Nombre</label>
                         </div>
-                        
-                    <div class="form-group form-check">
+                        <div class="form-group form-check">
+                            <input type="checkbox" class="form-check-input" wire:model="embarcacion_matricula">
+                            <label class="form-check-label" for="exampleCheck1">Embarcación - Matrícula</label>
+                         </div>
+                         <div class="form-group form-check">
+                             <input type="checkbox" class="form-check-input" wire:model="capitan">
+                             <label class="form-check-label" for="exampleCheck1">Capitán - Nombre y Apellido</label>
+                        </div>
+                        <div class="form-group form-check">
+                             <input type="checkbox" class="form-check-input" wire:model="cuil">
+                             <label class="form-check-label" for="exampleCheck1">Capitán - CUIL</label>
+                        </div>
+                        <div class="form-group form-check">
+                           <input type="checkbox" class="form-check-input" wire:model="n_tripulantes">
+                           <label class="form-check-label" for="exampleCheck1">N° de tripulantes </label>
+                        </div>         
+                        <div class="form-group form-check">
+                           <input type="checkbox" class="form-check-input" wire:model="fecha_inicial">
+                           <label class="form-check-label" for="exampleCheck1">Fecha</label>
+                        </div>   
+                        <div class="form-group form-check">
                            <input type="checkbox" class="form-check-input" wire:model="anio">
                            <label class="form-check-label" for="exampleCheck1">Año</label>
                         </div>
-
-                      <div class="form-group form-check">
-                        <input type="checkbox" class="form-check-input" wire:model="observaciones_generales">
-                        <label class="form-check-label" for="exampleCheck1">Observaciones generales</label>
-                     </div>
-
-                     <div class="form-group form-check">
-                        <input type="checkbox" class="form-check-input" wire:model="observaciones_parte_de_pesca">
-                        <label class="form-check-label" for="exampleCheck1">Observaciones parte de pesca</label>
-                     </div>
-
-                     <div class="form-group form-check">
-                     <input type="checkbox" class="form-check-input" wire:model="millas_recorridas">
-                     <label class="form-check-label" for="exampleCheck1">Millas recorridas</label>
-                  </div>
-                
-
-                
-                   
+                        <div class="form-group form-check">
+                           <input type="checkbox" class="form-check-input" wire:model="marea">
+                           <label class="form-check-label" for="exampleCheck1">Marea</label>
+                        </div>
+                      
               </div>
+              
               <div class="col">
+                  
+                     
+                   
+                       <div class="form-group form-check">
+                           <input type="checkbox" class="form-check-input" wire:model="puerto_zarpe">
+                           <label class="form-check-label" for="exampleCheck1">Puerto de zarpe</label>
+                       </div>
+                       <div class="form-group form-check">
+                          <input type="checkbox" class="form-check-input" wire:model="puerto_desembarque">
+                          <label class="form-check-label" for="exampleCheck1">Puerto de desembarque </label>
+                       </div>
+                       <div class="form-group form-check">
+                          <input type="checkbox" class="form-check-input" wire:model="millas_recorridas">
+                          <label class="form-check-label" for="exampleCheck1">Millas recorridas</label>
+                       </div>
+                       <div class="form-group form-check">
+                          <input type="checkbox" class="form-check-input" wire:model="combustible">
+                          <label class="form-check-label" for="exampleCheck1">Combustible</label>
+                       </div>
+                       <div class="form-group form-check">
+                           <input type="checkbox" class="form-check-input" wire:model="produccion_total">
+                           <label class="form-check-label" for="exampleCheck1">Producción total</label>
+                        </div>
+                        <div class="form-group form-check">
+                            <input type="checkbox" class="form-check-input" wire:model="observaciones_generales">
+                            <label class="form-check-label" for="exampleCheck1">Observaciones generales</label>
+                         </div>
+                         <div class="form-group form-check">
+                            <input type="checkbox" class="form-check-input" wire:model="observaciones_parte_de_pesca">
+                            <label class="form-check-label" for="exampleCheck1">Observaciones parte de pesca</label>
+                         </div>
+                         <div class="form-group form-check">
+                            <input type="checkbox" class="form-check-input" wire:model="prospeccion">
+                            <label class="form-check-label" for="exampleCheck1">Prospección </label>
+                         </div>
 
-              <div class="form-group form-check">
-                     <input type="checkbox" class="form-check-input" wire:model="produccion_total">
-                     <label class="form-check-label" for="exampleCheck1">Producción total</label>
-                  </div>
+                       <div class="form-group form-check">
+                            <input type="checkbox" class="form-check-input" wire:model="observador_a_bordo">
+                            <label class="form-check-label" for="exampleCheck1">Observador a bordo </label>
+                         </div>
 
-              <div class="form-group form-check">
-                     <input type="checkbox" class="form-check-input" wire:model="combustible">
-                     <label class="form-check-label" for="exampleCheck1">Combustible</label>
-                  </div>
-              <div class="form-group form-check">
-                       <input type="checkbox" class="form-check-input" wire:model="nro_lance">
-                       <label class="form-check-label" for="exampleCheck1">Nº lance</label>
-                    </div>
-        
-                    <div class="form-group form-check">
-                        <input type="checkbox" class="form-check-input" wire:model="mitigacion_bycatch">
-                        <label class="form-check-label" for="exampleCheck1">Mitigación bycatch</label>
-                     </div>
+             </div>
 
-                  <div class="form-group form-check">
+             <div class="col">
+                      
+
+                        <div class="form-group form-check">
+                          <input type="checkbox" class="form-check-input" wire:model="mitigacion_bycatch">
+                          <label class="form-check-label" for="exampleCheck1">Mitigación bycatch</label>
+                       </div>
+                       <div class="form-group form-check">
+                           <input type="checkbox" class="form-check-input" wire:model="fecha_hora_zarpe">
+                           <label class="form-check-label" for="exampleCheck1">Fecha y hora de zarpe </label>
+                        </div>
+                        <div class="form-group form-check">
+                           <input type="checkbox" class="form-check-input" wire:model="fecha_hora_desembarque">
+                           <label class="form-check-label" for="exampleCheck1">Fecha y hora de desembarque </label>
+                        </div>
+                        <div class="form-group form-check">
+                           <input type="checkbox" class="form-check-input" wire:model="subarea">
+                           <label class="form-check-label" for="exampleCheck1">Subárea </label>
+                        </div>
+                        <div class="form-group form-check">
+                            <input type="checkbox" class="form-check-input" wire:model="zona_pesca">
+                            <label class="form-check-label" for="exampleCheck1">Zona de pesca </label>
+                         </div>
+                         <div class="form-group form-check">
+                           <input type="checkbox" class="form-check-input" wire:model="dispositivo_selectividad">
+                           <label class="form-check-label" for="exampleCheck1">Dispositivo de selectividad</label>
+                        </div>
+                        
+                      <div class="form-group form-check">
+                         <input type="checkbox" class="form-check-input" wire:model="nro_lance">
+                         <label class="form-check-label" for="exampleCheck1">Nº lance</label>
+                      </div>
+                      <div class="form-group form-check">
                         <input type="checkbox" class="form-check-input" wire:model="temperatura">
                         <label class="form-check-label" for="exampleCheck1">Temperatura</label>
                      </div>
@@ -109,24 +144,21 @@
                         <input type="checkbox" class="form-check-input" wire:model="viento">
                         <label class="form-check-label" for="exampleCheck1">Viento</label>
                      </div>
-                
-                
-             </div>
-              <div class="col">
 
-                  <div class="form-group form-check">
-                     <input type="checkbox" class="form-check-input" wire:model="total_captura_retenida">
-                     <label class="form-check-label" for="exampleCheck1">Total captura retenida</label>
-                  </div>
-                   <div class="form-group form-check">
-                        <input type="checkbox" class="form-check-input" wire:model="dispositivo_selectividad">
-                        <label class="form-check-label" for="exampleCheck1">Dispositivo de selectividad</label>
-                     </div>
-                
-                    <div class="form-group form-check">
+             </div>
+
+
+             <div class="col">
+             
+                     <div class="form-group form-check">
                        <input type="checkbox" class="form-check-input" wire:model="coordenadas">
                        <label class="form-check-label" for="exampleCheck1">Coordenadas</label>
                     </div>
+                    <div class="form-group form-check">
+                     <input type="checkbox" class="form-check-input" wire:model="total_captura_retenida">
+                     <label class="form-check-label" for="exampleCheck1">Total captura retenida</label>
+                  </div>
+                   
                     <div class="form-group form-check">
                        <input type="checkbox" class="form-check-input" wire:model="retenida">
                        <label class="form-check-label" for="exampleCheck1">Especies  retenidas </label>
@@ -138,51 +170,14 @@
                     <div class="form-group form-check">
                        <input type="checkbox" class="form-check-input" wire:model="descartada">
                        <label class="form-check-label" for="exampleCheck1">Especies descartadas </label>
-                    </div>
-                   
-              </div>
-              <div class="col">
-
-                 <div class="form-group form-check">
+                   </div>
+                   <div class="form-group form-check">
                     <input type="checkbox" class="form-check-input" wire:model="pesca_incidental">
                     <label class="form-check-label" for="exampleCheck1">Pesca incidental </label>
                  </div>
-                    
-                    <div class="form-group form-check">
-                       <input type="checkbox" class="form-check-input" wire:model="puerto_desembarque">
-                       <label class="form-check-label" for="exampleCheck1">Puerto de desembarque </label>
-                    </div>
 
-                    <div class="form-group form-check">
-                       <input type="checkbox" class="form-check-input" wire:model="prospeccion">
-                       <label class="form-check-label" for="exampleCheck1">Prospección </label>
-                    </div>
-                    <div class="form-group form-check">
-                       <input type="checkbox" class="form-check-input" wire:model="observador_a_bordo">
-                       <label class="form-check-label" for="exampleCheck1">Observador a bordo </label>
-                    </div>
-                    <div class="form-group form-check">
-                       <input type="checkbox" class="form-check-input" wire:model="n_tripulantes">
-                       <label class="form-check-label" for="exampleCheck1">N° de tripulantes </label>
-                    </div>
-                    <div class="form-group form-check">
-                       <input type="checkbox" class="form-check-input" wire:model="fecha_hora_zarpe">
-                       <label class="form-check-label" for="exampleCheck1">Fecha y hora de zarpe </label>
-                    </div>
-                    <div class="form-group form-check">
-                       <input type="checkbox" class="form-check-input" wire:model="fecha_hora_desembarque">
-                       <label class="form-check-label" for="exampleCheck1">Fecha y hora de desembarque </label>
-                    </div>
-                    <div class="form-group form-check">
-                       <input type="checkbox" class="form-check-input" wire:model="subarea">
-                       <label class="form-check-label" for="exampleCheck1">Subárea </label>
-                    </div>
-                    <div class="form-group form-check">
-                       <input type="checkbox" class="form-check-input" wire:model="zona_pesca">
-                       <label class="form-check-label" for="exampleCheck1">zona de pesca </label>
-                    </div>
-                 
-              </div>
+             </div>
+         
            
           </div>  
           </div>

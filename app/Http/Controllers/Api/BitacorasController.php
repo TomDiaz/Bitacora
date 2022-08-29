@@ -18,7 +18,7 @@ use App\Models\coordenada;
 use App\Models\especieLance;
 use App\Models\BitacoraArtePesca;
 use App\Http\Resources\BitacoraResource;
-
+use Illuminate\Support\Facades\DB;
 class BitacorasController extends Controller
 {
     
@@ -142,6 +142,165 @@ class BitacorasController extends Controller
 
     }
 
+
+
+    public function exportar(Request $req){
+
+        $data = array();
+        $data_procesada = array();
+        
+        $bitacora = DB::table('bitacora')
+                 ->join('embarcacion', 'bitacora.id_embarcacion', '=', 'embarcacion.IdEmbarcacion')
+                 ->where('IdArmador',1)
+                 ->get();
+
+        $coleccion =   BitacoraResource::collection($bitacora);
+
+        foreach( $coleccion  as $item){
+            $data[] =  json_decode(json_encode($item), true);
+        }
+
+         
+        $check_bitacora = $req -> check_bitacora;
+        $check_lance = $req -> check_lance;
+        $check_especie =  $req -> check_especie;
+
+
+        foreach($data as $bitacora){  //CAPA BITACORA
+          
+              if($check_bitacora){
+
+                $data_procesada[] = [
+                  //Bitacora
+                 'Nº de bitacora' => $bitacora['nombre'],
+                 'Embarcación - Nombre' => $bitacora['embarcacion'],
+                 'Embarcación - Matrícula' => $bitacora['matricula'],
+                 'Capitán - Nombre y Apellido' => $bitacora['capitan'],
+                 'Capitán - CUIL' =>  $bitacora['capitan_cuil'],
+                 'N° de tripulantes' =>  $bitacora['tripulantes'],
+                 'Fecha' => $bitacora['fecha_inicial'],
+                 'Año' => $bitacora['fecha_inicial'],
+                 'Marea' => $bitacora['marea'],
+                 'Puerto de zarpe' => $bitacora['puerto_zarpe'],
+                 'Puerto de desembarque' => $bitacora['puerto_arribo'],
+                 'Millas recorridas' =>  $bitacora['millas_recogidas'],
+                 'Combustible' =>  $bitacora['combustible'],
+                 'Producción total' =>  $bitacora['produccion'],
+                 'Observaciones generales' =>  $bitacora['observaciones_generales'],
+                 'Observaciones parte de pesca' =>  $bitacora['observacion_parte_pesca'],
+                 'Prospección' => $bitacora['prospeccion'],
+                 'Observador a bordo' => $bitacora['observador_a_bordo'],
+                 'Mitigación bycatch' => $bitacora['mitigacion'],
+                 'Fecha y hora de zarpe' => $bitacora['fecha_inicial'],
+                 'Fecha y hora de desembarque' => $bitacora['fecha_final'],
+                 'Subárea' => $bitacora['subarea'],
+                 'Zona de pesca' => $bitacora['zona_pesca'],
+                 'Dispositivo de selectividad' => $bitacora['arte_pesca'][0]['nombre_dispositivo'],
+                  
+               ];
+
+              }
+
+           foreach($bitacora['lances'] as $lance){ //CAPA LANCES
+
+                 if($check_lance){
+
+                   $data_procesada[] = [
+                     //Bitacora
+                    'Nº de bitacora' => $bitacora['nombre'],
+                    'Embarcación - Nombre' => $bitacora['embarcacion'],
+                    'Embarcación - Matrícula' => $bitacora['matricula'],
+                    'Capitán - Nombre y Apellido' => $bitacora['capitan'],
+                    'Capitán - CUIL' =>  $bitacora['capitan_cuil'],
+                    'N° de tripulantes' =>  $bitacora['tripulantes'],
+                    'Fecha' => $bitacora['fecha_inicial'],
+                    'Año' => $bitacora['fecha_inicial'],
+                    'Marea' => $bitacora['marea'],
+                    'Puerto de zarpe' => $bitacora['puerto_zarpe'],
+                    'Puerto de desembarque' => $bitacora['puerto_arribo'],
+                    'Millas recorridas' =>  $bitacora['millas_recogidas'],
+                    'Combustible' =>  $bitacora['combustible'],
+                    'Producción total' =>  $bitacora['produccion'],
+                    'Observaciones generales' =>  $bitacora['observaciones_generales'],
+                    'Observaciones parte de pesca' =>  $bitacora['observacion_parte_pesca'],
+                    'Prospección' => $bitacora['prospeccion'],
+                    'Observador a bordo' => $bitacora['observador_a_bordo'],
+                    'Mitigación bycatch' => $bitacora['mitigacion'],
+                    'Fecha y hora de zarpe' => $bitacora['fecha_inicial'],
+                    'Fecha y hora de desembarque' => $bitacora['fecha_final'],
+                    'Subárea' => $bitacora['subarea'],
+                    'Zona de pesca' => $bitacora['zona_pesca'],
+                    'Dispositivo de selectividad' => $bitacora['arte_pesca'][0]['nombre_dispositivo'],
+                    //Lance
+                    'Nº Lance' => $lance['nombre'],
+                    'Temperatura' => $lance['temperatura'],
+                    'Viento' =>  $lance['viento'],
+                    'Coordenadas Inicio' => $lance['coordenadas'][0]['latitud'] . ' - ' . $lance['coordenadas'][0]['longitud'] ,
+                    'Coordenadas Fin' => $lance['coordenadas'][1]['latitud'] . ' - ' . $lance['coordenadas'][1]['longitud'] ,
+                  ];
+
+                 }
+
+               foreach($lance['especies'] as $especie){ //CAPA ESPECIES
+
+                    if($check_especie){
+                      $data_procesada[] = [
+                         //Bitacora
+                        'Nº de bitacora' => $bitacora['nombre'],
+                        'Embarcación - Nombre' => $bitacora['embarcacion'],
+                        'Embarcación - Matrícula' => $bitacora['matricula'],
+                        'Capitán - Nombre y Apellido' => $bitacora['capitan'],
+                        'Capitán - CUIL' =>  $bitacora['capitan_cuil'],
+                        'N° de tripulantes' =>  $bitacora['tripulantes'],
+                        'Fecha' => $bitacora['fecha_inicial'],
+                        'Año' => $bitacora['fecha_inicial'],
+                        'Marea' => $bitacora['marea'],
+                        'Puerto de zarpe' => $bitacora['puerto_zarpe'],
+                        'Puerto de desembarque' => $bitacora['puerto_arribo'],
+                        'Millas recorridas' =>  $bitacora['millas_recogidas'],
+                        'Combustible' =>  $bitacora['combustible'],
+                        'Producción total' =>  $bitacora['produccion'],
+                        'Observaciones generales' =>  $bitacora['observaciones_generales'],
+                        'Observaciones parte de pesca' =>  $bitacora['observacion_parte_pesca'],
+                        'Prospección' => $bitacora['prospeccion'],
+                        'Observador a bordo' => $bitacora['observador_a_bordo'],
+                        'Mitigación bycatch' => $bitacora['mitigacion'],
+                        'Fecha y hora de zarpe' => $bitacora['fecha_inicial'],
+                        'Fecha y hora de desembarque' => $bitacora['fecha_final'],
+                        'Subárea' => $bitacora['subarea'],
+                        'Zona de pesca' => $bitacora['zona_pesca'],
+                        'Dispositivo de selectividad' => $bitacora['arte_pesca'][0]['nombre_dispositivo'],
+                        //Lance
+                        'Nº Lance' => $lance['nombre'],
+                        'Temperatura' => $lance['temperatura'],
+                        'Viento' =>  $lance['viento'],
+                        'Coordenadas Inicio' => $lance['coordenadas'][0]['latitud'] . ' - ' . $lance['coordenadas'][0]['longitud'] ,
+                        'Coordenadas Fin' => $lance['coordenadas'][1]['latitud'] . ' - ' . $lance['coordenadas'][1]['longitud'] ,
+                         
+                         //Especie
+                        'Nombre común' => $especie['nombre'],
+                        'Nombre científico' => $especie['nombre_cientifico'],
+                        'Nombre científico' => $especie['nombre_cientifico'],
+                        'kg' => $especie['kilogramos'],
+                        'Cajones' => $especie['cajones'],
+                        'Unidades' => $especie['unidades'],
+                        'Talla' => $especie['talla_tamanio'],
+                        'Tipo de especie' => $especie['tipo'],
+                        'es' => $especie
+
+                      ];
+                    }
+
+               }
+            
+           }
+
+        }
+
+      
+      
+        return  $data_procesada;
+      }
 
   
 

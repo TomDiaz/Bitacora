@@ -20,6 +20,7 @@ class EspeciesResource extends JsonResource
 
             'nombre' => especie::find($this -> id_especie) -> nombre,
             'nombre_cientifico' => especie::find($this -> id_especie) -> nombre_cientifico,
+            'id_tipo' => tipoEspecie::find($this -> id_tipo) -> id ,
             'tipo' => tipoEspecie::find($this -> id_tipo) -> nombre ,
             'kilogramos' => $this -> kilogramos,
             'cajones' => $this -> cajones,

@@ -6,10 +6,15 @@ use Maatwebsite\Excel\Facades\Excel as ExportExcel;
 use Livewire\Component;
 use Illuminate\Support\Facades\DB;
 use App\Exports\BitacoraExport;
+use App\Http\Resources\BitacoraResource;
+use Illuminate\Support\Arr;
+use PhpParser\Node\Expr\FuncCall;
 
 class Excel extends Component
 {
 
+    protected $cabecera = array();
+    protected $especies_check = array();
     public $bitacora = false, $lance = false, $especie = false, $desde, $hasta, $valido;
     public $embarcacion_nombre, 
            $embarcacion_matricula,
@@ -50,343 +55,303 @@ class Excel extends Component
         return view('livewire.metricas.excel');
     }
 
+
     public function exportar(){
 
-        $especies = DB::table('bitacora');
-        $encabezado = array();
+        $data = array();
+        $data_procesada = array();
+
+        if($this -> desde && $this -> hasta){
+          $bitacora = DB::table('bitacora')
+                      ->join('embarcacion', 'bitacora.id_embarcacion', '=', 'embarcacion.IdEmbarcacion')
+                      -> where('bitacora.fecha_inicial', '>=' , $this -> desde )
+                      ->where('bitacora.fecha_inicial', '<=' , $this -> hasta )
+                      ->where('IdArmador', auth()->user() -> id)
+                      ->get();
+       }
+       else{
+          $bitacora = DB::table('bitacora')
+                      ->join('embarcacion', 'bitacora.id_embarcacion', '=', 'embarcacion.IdEmbarcacion')
+                      ->where('IdArmador', auth()->user() -> id)
+                      ->get();
+       }
+       
+
+      
+
+        $coleccion =   BitacoraResource::collection($bitacora);
+
+        foreach( $coleccion  as $item){
+            $data[] =  json_decode(json_encode($item), true);
+        }
+
+        $this -> check();
+
+        $vuelta = 0;
+
+        foreach($data as $bitacora){  //CAPA BITACORA
+          
+              if($this -> bitacora){
+                $vuelta++;
+                $data_procesada[] = [
+                  //Bitacora
+                 'Nº de bitacora' => $this -> nro_bitacora ? $this -> newCabecera($bitacora['nombre'],  'Nº de bitacora', $vuelta)  : null,
+                 'Embarcación - Nombre' => $this -> embarcacion_nombre ?  $this -> newCabecera($bitacora['embarcacion'], 'Embarcación - Nombre', $vuelta) : null,
+                 'Embarcación - Matrícula' => $this -> embarcacion_matricula ?  $this -> newCabecera($bitacora['matricula'],  'Embarcación - Matrícula', $vuelta)  : null,
+                 'Capitán - Nombre y Apellido' =>  $this -> capitan  ?  $this -> newCabecera($bitacora['capitan'],  'Capitán - Nombre y Apellido', $vuelta)  : null,
+                 'Capitán - CUIL' =>  $this -> cuil ?   $this -> newCabecera($bitacora['capitan_cuil'], 'Capitán - CUIL', $vuelta) : null,
+                 'N° de tripulantes' => $this -> n_tripulantes ?  $this -> newCabecera($bitacora['tripulantes'], 'N° de tripulantes', $vuelta) : null,
+                 'Fecha' => $this -> fecha_inicial ?  $this -> newCabecera(date("d/m/Y", strtotime($bitacora['fecha_inicial'])),'Fecha', $vuelta) : null,
+                 'Año' => $this -> anio ? $this -> newCabecera(date("Y", strtotime($bitacora['fecha_inicial'])),'Año', $vuelta) : null,
+                 'Marea' => $this -> marea ?  $this -> newCabecera($bitacora['marea'], 'Marea', $vuelta) : null,
+                 'Puerto de zarpe' => $this -> puerto_zarpe ?  $this -> newCabecera($bitacora['puerto_zarpe'], 'Puerto de zarpe', $vuelta) : null,
+                 'Puerto de desembarque' => $this -> puerto_desembarque ?  $this -> newCabecera($bitacora['puerto_arribo'], 'Puerto de desembarque', $vuelta) : null,
+                 'Millas recorridas' =>  $this -> millas_recorridas ?  $this -> newCabecera($bitacora['millas_recogidas'], 'Millas recorridas', $vuelta) : null,
+                 'Combustible' => $this -> combustible ?  $this -> newCabecera($bitacora['combustible'],'Combustible', $vuelta) : null,
+                 'Producción total' =>  $this -> produccion_total ?   $this -> newCabecera($bitacora['produccion'],'Producción total', $vuelta) : null,
+                 'Observaciones generales' =>  $this -> observaciones_generales ? $this -> newCabecera($bitacora['observaciones_generales'],'Observaciones generales', $vuelta) : null,
+                 'Observaciones parte de pesca' => $this -> observaciones_parte_de_pesca ?  $this -> newCabecera($bitacora['observacion_parte_pesca'],'Observaciones parte de pesca', $vuelta) : null,
+                 'Prospección' =>  $this -> prospeccion ? $this -> newCabecera($bitacora['prospeccion'],'Prospección',$vuelta) : null,
+                 'Observador a bordo' => $this -> observador_a_bordo ?  $this -> newCabecera($bitacora['observador_a_bordo'],'Observador a bordo', $vuelta) : null,
+                 'Mitigación bycatch' => $this -> mitigacion_bycatch ? $this -> newCabecera($bitacora['mitigacion'],'Mitigación bycatch', $vuelta) : null,
+                 'Fecha y hora de zarpe' =>  $this -> fecha_hora_zarpe ?  $this -> newCabecera($bitacora['fecha_inicial'],'Fecha y hora de zarpe', $vuelta) : null,
+                 'Fecha y hora de desembarque' =>  $this -> fecha_hora_desembarque ?  $this -> newCabecera($bitacora['fecha_final'],'Fecha y hora de desembarque', $vuelta) : null,
+                 'Subárea' =>  $this -> subarea ? $this -> newCabecera($bitacora['subarea'],'Subárea', $vuelta) : null,
+                 'Zona de pesca' => $this -> zona_pesca ?  $this -> newCabecera($bitacora['zona_pesca'],'Zona de pesca', $vuelta) : null,
+                 'Nombre dispositivo' => $this -> dispositivo_selectividad ?  $this -> newCabecera($bitacora['arte_pesca'][0]['nombre_dispositivo'],'Nombre dispositivo', $vuelta) : null,
+                 'Tamaño dispositivo' => $this -> dispositivo_selectividad ?  $this -> newCabecera($bitacora['arte_pesca'][0]['tamanio'],'Tamaño dispositivo', $vuelta) : null,
+                 'Tipo de malla' => $this -> dispositivo_selectividad ?  $this -> newCabecera($bitacora['arte_pesca'][0]['tipo_malla'],'Tipo de malla', $vuelta) : null,
+                 'Luz de malla' => $this -> dispositivo_selectividad ?  $this -> newCabecera($bitacora['arte_pesca'][0]['luz_malla'],'Luz de malla', $vuelta) : null,
+                  
+               ];
+
+              }
+
+           foreach($bitacora['lances'] as $lance){ //CAPA LANCES
+
+                 if($this -> lance){
+                    $vuelta++;
+                   $data_procesada[] = [
+                    //Bitacora
+                   'Nº de bitacora' => $this -> nro_bitacora ? $this -> newCabecera($bitacora['nombre'],  'Nº de bitacora', $vuelta)  : null,
+                   'Embarcación - Nombre' => $this -> embarcacion_nombre ?  $this -> newCabecera($bitacora['embarcacion'], 'Embarcación - Nombre', $vuelta) : null,
+                   'Embarcación - Matrícula' => $this -> embarcacion_matricula ?  $this -> newCabecera($bitacora['matricula'],  'Embarcación - Matrícula', $vuelta)  : null,
+                   'Capitán - Nombre y Apellido' =>  $this -> capitan  ?  $this -> newCabecera($bitacora['capitan'],  'Capitán - Nombre y Apellido', $vuelta)  : null,
+                   'Capitán - CUIL' =>  $this -> cuil ?   $this -> newCabecera($bitacora['capitan_cuil'], 'Capitán - CUIL', $vuelta) : null,
+                   'N° de tripulantes' => $this -> n_tripulantes ?  $this -> newCabecera($bitacora['tripulantes'], 'N° de tripulantes', $vuelta) : null,
+                   'Fecha' => $this -> fecha_inicial ?  $this -> newCabecera(date("d/m/Y", strtotime($bitacora['fecha_inicial'])),'Fecha', $vuelta) : null,
+                   'Año' => $this -> anio ? $this -> newCabecera(date("Y", strtotime($bitacora['fecha_inicial'])),'Año', $vuelta) : null,
+                   'Marea' => $this -> marea ?  $this -> newCabecera($bitacora['marea'], 'Marea', $vuelta) : null,
+                   'Puerto de zarpe' => $this -> puerto_zarpe ?  $this -> newCabecera($bitacora['puerto_zarpe'], 'Puerto de zarpe', $vuelta) : null,
+                   'Puerto de desembarque' => $this -> puerto_desembarque ?  $this -> newCabecera($bitacora['puerto_arribo'], 'Puerto de desembarque', $vuelta) : null,
+                   'Millas recorridas' =>  $this -> millas_recorridas ?  $this -> newCabecera($bitacora['millas_recogidas'], 'Millas recorridas', $vuelta) : null,
+                   'Combustible' => $this -> combustible ?  $this -> newCabecera($bitacora['combustible'],'Combustible', $vuelta) : null,
+                   'Producción total' =>  $this -> produccion_total ?   $this -> newCabecera($bitacora['produccion'],'Producción total', $vuelta) : null,
+                   'Observaciones generales' =>  $this -> observaciones_generales ? $this -> newCabecera($bitacora['observaciones_generales'],'Observaciones generales', $vuelta) : null,
+                   'Observaciones parte de pesca' => $this -> observaciones_parte_de_pesca ?  $this -> newCabecera($bitacora['observacion_parte_pesca'],'Observaciones parte de pesca', $vuelta) : null,
+                   'Prospección' =>  $this -> prospeccion ? $this -> newCabecera($bitacora['prospeccion'],'Prospección', $vuelta) : null,
+                   'Observador a bordo' => $this -> observador_a_bordo ?  $this -> newCabecera($bitacora['observador_a_bordo'],'Observador a bordo', $vuelta) : null,
+                   'Mitigación bycatch' => $this -> mitigacion_bycatch ? $this -> newCabecera($bitacora['mitigacion'],'Mitigación bycatch', $vuelta) : null,
+                   'Fecha y hora de zarpe' =>  $this -> fecha_hora_zarpe ?  $this -> newCabecera($bitacora['fecha_inicial'],'Fecha y hora de zarpe', $vuelta) : null,
+                   'Fecha y hora de desembarque' =>  $this -> fecha_hora_desembarque ?  $this -> newCabecera($bitacora['fecha_final'],'Fecha y hora de desembarque', $vuelta) : null,
+                   'Subárea' =>  $this -> subarea ? $this -> newCabecera($bitacora['subarea'],'Subárea', $vuelta) : null,
+                   'Zona de pesca' => $this -> zona_pesca ?  $this -> newCabecera($bitacora['zona_pesca'],'Zona de pesca', $vuelta) : null,
+                   'Nombre dispositivo' => $this -> dispositivo_selectividad ?  $this -> newCabecera($bitacora['arte_pesca'][0]['nombre_dispositivo'],'Nombre dispositivo', $vuelta) : null,
+                   'Tamaño dispositivo' => $this -> dispositivo_selectividad ?  $this -> newCabecera($bitacora['arte_pesca'][0]['tamanio'],'Tamaño dispositivo', $vuelta) : null,
+                   'Tipo de malla' => $this -> dispositivo_selectividad ?  $this -> newCabecera($bitacora['arte_pesca'][0]['tipo_malla'],'Tipo de malla', $vuelta) : null,
+                   'Luz de malla' => $this -> dispositivo_selectividad ?  $this -> newCabecera($bitacora['arte_pesca'][0]['luz_malla'],'Luz de malla', $vuelta) : null,
+
+                    //Lance
+                    'Nº Lance' => $this -> nro_lance ? $this -> newCabecera($lance['nombre'],'Nº Lance', $vuelta) : null,
+                    'Temperatura' => $this -> temperatura ? $this -> newCabecera($lance['temperatura'],'Temperatura', $vuelta) : null,
+                    'Viento' =>  $this -> viento ?  $this -> newCabecera($lance['viento'],'Viento', $vuelta) : null,
+                    'Coordenadas Inicio' => $this -> coordenadas ?  $this -> newCabecera($lance['coordenadas'][0]['latitud'] . ' - ' . $lance['coordenadas'][0]['longitud'] ,'Coordenadas Inicio',$vuelta) : null,
+                    'Coordenadas Fin' => $this -> coordenadas ?  $this -> newCabecera($lance['coordenadas'][1]['latitud'] . ' - ' . $lance['coordenadas'][1]['longitud'] ,'Coordenadas Fin',$vuelta) : null,
+                  ];
+
+                 }
+
+               foreach($lance['especies'] as $especie){ //CAPA ESPECIES
+                    
+                    if($this -> especie && $this -> especieFilter($especie['id_tipo'])){
+                        $vuelta++;
+                      $data_procesada[] = [
+                         //Bitacora
+                        'Nº de bitacora' => $this -> nro_bitacora ? $this -> newCabecera($bitacora['nombre'],  'Nº de bitacora', $vuelta)  : null,
+                        'Embarcación - Nombre' => $this -> embarcacion_nombre ?  $this -> newCabecera($bitacora['embarcacion'], 'Embarcación - Nombre', $vuelta) : null,
+                        'Embarcación - Matrícula' => $this -> embarcacion_matricula ?  $this -> newCabecera($bitacora['matricula'],  'Embarcación - Matrícula', $vuelta)  : null,
+                        'Capitán - Nombre y Apellido' =>  $this -> capitan  ?  $this -> newCabecera($bitacora['capitan'],  'Capitán - Nombre y Apellido', $vuelta)  : null,
+                        'Capitán - CUIL' =>  $this -> cuil ?   $this -> newCabecera($bitacora['capitan_cuil'], 'Capitán - CUIL', $vuelta) : null,
+                        'N° de tripulantes' => $this -> n_tripulantes ?  $this -> newCabecera($bitacora['tripulantes'], 'N° de tripulantes', $vuelta) : null,
+                        'Fecha' => $this -> fecha_inicial ?  $this -> newCabecera(date("d/m/Y", strtotime($bitacora['fecha_inicial'])),'Fecha', $vuelta) : null,
+                        'Año' => $this -> anio ? $this -> newCabecera(date("Y", strtotime($bitacora['fecha_inicial'])),'Año', $vuelta) : null,
+                        'Marea' => $this -> marea ?  $this -> newCabecera($bitacora['marea'], 'Marea', $vuelta) : null,
+                        'Puerto de zarpe' => $this -> puerto_zarpe ?  $this -> newCabecera($bitacora['puerto_zarpe'], 'Puerto de zarpe', $vuelta) : null,
+                        'Puerto de desembarque' => $this -> puerto_desembarque ?  $this -> newCabecera($bitacora['puerto_arribo'], 'Puerto de desembarque', $vuelta) : null,
+                        'Millas recorridas' =>  $this -> millas_recorridas ?  $this -> newCabecera($bitacora['millas_recogidas'], 'Millas recorridas', $vuelta) : null,
+                        'Combustible' => $this -> combustible ?  $this -> newCabecera($bitacora['combustible'],'Combustible', $vuelta) : null,
+                        'Producción total' =>  $this -> produccion_total ?   $this -> newCabecera($bitacora['produccion'],'Producción total', $vuelta) : null,
+                        'Observaciones generales' =>  $this -> observaciones_generales ? $this -> newCabecera($bitacora['observaciones_generales'],'Observaciones generales', $vuelta) : null,
+                        'Observaciones parte de pesca' => $this -> observaciones_parte_de_pesca ?  $this -> newCabecera($bitacora['observacion_parte_pesca'],'Observaciones parte de pesca', $vuelta) : null,
+                        'Prospección' =>  $this -> prospeccion ? $this -> newCabecera($bitacora['prospeccion'],'Prospección', $vuelta) : null,
+                        'Observador a bordo' => $this -> observador_a_bordo ?  $this -> newCabecera($bitacora['observador_a_bordo'],'Observador a bordo', $vuelta) : null,
+                        'Mitigación bycatch' => $this -> mitigacion_bycatch ? $this -> newCabecera($bitacora['mitigacion'],'Mitigación bycatch', $vuelta) : null,
+                        'Fecha y hora de zarpe' =>  $this -> fecha_hora_zarpe ?  $this -> newCabecera($bitacora['fecha_inicial'],'Fecha y hora de zarpe', $vuelta) : null,
+                        'Fecha y hora de desembarque' =>  $this -> fecha_hora_desembarque ?  $this -> newCabecera($bitacora['fecha_final'],'Fecha y hora de desembarque', $vuelta) : null,
+                        'Subárea' =>  $this -> subarea ? $this -> newCabecera($bitacora['subarea'],'Subárea', $vuelta) : null,
+                        'Zona de pesca' => $this -> zona_pesca ?  $this -> newCabecera($bitacora['zona_pesca'],'Zona de pesca', $vuelta) : null,
+                        'Nombre dispositivo' => $this -> dispositivo_selectividad ?  $this -> newCabecera($bitacora['arte_pesca'][0]['nombre_dispositivo'],'Nombre dispositivo', $vuelta) : null,
+                        'Tamaño dispositivo' => $this -> dispositivo_selectividad ?  $this -> newCabecera($bitacora['arte_pesca'][0]['tamanio'],'Tamaño dispositivo', $vuelta) : null,
+                        'Tipo de malla' => $this -> dispositivo_selectividad ?  $this -> newCabecera($bitacora['arte_pesca'][0]['tipo_malla'],'Tipo de malla', $vuelta) : null,
+                        'Luz de malla' => $this -> dispositivo_selectividad ?  $this -> newCabecera($bitacora['arte_pesca'][0]['luz_malla'],'Luz de malla', $vuelta) : null,
+
+                        //Lance
+                        'Nº Lance' => $this -> nro_lance ? $this -> newCabecera($lance['nombre'],'Nº Lance', $vuelta) : null,
+                        'Temperatura' => $this -> temperatura ? $this -> newCabecera($lance['temperatura'],'Temperatura', $vuelta) : null,
+                        'Viento' =>  $this -> viento ?  $this -> newCabecera($lance['viento'],'Viento', $vuelta) : null,
+                        'Coordenadas Inicio' => $this -> coordenadas ?  $this -> newCabecera($lance['coordenadas'][0]['latitud'] . ' - ' . $lance['coordenadas'][0]['longitud'] ,'Coordenadas Inicio',$vuelta) : null,
+                        'Coordenadas Fin' => $this -> coordenadas ?  $this -> newCabecera($lance['coordenadas'][1]['latitud'] . ' - ' . $lance['coordenadas'][1]['longitud'] ,'Coordenadas Fin',$vuelta) : null,
+                             
+                         //Especie
+                        'Nombre común' => $this -> newCabecera($especie['nombre'],'Nombre común',$vuelta),
+                        'Nombre científico' =>  $this -> newCabecera($especie['nombre_cientifico'],'Nombre científico',$vuelta),
+                        'kg' => $this -> newCabecera($especie['kilogramos'],'kg',$vuelta),
+                        'Cajones' => $this -> newCabecera($especie['cajones'],'Cajones',$vuelta),
+                        'Unidades' => $this -> newCabecera($especie['unidades'],'Unidades',$vuelta),
+                        'Talla' => $this -> newCabecera($especie['talla_tamanio'],'Talla',$vuelta),
+                        'Tipo de especie' => $this -> newCabecera($especie['tipo'],'Tipo de especie',$vuelta),
+                      ];
+                    }
+
+               }
+            
+           }
+
+        }
+
+        if($this -> valido == 1){
+            return ExportExcel::download(new BitacoraExport(collect( $this -> dataFilter($data_procesada)), $this -> cabecera), 'planilla.xlsx');
+        }
+
+        session()->flash('message', 'Debe elejir al menos un dato a exportar.');
+    }
+
+
+    public function dataFilter($data_procesada){
+
+        $data_final = array();
+     
+        foreach($data_procesada as $data){
+          
+          $data_aux = array();
+
+          foreach($this -> cabecera as $header)
+          {
+            $data_aux[] = $data[$header];
+          }
+
+          $data_final[] = $data_aux;
+
+        }
+      
+        return  $data_final;
+    }
+
+    public function especieFilter($especie){
+
+        foreach($this -> especies_check as $tipo){
+            if($especie == $tipo){
+                return true;
+            }
+        }
+
+        return false;
+    }
+
+
+    public function newCabecera($valor, $cab, $vuelta){
+        if($vuelta == 1){
+            $this -> cabecera[] = $cab;
+        }
+       return $valor;
+    }
+
+    public function check(){
+
 
         $this -> valido = 0;
         $this -> lance = false;
         $this -> especie = false;
         $this -> bitacora = false;
+        
         //Bitacora
-           if($this -> embarcacion_nombre){
-               $especies -> addSelect('embarcacion.Nombre as Embarcacion_Nombre');
+           if( $this -> embarcacion_nombre || 
+               $this -> embarcacion_matricula ||
+               $this -> capitan ||
+               $this -> cuil ||
+               $this -> fecha_inicial ||
+               $this -> puerto_zarpe ||
+               $this -> puerto_desembarque ||
+               $this -> nro_bitacora ||
+               $this -> marea ||
+               $this -> observaciones_generales || 
+               $this -> observaciones_parte_de_pesca ||
+               $this -> millas_recorridas ||
+               $this -> produccion_total ||
+               $this -> combustible ||
+               $this -> prospeccion ||
+               $this -> observador_a_bordo ||
+               $this -> n_tripulantes ||
+               $this -> fecha_hora_zarpe ||
+               $this -> fecha_hora_desembarque ||
+               $this -> subarea ||
+               $this -> zona_pesca ||
+               $this -> mitigacion_bycatch ||
+               $this -> anio ||
+               $this -> dispositivo_selectividad
+            ){
                $this -> bitacora = true;
-
-               $encabezado[] = 'Nombre de la embarcación';
                $this -> valido = 1;
            }    
-   
-           if($this -> embarcacion_matricula){
-               $especies -> addSelect('embarcacion.Matricula');
-               $this -> bitacora = true;
-
-               $encabezado[] = 'Matrícula de la embarcación';
-               $this -> valido = 1;
-           }    
-           
-           if($this -> capitan){
-               $especies -> addSelect('capitan.nombres as Nombre_Capitan', 'capitan.apellidos as Apellido_Capitan');
-               $this -> bitacora = true;
-
-               $encabezado[] = 'Nombre del capitán';
-               $encabezado[] = 'Apellido del capitán';
-               $this -> valido = 1;
-           }
-
-           if($this -> cuil){
-               $especies -> addSelect('capitan.cuil');
-               $this -> bitacora = true;
-
-               $encabezado[] = 'Cuil del capitán';
-               $this -> valido = 1;
-           }
-           
-           if($this -> fecha_inicial){
-               $especies -> addSelect('bitacora.fecha_inicial as Fecha');
-               $this -> bitacora = true;
-
-               $encabezado[] = 'Fecha';
-               $this -> valido = 1;
-           }
-           
-         
-           
-           if($this -> puerto_zarpe){
-               $especies -> addSelect('puerto.nombre as Puerto_Zarpe');
-               $this -> bitacora = true;
-
-               $encabezado[] = 'Puerto de Zarpe';
-               $this -> valido = 1;
-           }
-
-           if($this -> puerto_desembarque){
-            $especies -> addSelect('puerto.nombre as Puerto_desembarque');
-            $this -> bitacora = true;
-
-            $encabezado[] = 'Puerto de desembarque';
-            $this -> valido = 1;
-        }
-
-
-           if($this -> nro_bitacora){
-               $especies -> addSelect('bitacora.nombre as Nro_Bitacora');
-               $this -> bitacora = true;
-
-               $encabezado[] = 'Nº bitácora';
-               $this -> valido = 1;
-           }
-
-           if($this -> marea){
-               $especies -> addSelect('bitacora.marea');
-               $this -> bitacora = true;
-
-               $encabezado[] = 'Marea';
-               $this -> valido = 1;
-           }
-
-           if($this -> observaciones_generales){
-               $especies -> addSelect('bitacora.observaciones_generales');
-               $this -> bitacora = true;
-
-               $encabezado[] = 'Observaciones generales';
-               $this -> valido = 1;
-           }
-
-           if($this -> observaciones_parte_de_pesca){
-               $especies -> addSelect('bitacora.observacion_parte_pesca');
-               $this -> bitacora = true;
-
-               $encabezado[] = 'Observacion parte de pesca';
-               $this -> valido = 1;
-           }
-
-           if($this -> millas_recorridas){
-               $especies -> addSelect('bitacora.millas_recogidas as Millas_Recorridas');
-               $this -> bitacora = true;
-
-               $encabezado[] = 'Millas Recorridas';
-               $this -> valido = 1;
-           }
-
-           if($this -> produccion_total){
-               $especies -> addSelect('bitacora.produccion as Produccion_Total');
-               $this -> bitacora = true;
-
-               $encabezado[] = 'Producción total';
-               $this -> valido = 1;
-           }
-
-           if($this -> combustible){
-               $especies -> addSelect('bitacora.combustible as Combustible');
-               $this -> bitacora = true;
-
-               $encabezado[] = 'Combustible';
-               $this -> valido = 1;
-           }
-
-           if($this -> prospeccion){
-            $especies -> addSelect('bitacora.prospeccion');
-            $this -> bitacora = true;
-
-            $encabezado[] = 'Prospección';
-            $this -> valido = 1;
-            }
-           if($this -> observador_a_bordo){
-            $especies -> addSelect('bitacora.observador_a_bordo');
-            $this -> bitacora = true;
-
-            $encabezado[] = 'Observador a bordo';
-            $this -> valido = 1;
-            }
-           if($this -> n_tripulantes){
-            $especies -> addSelect('bitacora.tripulantes');
-            $this -> bitacora = true;
-
-            $encabezado[] = 'N° de tripulantes';
-            $this -> valido = 1;
-            }
-          
-
-           if($this -> fecha_hora_zarpe){
-            $especies -> addSelect('bitacora.fecha_inicial');
-            $this -> bitacora = true;
-
-            $encabezado[] = 'Fecha y hora de zarpe';
-            $this -> valido = 1;
-            }
-           if($this -> fecha_hora_desembarque){
-            $especies -> addSelect('bitacora.fecha_final');
-            $this -> bitacora = true;
-
-            $encabezado[] = 'Fecha y hora de desembarque';
-            $this -> valido = 1;
-            }
-
-
-           if($this -> subarea){
-            $especies -> addSelect('bitacora.subarea');
-            $this -> bitacora = true;
-
-            $encabezado[] = 'Subárea';
-            $this -> valido = 1;
-            }
-
-           if($this -> zona_pesca){
-            $especies -> addSelect('zonapesca.nombre');
-            $this -> bitacora = true;
-
-            $encabezado[] = 'Zona de pesca';
-            $this -> valido = 1;
-            }
-
-       
-
-           if($this -> mitigacion_bycatch){
-            $especies -> addSelect('bitacora.mitigacion as Mitigacion_Bycatch');
-            $this -> bitacora = true;
-
-            $encabezado[] = 'Mitigación bycatch';
-            $this -> valido = 1;
-         }
-
-        //Bitacora end    
 
         //Lance
 
-           if($this -> nro_lance){
-               $especies -> addSelect('lances.nombre as Nro_Lance');
+           if(
+               $this -> nro_lance ||
+               $this -> viento ||
+               $this -> temperatura ||
+               $this -> coordenadas
+            ){
+                $this -> bitacora = false;
                $this -> lance = true;
-
-               $encabezado[] = 'Nº Lance';
                $this -> valido = 1;
            }
-
-           if($this -> viento){
-            $especies -> addSelect('lances.viento');
-            $this -> lance = true;
-
-            $encabezado[] = 'Viento';
-            $this -> valido = 1;
-           }
-   
-           
-   
-           if($this -> temperatura){
-               $especies -> addSelect('lances.temperatura as Temperatura');
-               $this -> lance = true;
-
-               $encabezado[] = 'Temperatura';
-               $this -> valido = 1;
-           }
-   
-           if($this -> dispositivo_selectividad){
-               $especies -> addSelect('bitacora_arte_de_pesca.nombre_dispositivo as nombre_dispositivo', 'bitacora_arte_de_pesca.tamanio', 'bitacora_arte_de_pesca.tipo_malla', 'bitacora_arte_de_pesca.luz_malla');
-               $this -> lance = true;
-
-               $encabezado[] = 'Nombre dispositivo';
-               $encabezado[] = 'Tamaño dispositivo';
-               $encabezado[] = 'Tipo de malla';
-               $encabezado[] = 'Luz de malla';
-
-               $this -> valido = 1;
-           }
-   
-           if($this -> coordenadas){
-               $especies -> addSelect('coordenadas.latitud as Latitud', 'coordenadas.longitud as Longitud');
-               $this -> lance = true;
-
-               $encabezado[] = 'Latitud';
-               $encabezado[] = 'Longitud';
-               $this -> valido = 1;
-           }
-
-        //Lance end
 
         // Especies
 
-           $especies_cont = array();
-           $valores_tipo = [1,2,3,4];
-
            if($this -> retenida || $this -> descartada || $this -> incidental || $this -> pesca_incidental){
-               $especies -> addSelect('especies.nombre as Nombre_Especie', 'especies.nombre_cientifico as Nombre_Científico','especie_lance.kilogramos', 'especie_lance.cajones', 'especie_lance.unidades', 'tipo_de_especie.nombre as Tipo'); 
+               $this -> bitacora = false;
+               $this -> lance = false;
                $this -> especie = true;
-
-               $encabezado[] = 'Nombre común';
-               $encabezado[] = 'Nombre científico';
-               $encabezado[] = 'kg';
-               $encabezado[] = 'Cajones';
-               $encabezado[] = 'Unidades';
-               $encabezado[] = 'Tipo de especie';
                $this -> valido = 1;
            }
 
-           if($this -> retenida) {
-              $especies_cont[] = 1;
-              $valores_tipo[0] = null;
-           }
-           if($this -> incidental) {
-              $especies_cont[] = 2;
-              $valores_tipo[1] = null;
-           }
-           if($this -> descartada) {
-              $especies_cont[] = 3;
-              $valores_tipo[3] = null;
-           }
-           if($this -> pesca_incidental) {
-              $especies_cont[] = 4;
-              $valores_tipo[4] = null;
+           if($this -> retenida){
+             $this -> especies_check[] = 1;
            }
 
+           if($this -> incidental){
+             $this -> especies_check[] = 2;
+           }
 
+           if($this -> descartada){
+             $this -> especies_check[] = 3;
+           }
 
-        // Especies end
+           if($this -> pesca_incidental){
+             $this -> especies_check[] = 4;
+           }
 
-        $especies ->join('capitan', 'bitacora.id_capitan', '=', 'capitan.id');
-
-        /// JOIN DINAMICO
-        if( $this -> bitacora){
-             $especies ->join('embarcacion', 'bitacora.id_embarcacion', '=', 'embarcacion.IdEmbarcacion')
-                       ->join('puerto', 'bitacora.id_puerto_zarpe', '=', 'puerto.id')
-                       ->join('zonapesca', 'bitacora.id_zona_de_pesca', '=', 'zonapesca.id')
-                       ->join('bitacora_arte_de_pesca', 'bitacora.id', '=', 'bitacora_arte_de_pesca.id_bitacora');
-        }
-
-        if( $this -> lance){
-            $especies ->join('lances', 'bitacora.id', '=', 'lances.id_bitacora')
-                      ->join('coordenadas', 'lances.id', '=', 'coordenadas.id_lance');
-        }
-
-        if( $this -> especie){
-
-            if(!$this -> lance){
-                $especies  ->join('lances', 'bitacora.id', '=', 'lances.id_bitacora');
-            }
-
-            $especies  ->join('especie_lance', 'lances.id', '=', 'especie_lance.id_lance')
-                       ->join('especies', 'especie_lance.id_especie', '=', 'especies.id')
-                       ->join('tipo_de_especie', 'especie_lance.id_tipo', '=', 'tipo_de_especie.id');
-        }
-
-
-         //$especies -> select('capitan.nombres', 'especies.nombre', 'especies.nombre_cientifico', 'especie_lance.id_tipo', 'kilogramos', 'unidades') ->where('especie_lance.id_armador', auth()->user() -> id);
-
-         if( count($especies_cont) < 4 &&  count($especies_cont) != 0){
-
-            $expulsado = array_filter($valores_tipo, function($var){
-                if($var){
-                    return $var;
-                }
-            });
-            $especies -> where('especie_lance.id_tipo', '<=' , max($especies_cont))-> where('especie_lance.id_tipo', '!=', $expulsado);
-         }
-
-         if($this -> desde && $this -> hasta){
-            $especies -> where('bitacora.fecha_inicial', '>=' , $this -> desde )->where('bitacora.fecha_inicial', '<=' , $this -> hasta );
-         }
-      
-
-         $especies ->where('capitan.id_armador', auth()->user() -> id);
-         $datos =  $especies ->get();
-
-         if($this -> valido == 1){
-            
-             return ExportExcel::download(new BitacoraExport($datos,   $encabezado), 'planilla.xlsx');
-         }
-
-         session()->flash('message', 'Debe elejir al menos un dato a exportar.');
-          //return dd( $datos);
     }
 
     public function all(){
