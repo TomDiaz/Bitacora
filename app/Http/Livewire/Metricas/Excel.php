@@ -166,10 +166,10 @@ class Excel extends Component
                     'Temperatura' => $this -> temperatura ? $this -> newCabecera($lance['temperatura'],'Temperatura', $vuelta) : null,
                     'Viento' =>  $this -> viento ?  $this -> newCabecera($lance['viento'],'Viento', $vuelta) : null,
 
-                    'Latitud de inicio'=> $this -> coordenadas ?  $this -> newCabecera($lance['coordenadas'][0]['latitud'],'Latitud de inicio',$vuelta) : null,
-                    'Longitud de inicio'=> $this -> coordenadas ?  $this -> newCabecera($lance['coordenadas'][0]['longitud'],'Longitud de inicio',$vuelta) : null,
-                    'Latitud de final'=> $this -> coordenadas ?  $this -> newCabecera($lance['coordenadas'][1]['latitud'],'Latitud de final',$vuelta) : null,
-                    'Longitud de final'=> $this -> coordenadas ?  $this -> newCabecera($lance['coordenadas'][1]['latitud'],'Longitud de final',$vuelta) : null,
+                    'Latitud inicial'=> $this -> coordenadas ?  $this -> newCabecera($lance['coordenadas'][0]['latitud'],'Latitud inicial',$vuelta) : null,
+                    'Longitud inicial'=> $this -> coordenadas ?  $this -> newCabecera($lance['coordenadas'][0]['longitud'],'Longitud inicial',$vuelta) : null,
+                    'Latitud final'=> $this -> coordenadas ?  $this -> newCabecera($lance['coordenadas'][1]['latitud'],'Latitud final',$vuelta) : null,
+                    'Longitud final'=> $this -> coordenadas ?  $this -> newCabecera($lance['coordenadas'][1]['latitud'],'Longitud final',$vuelta) : null,
                   ];
 
                  }
@@ -212,10 +212,10 @@ class Excel extends Component
                         'Nº Lance' => $this -> nro_lance ? $this -> newCabecera($lance['nombre'],'Nº Lance', $vuelta) : null,
                         'Temperatura' => $this -> temperatura ? $this -> newCabecera($lance['temperatura'],'Temperatura', $vuelta) : null,
                         'Viento' =>  $this -> viento ?  $this -> newCabecera($lance['viento'],'Viento', $vuelta) : null,
-                        'Latitud de inicio'=> $this -> coordenadas ?  $this -> newCabecera($lance['coordenadas'][0]['latitud'],'Latitud de inicio',$vuelta) : null,
-                        'Longitud de inicio'=> $this -> coordenadas ?  $this -> newCabecera($lance['coordenadas'][0]['longitud'],'Longitud de inicio',$vuelta) : null,
-                        'Latitud de final'=> $this -> coordenadas ?  $this -> newCabecera($lance['coordenadas'][1]['latitud'],'Latitud de final',$vuelta) : null,
-                        'Longitud de final'=> $this -> coordenadas ?  $this -> newCabecera($lance['coordenadas'][1]['latitud'],'Longitud de final',$vuelta) : null,
+                        'Latitud inicial'=> $this -> coordenadas ?  $this -> newCabecera($lance['coordenadas'][0]['latitud'],'Latitud inicial',$vuelta) : null,
+                        'Longitud inicial'=> $this -> coordenadas ?  $this -> newCabecera($lance['coordenadas'][0]['longitud'],'Longitud inicial',$vuelta) : null,
+                        'Latitud final'=> $this -> coordenadas ?  $this -> newCabecera($lance['coordenadas'][1]['latitud'],'Latitud final',$vuelta) : null,
+                        'Longitud final'=> $this -> coordenadas ?  $this -> newCabecera($lance['coordenadas'][1]['latitud'],'Longitud final',$vuelta) : null,
                              
                          //Especie
                         'Nombre común' => $this -> newCabecera($especie['nombre'],'Nombre común',$vuelta),
