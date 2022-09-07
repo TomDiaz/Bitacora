@@ -3,7 +3,7 @@
         <x-slot name="logo">
             <div class="login-logo">
                <img src="vendor/adminlte/dist/img/logo.png" alt="">
-               <h2>Bitacora Electrónica de Pesca </h2>
+               <h2>Bitácora Electrónica de Pesca </h2>
             </div>
             
         </x-slot>

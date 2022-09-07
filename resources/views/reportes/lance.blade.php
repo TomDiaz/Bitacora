@@ -19,7 +19,6 @@
       <th scope="col">Zona de Pesca</th>
       <th scope="col">Coordenadas Inicio</th>
       <th scope="col">Coordenadas Fin</th>
-      <th scope="col">Especies Objetivo</th>
       <th scope="col"></th>
   
     </tr>
@@ -39,7 +38,6 @@
          <td>{{ $lance['zona_de_pesca']}}</td>
          <td>{{$lance['coordenadas_inicio']['latitud']. ', ' . $lance['coordenadas_inicio']['longitud']}} </td>
          <td>{{$lance['coordenadas_fin']['latitud']. ', ' . $lance['coordenadas_fin']['longitud']}} </td>
-         <td>{{$lance['especies_objetivo'] }} </td>
          <td style="text-align: center"><button type="button" style="width:100%;" onclick="getMap({{ json_encode($lance['coordenadas_inicio']) }}, {{ json_encode($lance['coordenadas_fin']) }})" class="btn btn-success""> Ver mapa  <i style="margin-left: 5px;" class="fas fa-map-marked-alt"></i></button></td>
        </tr>
     @endforeach

@@ -332,9 +332,7 @@ function getMap(inicio, fin){
 
   
 async function popupCapitanes(capitanes){
-   console.log(capitanes)
 
-    if(capitanes.length > 0){
 
      let data = await fetch('/capchecked')
                      .then( res => res.json())
@@ -554,20 +552,7 @@ async function popupCapitanes(capitanes){
    });
 
      
-   }
-   else{
-     $('.btn-list-capitanes').attr("disabled", "disabled")
-     Swal.fire({
-      icon: 'error',
-      title: 'Sin capitanes para agregar',
-      text: 'Por favor agregue un nuevo capitan para continuar..',
-      type: "error",
-      showConfirmButton: false,
-      timer: 2000
-
-    })
-
-   }
+ 
 
   }
 
