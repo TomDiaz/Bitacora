@@ -205,17 +205,33 @@ class BitacorasController extends Controller
         foreach($especies_db as $especie){
                 
                 $zona = explode(":", zonaPesca::find( $bitacora -> id_zona_de_pesca) -> nombre);
-                
-                $especie = [
-                    "especie" => $especie,
-                    "coordenada" =>  coordenada::where('id_lance', $especie -> id_lance)->get(),
-                    "zona" => $zona[0],
-                    "progreso" => "HI: ". date("H:i", strtotime( $especie -> fecha_inicial)) . " | HF: " .  date("H:i", strtotime( $especie -> fecha_final)) . " | T: " . date("H:i", strtotime( lance::find( $especie -> id_lance) -> progreso)),
-                    "lance" => lance::find( $especie -> id_lance) -> nombre . " del " . date("d/m/Y", strtotime(lance::find( $especie -> id_lance) -> fecha_inicial))  
 
-                ];
-    
-                $especies[] =  $especie;
+
+                $repetido = array_filter($especies, function($esp) use ($especie){
+
+                     if($esp['especie'] -> id_especie == $especie -> id_especie){
+                         
+                        $esp['especie'] -> kilogramos += $especie -> kilogramos;
+                        $esp['especie'] -> cajones += $especie -> cajones;
+
+                        return true;
+                     }
+                     return false;
+                });
+                
+                if(!$repetido || count($especies) < 1){
+
+                   $especie = [
+                       "especie" => $especie,
+                       "coordenada" =>  coordenada::where('id_lance', $especie -> id_lance)->get(),
+                       "zona" => $zona[0],
+                       "progreso" => "HI: ". date("H:i", strtotime( $especie -> fecha_inicial)) . " | HF: " .  date("H:i", strtotime( $especie -> fecha_final)) . " | T: " . date("H:i", strtotime( lance::find( $especie -> id_lance) -> progreso)),
+                       "lance" => lance::find( $especie -> id_lance) -> nombre . " del " . date("d/m/Y", strtotime(lance::find( $especie -> id_lance) -> fecha_inicial))  
+   
+                   ];
+       
+                   $especies[] =  $especie;
+                }
             
         }       
         
