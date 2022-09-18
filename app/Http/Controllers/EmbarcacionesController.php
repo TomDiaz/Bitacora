@@ -207,11 +207,30 @@ class EmbarcacionesController extends Controller
         }   
 
         foreach( $_SESSION['capitanes'] as $capitan){
+            
             CapitanEmbarcacion::create([
              'IdCapitan' => $capitan,
              'IdEmbarcacion' =>  $embarcacion -> IdEmbarcacion
             ]);
+
+            $capitan_armador = capitan_armador::where('id_capitan',  $capitan)->where('id_armador', auth()->user()->id)->first();
+
+            $token = Str::random(32);
+ 
+            if(empty($capitan_armador)){
+               capitan_armador::create([
+                   'id_capitan' =>  $capitan,
+                   'id_armador' =>  auth()->user() -> id,
+                   'token' =>   $token,
+                   'estado' => 0
+               ]);
+ 
+               Notification::route('mail', Capitan::find($capitan) -> email)->notify(new SolicitudCapitan($token, auth()->user()->id, $embarcacion -> Nombre));
+            }
          }
+
+        
+        
 
         $embarcacion -> save();
 
