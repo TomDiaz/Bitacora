@@ -209,7 +209,7 @@ class BitacorasController extends Controller
 
                 $repetido = array_filter($especies, function($esp) use ($especie){
 
-                     if($esp['especie'] -> id_especie == $especie -> id_especie){
+                     if($esp['especie'] -> id_especie == $especie -> id_especie && $esp['especie'] -> id_lance == $especie -> id_lance){
                          
                         $esp['especie'] -> kilogramos += $especie -> kilogramos;
                         $esp['especie'] -> cajones += $especie -> cajones;
