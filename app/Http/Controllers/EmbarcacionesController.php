@@ -201,8 +201,10 @@ class EmbarcacionesController extends Controller
         $embarcacion -> PermisoPesca = $request -> permiso;
         $embarcacion -> FechaVigenciaPermisoPesca = $request -> fecha_caducidad;
         $embarcacion -> id_tipo_barco = $request -> barco;
+
+
    
-        foreach(capitanembarcacion::where('IdEmbarcacion', $id)->get() as $capitan){
+        foreach(CapitanEmbarcacion::where('IdEmbarcacion', $id)->get() as $capitan){
             $capitan -> delete();
         }   
 
@@ -229,8 +231,6 @@ class EmbarcacionesController extends Controller
             }
          }
 
-        
-        
 
         $embarcacion -> save();
 

@@ -11,7 +11,7 @@ class CapitanEmbarcacion extends Model
 
     public $timestamps = false;
     
-    protected $primaryKey= 'IdCapitan';
+    protected $primaryKey= 'IdEmbarcacion';
 
     protected $fillable = [
         'IdCapitan',
