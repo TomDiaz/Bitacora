@@ -23,18 +23,18 @@ class EmbarcacionesController extends Controller
      */
     public function index(Request $req)
     {
-        $embarcaciones2 = Embarcacion::latest('FechaRegistro')->where('IdArmador', auth()->user()->id)->paginate(10);
+        $embarcaciones2 = Embarcacion::latest('FechaRegistro')->where('Estado','A')->where('IdArmador', auth()->user()->id)->paginate(10);
      
        if($req->adminlteSearch){
-         $embarcaciones2 = Embarcacion::latest('FechaRegistro')->where('IdArmador', auth()->user()->id)->where('Nombre', 'LIKE' ,'%'.$req->adminlteSearch.'%')->paginate(10);
+         $embarcaciones2 = Embarcacion::latest('FechaRegistro')->where('Estado','A')->where('IdArmador', auth()->user()->id)->where('Nombre', 'LIKE' ,'%'.$req->adminlteSearch.'%')->paginate(10);
        };
 
        if(count($embarcaciones2)==0){
-          $embarcaciones2 = Embarcacion::latest('FechaRegistro')->where('IdArmador', auth()->user()->id)->where('Matricula', 'LIKE' ,'%'.$req->adminlteSearch.'%')->paginate(10);
+          $embarcaciones2 = Embarcacion::latest('FechaRegistro')->where('Estado','A')->where('IdArmador', auth()->user()->id)->where('Matricula', 'LIKE' ,'%'.$req->adminlteSearch.'%')->paginate(10);
        }
 
        if(count($embarcaciones2)==0){
-          $embarcaciones2 = Embarcacion::latest('FechaRegistro')->where('IdArmador', auth()->user()->id)->where('PermisoPesca', 'LIKE' ,'%'.$req->adminlteSearch.'%')->paginate(10);
+          $embarcaciones2 = Embarcacion::latest('FechaRegistro')->where('Estado','A')->where('IdArmador', auth()->user()->id)->where('PermisoPesca', 'LIKE' ,'%'.$req->adminlteSearch.'%')->paginate(10);
        }
 
        $embarcaciones = EmbarcacionResource::collection($embarcaciones2);
@@ -246,10 +246,11 @@ class EmbarcacionesController extends Controller
     public function destroy($id)
     {
         $embarcacion = Embarcacion::find($id);
-        $embarcacion->delete();
+        $embarcacion->Estado = 'B';
+        $embarcacion->save();
+             
 
-
-        return redirect('/embarcaciones');
+        return response()->json(["embarcacion" => $embarcacion -> Nombre],201);
     }
 
 

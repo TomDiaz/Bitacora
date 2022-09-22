@@ -25,6 +25,6 @@ class Capitan extends Model
         'clave',
         'estado',
         'fechaRegistro',
-        'id_armador'
+        'id_armador',
     ];
 }

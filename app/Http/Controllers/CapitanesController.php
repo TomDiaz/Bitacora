@@ -19,7 +19,7 @@ class CapitanesController extends Controller
     public function index()
     {
         $capitanes = array();
-        $capitanes_bd = Capitan::latest('fecha_registro')->where('id_armador', auth()->user() -> id)->paginate(10);
+        $capitanes_bd = Capitan::latest('fecha_registro')->where('id_armador', auth()->user() -> id)->where('estado',1)->paginate(10);
 
         foreach( $capitanes_bd as $capitan){
 
@@ -186,8 +186,8 @@ class CapitanesController extends Controller
     {
         $capitan = Capitan::find($id);
         $data = $capitan -> nombres . " " . $capitan -> apellidos;
-        $capitan->delete();
-
+        $capitan -> estado = 0;
+        $capitan -> save();
 
         return response()->json(["capitan" => $data],201);
     }

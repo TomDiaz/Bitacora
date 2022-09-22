@@ -265,6 +265,63 @@ function deleteCapitan(id){
 }
 
 
+function deleteEmbarcacion(id){
+
+
+   const csrfToken = document.head.querySelector("[name~=csrf-token][content]").content;
+
+   Swal.fire({
+     title: '¿Está seguro?',
+     text: "¡No podrás revertir esto!",
+     icon: 'warning',
+     showCancelButton: true,
+     confirmButtonColor: '#3085d6',
+     cancelButtonColor: '#d33',
+     confirmButtonText: 'Si, borrar embarcacion!',
+     cancelButtonText: 'Cancelar'
+   }).then((result) => {
+
+     if (result.value) {
+
+      console.log("Pasa por aca")
+
+      fetch('/embarcaciones/' + id,{
+
+          method: 'DELETE',
+          headers: {
+              'Content-Type': 'application/json',
+              "X-CSRF-Token": csrfToken
+          }
+  
+      })
+      .then( res => res.json())
+      .then( data => {
+  
+         console.log(data)
+
+         Swal.fire(
+           'Eliminado!',
+           'La embarcacion' + data.embarcacion + ' ha sido eliminada.',
+           'success'
+         )
+         .then((result) => {
+             console.log(result)
+
+             if(result.value){
+               window.location.reload(true);
+             }
+
+         })
+
+      })
+
+
+     }
+   })
+
+   
+}
+
 
 function getiframe(url){
     Swal.fire({

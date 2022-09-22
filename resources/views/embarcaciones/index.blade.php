@@ -11,6 +11,8 @@
 <a class="btn btn-dark animate__animated animate__lightSpeedInLeft" href="{{ route('embarcaciones.create')}}">Nueva Embarcación  <i class="fas fa-plus"></i></a>
 <hr>
 
+<meta name="csrf-token" content="{{ csrf_token() }}">
+
 <table class="table table-striped animate__animated animate__zoomIn">
   <thead class="table-dark">
     <tr>
@@ -39,18 +41,10 @@
         <td>{{ $tipo_barcos[$embarcacion -> id_tipo_barco - 1] -> nombre }}</td>
         
          <td>
-            <div class="row">
-              <div class="mb-3 col" >
-                <a href="{{ route('embarcaciones.edit',$embarcacion -> IdEmbarcacion )}}" style="display:block; width:50%; margin-left: 90px;" class="btn btn-primary "><i class="fa-solid fa-pen"></i></a>
-              </div>
-              <div class="mb-3 col">
-                <form action="{{route('embarcaciones.destroy',$embarcacion -> IdEmbarcacion)}}" method="POST">
-                    @csrf
-                    @method('DELETE')
-                    <button style="display:block; width:50%;" class="btn btn-danger " type="submit"><i class="fa-solid fa-trash-can"></i></button>
-                </form>
-              </div>
-            </div>
+            <div class="btn-capitan">
+              <a href="{{ route('embarcaciones.edit',$embarcacion -> IdEmbarcacion )}}"  class="btn btn-primary "><i class="fa-solid fa-pen"></i></a>
+              <button onClick="deleteEmbarcacion({{$embarcacion -> IdEmbarcacion}})"  class="btn btn-danger"><i class="fa-solid fa-trash-can"></i></button>
+           </div>
         </td>
       </tr>
    @endforeach
@@ -70,6 +64,8 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"/>
 @stop
 
+@section('plugins.Sweetalert2', true)
+
 @section('js')
-    <script> console.log('Hi!'); </script>
+  <script src="/js/controllers.js"></script>
 @stop
