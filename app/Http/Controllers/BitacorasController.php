@@ -196,6 +196,7 @@ class BitacorasController extends Controller
                    ->join('lances', 'especie_lance.id_lance', '=', 'lances.id')
                    ->join('especies', 'especie_lance.id_especie', '=', 'especies.id')
                    ->where('especie_lance.id_tipo',1)
+                   ->orWhere('especie_lance.id_tipo',4)
                    ->where('lances.id_bitacora',$id)
                    ->get();
 
