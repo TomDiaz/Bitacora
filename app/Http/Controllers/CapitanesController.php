@@ -208,10 +208,17 @@ class CapitanesController extends Controller
     public function solicitud($token){
 
         $capitan_armador = capitan_armador::where('token', $token) -> first();
-        $capitan_armador -> estado = 1;
-        $capitan_armador -> save();
 
-        return "Aceptado";
+        if($capitan_armador -> estado == 0){
+
+            $capitan_armador -> estado = 1;
+            $capitan_armador -> save();
+    
+            return view('solicitud.aceptado');
+        }
+
+        return view('solicitud.usado');
+
     }
 
 }
