@@ -195,13 +195,17 @@ class BitacorasController extends Controller
         $especies_db = DB::table('especie_lance')
                    ->join('lances', 'especie_lance.id_lance', '=', 'lances.id')
                    ->join('especies', 'especie_lance.id_especie', '=', 'especies.id')
-                   ->where('especie_lance.id_tipo',1)
-                   ->orWhere('especie_lance.id_tipo',4)
-                   ->where('lances.id_bitacora',$id)
+                   ->orWhere(function($query) use ($id){
+                       $query->where('especie_lance.id_tipo',1)
+                             ->where('lances.id_bitacora',$id);
+                   })
+                   ->orWhere(function($query) use ($id){
+                     $query->where('especie_lance.id_tipo',4)
+                           ->where('lances.id_bitacora',$id);
+                   })
                    ->get();
 
         $especies = Array();
-
 
         foreach($especies_db as $especie){
                 
