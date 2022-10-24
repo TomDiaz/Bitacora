@@ -44,7 +44,8 @@ class SolicitudCapitan extends Notification
      */
     public function toMail($notifiable)
     {
-        return (new MailMessage)
+      return (new MailMessage)
+                    ->subject('Solicitud Capitán')
                     ->line('El armador '. $this -> armador ->  name . ' '. $this -> armador ->  last_name . ' de la empresa ' . $this -> armador ->  empresa . ' vinculó a tu cuenta de capitán la embarcación ' . $this -> embarcacion .  '. De ahora en adelante, el armador podrá vincular otras de sus embarcaciones a tu cuenta. Para finalizar la operación y visualizarlo en tu cuenta de la App, acepta abajo y luego ingresa a tu cuenta de App.')
                     ->action('Aceptar solicitud', url(env('APP_URL') . 'solicitud/' . $this -> token));
     }
