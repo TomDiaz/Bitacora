@@ -347,7 +347,8 @@ function getMap(inicio, fin){
       let mapa = new google.maps.Map(document.getElementById('mapa')  , {
         center: {lat: inicio.latitud , lng: inicio.longitud},
         zoom: 5,
-        mapId: '761d02f6ca887a9c'
+        //mapId: '761d02f6ca887a9c'
+        mapId: 'AIzaSyDHyZtJ1Nn5yIjQLbilgyMuvDQH0KuDvl0' 
     });
 
     let marcador1 = new google.maps.Marker({
