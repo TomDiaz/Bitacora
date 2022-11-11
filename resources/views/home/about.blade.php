@@ -32,6 +32,7 @@ Para el correcto funcionamiento de la aplicación, se requiere que el dispositiv
 2. Sitio Web. - De uso para los armadores para lo cual se requiere de registro. Una vez con acceso, pueden registrar sus embarcaciones y capitanes, y consultar los reportes generados por parte de los capitanes mediante la aplicación móvil, a los que les da el alta. Además, la web puede ser de uso por parte de las autoridades para consultas de reportes, armadores, embarcaciones y capitanes, lo cual se dará bajo los términos y condiciones previamente acordados. Ninguna información será compartida con personas distintas a armadores y capitanes sin previo consentimiento. 
           
           </p>
+            <a target="_blank" href="https://bepa.com.ar/manual.pdf" hr class="btn btn-dark">Manual de uso <i style="margin-left:10px" class="fa fa-info-circle"></i></a>
           </div>
         </div>
 
