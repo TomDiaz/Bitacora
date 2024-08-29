@@ -45,6 +45,7 @@ class BitacoraResource extends JsonResource
                 'viento' => $data -> viento,
                 'otro' => $data -> otro,
                 'progreso' => $data -> progreso,
+                'observaciones' => $data -> observaciones,
                 'coordenadas'=> CoordenadasResource::collection(coordenada::where('id_lance',  $data -> id)->get()),
                 'especies' => EspeciesResource::collection(especieLance::where('id_lance',  $data -> id)->get())
             ];

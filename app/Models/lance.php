@@ -24,6 +24,7 @@ class lance extends Model
         'temperatura',
         'otro',
         'viento',
-        'progreso'
+        'progreso',
+        'observaciones'
     ];
 }
