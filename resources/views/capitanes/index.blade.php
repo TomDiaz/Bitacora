@@ -3,7 +3,7 @@
 
 
 @section('content_header')
-<script src="https://kit.fontawesome.com/cb6dc03982.js" crossorigin="anonymous"></script>
+<script src="https://kit.fontawesome.com/0186074ad2.js" crossorigin="anonymous"></script>
 @stop
 
 

@@ -82,7 +82,8 @@ class BitacorasController extends Controller
                 'temperatura' => $lance['temperatura'], 
                 'otro' => $lance['otro'], 
                 'progreso' => $lance['progreso'], 
-                'viento' => $lance['viento']
+                'viento' => $lance['viento'],
+                'observaciones' => $lance['observaciones']
               ]);
 
               foreach($lance['coordenadas'] as $coordenada){
