@@ -6,6 +6,7 @@ use App\Http\Controllers\Api\RecursosController;
 use App\Http\Controllers\Api\BitacorasController;
 use App\Http\Controllers\BitacorasController as Bitacora;
 use App\Http\Controllers\Api\LoginController;
+use App\Http\Controllers\EmbarcacionesController;
 /*
 |--------------------------------------------------------------------------
 | API Routes
@@ -18,7 +19,9 @@ use App\Http\Controllers\Api\LoginController;
 */
 
 Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
-    return $request->user();
+    
+   
+
 });
 
 Route::post('login',[LoginController::class,'login']);
@@ -31,3 +34,5 @@ Route::get('historial/{id}',[BitacorasController::class,'historial']);
 
 Route::get('pdf/parte_de_pesca/{id}',[Bitacora::class,'PDF_PartePesca']);
 Route::get('pdf/general/{id}',[Bitacora::class,'PDF_General']);
+
+Route::post('embarcacion',[EmbarcacionesController::class, 'store_api']);

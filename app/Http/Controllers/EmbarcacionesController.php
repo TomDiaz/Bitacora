@@ -13,6 +13,7 @@ use App\Http\Resources\EmbarcacionResource;
 use App\Notifications\SolicitudCapitan;
 use Illuminate\Support\Facades\Notification;
 use Illuminate\Support\Str;
+use PhpParser\Node\Stmt\Return_;
 
 class EmbarcacionesController extends Controller
 {
@@ -80,6 +81,55 @@ class EmbarcacionesController extends Controller
 
         session_start();
 
+        $this -> newEmbarcacion($request, auth()->user() -> id, $_SESSION['capitanes']);
+
+        return redirect('/embarcaciones');
+
+    }
+
+
+    /**
+     * Store a newly created resource in storage.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\Response
+     */
+    public function store_api(Request $request)
+    {
+
+        try{
+
+          $validated = $request->validate([
+              'id_armador' => 'required|exists:users,id',
+              'id_capitan' => 'required|exists:capitan,id'
+          ]);
+
+          $capitanes = [ $request -> id_capitan]; // Agrego automaticamente el capitan en un array
+
+       
+
+    
+          $embarcacion =  $this -> newEmbarcacion($request, $request -> id_armador,  $capitanes);
+      
+        
+
+          return  response()->json(['msj' => 'Embarcacion creada con exito', 'embarcacion' =>  $embarcacion ],201);
+      
+        } catch (\Exception $e) {
+
+
+          return response()->json(['msj'=>'Server error','err'=>  $e],500);
+
+        }
+
+        
+    }
+
+
+    private function newEmbarcacion(Request $request, $id_armador, array $capitanes ) : Embarcacion
+    {
+
+
         $validated = $request->validate([
             'embarcacion' => 'required',
             'matricula' => 'required',
@@ -88,8 +138,10 @@ class EmbarcacionesController extends Controller
         ]);
 
 
+      
+
         $embarcacion = Embarcacion::create([
-            'IdArmador' => auth()->user() -> id,
+            'IdArmador' => $id_armador,
             'Nombre' => $request -> embarcacion,
             'Matricula' => $request -> matricula,
             'PermisoPesca' => $request -> permiso,
@@ -99,20 +151,26 @@ class EmbarcacionesController extends Controller
             'id_tipo_barco' => $request -> barco
         ]);
 
-        foreach( $_SESSION['capitanes'] as $capitan){
+
+         
+
+        foreach( $capitanes as $capitan){
+            
+
            CapitanEmbarcacion::create([
             'IdCapitan' => $capitan,
             'IdEmbarcacion' =>  $embarcacion -> IdEmbarcacion
            ]);
 
-           $capitan_armador = capitan_armador::where('id_capitan',  $capitan)->where('id_armador', auth()->user()->id)->first();
+
+           $capitan_armador = capitan_armador::where('id_capitan',  $capitan)->where('id_armador', $id_armador)->first();
 
            $token = Str::random(32);
 
            if(empty($capitan_armador)){
               capitan_armador::create([
                   'id_capitan' =>  $capitan,
-                  'id_armador' =>  auth()->user() -> id,
+                  'id_armador' =>  $id_armador,
                   'token' =>   $token,
                   'estado' => 0
               ]);
@@ -121,9 +179,11 @@ class EmbarcacionesController extends Controller
            }
         }
 
+       
+        return $embarcacion;
 
-        return redirect('/embarcaciones');
     }
+
 
     /**
      * Display the specified resource.
