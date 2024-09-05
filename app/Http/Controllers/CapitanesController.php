@@ -148,7 +148,7 @@ class CapitanesController extends Controller
                 'usuario' => $request -> usuario,
                 'clave' => Hash::make($request -> clave),
                 'estado' => 1,
-                'id_armador' => auth()->user() -> id 
+                'id_armador' =>  $user_armador
     
             ]);
 
