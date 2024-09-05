@@ -148,7 +148,7 @@ class CapitanesController extends Controller
                 'usuario' => $request -> usuario,
                 'clave' => Hash::make($request -> clave),
                 'estado' => 1,
-                'id_armador' =>  $user_armador
+                'id_armador' =>  $user_armador -> id 
     
             ]);
 
@@ -159,12 +159,9 @@ class CapitanesController extends Controller
                 'estado' => 1
             ]);
 
-            $data = [
-                ...$capitan,
-                'id_armador' => $user_armador,
-            ];
+     
     
-            return response()->json(["msj" => "Capitan agregado con exito!!", "type" => "success", "data" => $data ],201);
+            return response()->json(["msj" => "Capitan agregado con exito!!", "type" => "success", "data" => $capitan ],201);
 
         } 
         catch ( \Exception $e) {
