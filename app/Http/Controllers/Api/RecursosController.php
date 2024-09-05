@@ -11,6 +11,7 @@ use App\Models\Embarcacion;
 use App\Models\zonaPesca;
 use App\Models\ArtePesca;
 use App\Imports\EspeciesImport;
+use App\Models\TipoBarco;
 use Maatwebsite\Excel\Facades\Excel;
 class RecursosController extends Controller
 {
@@ -27,7 +28,8 @@ class RecursosController extends Controller
             'puertos' => puerto::all(),
             'zona_de_pesca' =>  zonaPesca::all(),
             'artes_de_pescas' => ArtePesca::all(),
-
+            'tipo_barcos' => TipoBarco::all()
+            
         ],200);
 
         } catch (\Exception $e) {
