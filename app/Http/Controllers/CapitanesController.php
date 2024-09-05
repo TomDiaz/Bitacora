@@ -134,6 +134,7 @@ class CapitanesController extends Controller
                 'email' => $request -> email,
                 'password' =>  Hash::make($request -> clave),
                 'last_name' => $request -> apellido,
+                'terminos_condiciones' => true,
                 'empresa' =>  $request -> nombre + " " + $request -> apellido
             ]);
 
