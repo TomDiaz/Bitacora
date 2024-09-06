@@ -137,7 +137,7 @@ class CapitanesController extends Controller
                 'email' => $request -> email,
                 'password' =>  $pass,
                 'terminos_condiciones' => true,
-                'empresa' =>  $request -> nombre + " " + $request -> apellido
+                'empresa' =>  $request -> nombre . " " . $request -> apellido 
             ]);
 
             $capitan = Capitan::create([
