@@ -125,7 +125,7 @@ class CapitanesController extends Controller
                 'nombre' => 'required',
                 'apellido' => 'required',
                 'usuario' => 'required',
-                'clave' => 'required|string|confirmed',
+                'clave' => 'required',
                 'cuil' => 'required',
             ]);
 
