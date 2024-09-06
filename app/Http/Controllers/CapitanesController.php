@@ -119,7 +119,6 @@ class CapitanesController extends Controller
     public function store_api(Request $request)
     {
 
-        try{
 
             $request->validate([
                 'nombre' => 'required',
@@ -129,15 +128,17 @@ class CapitanesController extends Controller
                 'cuil' => 'required',
             ]);
 
+
+            $pass = Hash::make($request -> clave);
+
             $user_armador = User::create([
                 'name' =>  $request -> nombre,
-                'email' => $request -> email,
-                'password' =>  Hash::make($request -> clave),
                 'last_name' => $request -> apellido,
+                'email' => $request -> email,
+                'password' =>  $pass,
                 'terminos_condiciones' => true,
                 'empresa' =>  $request -> nombre + " " + $request -> apellido
             ]);
-
 
             $capitan = Capitan::create([
     
@@ -147,7 +148,7 @@ class CapitanesController extends Controller
                 'celular' => $request -> celular,
                 'email' => $request -> email,
                 'usuario' => $request -> usuario,
-                'clave' => Hash::make($request -> clave),
+                'clave' => $pass,
                 'estado' => 1,
                 'id_armador' =>  $user_armador -> id 
     
@@ -163,14 +164,8 @@ class CapitanesController extends Controller
      
     
             return response()->json(["msj" => "Capitan agregado con exito!!", "type" => "success", "data" => $capitan ],201);
-
-        } 
-        catch ( \Exception $e) {
-             return response()->json(['msj'=>'Datos incorrectos',"type" => "error", "err" => $e],500);
-        }
       
 
-        //return redirect('/capitanes')->with('mensaje', 'Capitan agregado con exito!!');
     }
 
 
