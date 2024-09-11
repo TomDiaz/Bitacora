@@ -26,7 +26,8 @@ class CapitanResource extends JsonResource
             'celular'=> $this -> celular,
             'email'=> $this -> email,
             'fechaRegistro'=> $this -> fecha_registro,
-            'armador' => User::find($this -> id_armador) -> name 
+            'armador' => User::find($this -> id_armador) -> name,
+            'id_armador' => $this -> id_armador
         ];
     }
 }

@@ -6,6 +6,7 @@ use App\Http\Controllers\Api\RecursosController;
 use App\Http\Controllers\Api\BitacorasController;
 use App\Http\Controllers\BitacorasController as Bitacora;
 use App\Http\Controllers\Api\LoginController;
+use App\Http\Controllers\CapitanesController;
 use App\Http\Controllers\EmbarcacionesController;
 /*
 |--------------------------------------------------------------------------
@@ -36,3 +37,4 @@ Route::get('pdf/parte_de_pesca/{id}',[Bitacora::class,'PDF_PartePesca']);
 Route::get('pdf/general/{id}',[Bitacora::class,'PDF_General']);
 
 Route::post('embarcacion',[EmbarcacionesController::class, 'store_api']);
+Route::post('capitanes', [ CapitanesController::class, 'store_api' ]);

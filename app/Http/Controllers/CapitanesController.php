@@ -7,6 +7,7 @@ use App\Models\Capitan;
 use App\Models\CapitanEmbarcacion;
 use App\Models\Embarcacion;
 use App\Models\capitan_armador;
+use App\Models\User;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Str;
 class CapitanesController extends Controller
@@ -106,6 +107,65 @@ class CapitanesController extends Controller
       
 
         //return redirect('/capitanes')->with('mensaje', 'Capitan agregado con exito!!');
+    }
+
+
+     /**
+     * Store a newly created resource in storage.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\Response
+     */
+    public function store_api(Request $request)
+    {
+
+
+            $request->validate([
+                'nombre' => 'required',
+                'apellido' => 'required',
+                'usuario' => 'required',
+                'clave' => 'required',
+                'cuil' => 'required',
+            ]);
+
+
+            $pass = Hash::make($request -> clave);
+
+            $user_armador = User::create([
+                'name' =>  $request -> nombre,
+                'last_name' => $request -> apellido,
+                'email' => $request -> email,
+                'password' =>  $pass,
+                'terminos_condiciones' => true,
+                'empresa' =>  $request -> nombre . " " . $request -> apellido 
+            ]);
+
+            $capitan = Capitan::create([
+    
+                'cuil' => $request -> cuil,
+                'nombres' =>  $request -> nombre,
+                'apellidos' => $request -> apellido,
+                'celular' => $request -> celular,
+                'email' => $request -> email,
+                'usuario' => $request -> usuario,
+                'clave' => $pass,
+                'estado' => 1,
+                'id_armador' =>  $user_armador -> id 
+    
+            ]);
+
+            capitan_armador::create([
+                'id_capitan' =>  $capitan -> id,
+                'id_armador' =>  $user_armador -> id,
+                'token' =>  Str::random(32),
+                'estado' => 1
+            ]);
+
+     
+    
+            return response()->json(["msj" => "Capitan agregado con exito!!", "type" => "success", "data" => $capitan ],201);
+      
+
     }
 
 
