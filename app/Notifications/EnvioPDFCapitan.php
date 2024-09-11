@@ -47,16 +47,21 @@ class EnvioPDFCapitan extends Notification
 
         $bitacora_controller = new BitacorasController();
 
-        $pdf = PDF::loadView('pdf.general', $bitacora_controller -> getDataGeneral($this->id));
+        $pdf1 = PDF::loadView('pdf.general', $bitacora_controller -> getDataGeneral($this->id));
+        $pdf2 = PDF::loadView('pdf.partepesca', $bitacora_controller -> getDataPartePesca($this->id));
 
         // Obtener el contenido del PDF
-        $pdfContent = $pdf->output();
+        $pdfContent1 = $pdf1->output();
+        $pdfContent2 = $pdf2->output();
 
         return (new MailMessage)
-                   ->subject('Parte de Pesca')
+                   ->subject('Información de bitacora')
                    ->greeting('Hola!')
-                   ->line('Adjunto encontrarás el parte de pesca generado.')
-                   ->attachData($pdfContent, 'PartePesca.pdf', [
+                   ->line('Adjunto encontrarás el pdf parte de pesca y general.')
+                   ->attachData($pdfContent1, 'General.pdf', [
+                       'mime' => 'application/pdf',
+                   ])
+                   ->attachData($pdfContent2, 'PartePesca.pdf', [
                        'mime' => 'application/pdf',
                    ])
                    ->line('Gracias por utilizar nuestro sistema!');
