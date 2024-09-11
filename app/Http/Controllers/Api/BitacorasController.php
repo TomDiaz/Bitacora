@@ -324,7 +324,7 @@ class BitacorasController extends Controller
 
           $capitan = Capitan::find( bitacora::find($id) -> id_capitan );
 
-          Notification::route('enviopdf',  $capitan -> email) -> notify(
+          Notification::route('mail',  $capitan -> email) -> notify(
             new EnvioPDFCapitan($id)
           );
           
