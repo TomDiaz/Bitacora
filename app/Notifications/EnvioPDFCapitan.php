@@ -13,7 +13,7 @@ class EnvioPDFCapitan extends Notification
 {
     use Queueable;
 
-    protected  $id;
+    public  $id;
 
     /**
      * Create a new notification instance.
