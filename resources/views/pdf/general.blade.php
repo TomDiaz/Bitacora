@@ -294,6 +294,10 @@ table td{
       <th>Otros</th>
        <th><span>{{ $lance['otro'] }}</span></th>
     </tr>
+    <tr>
+      <th>Observaciones</th>
+       <th><span>{{ $lance['observaciones'] }}</span></th>
+    </tr>
   </thead>
 </table>
 

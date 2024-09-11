@@ -175,7 +175,8 @@ class BitacorasController extends Controller
                 "especies_otras" => $especies_otras,
                 "temperatura" => $lance -> temperatura,
                 "otro" => $lance -> otro,
-                "viento" => $lance -> viento
+                "viento" => $lance -> viento,
+                "observaciones" => $lance -> observaciones
             ];
 
             $lances[] =  $lance;
