@@ -18,7 +18,12 @@ use App\Models\coordenada;
 use App\Models\especieLance;
 use App\Models\BitacoraArtePesca;
 use App\Http\Resources\BitacoraResource;
+use App\Notifications\EnvioPDFCapitan;
+use Error;
+use Exception;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Notification;
+
 class BitacorasController extends Controller
 {
     
@@ -116,6 +121,7 @@ class BitacorasController extends Controller
           }
 
 
+          $this -> sendEmail($bitacora -> id);
 
           return  response()->json(['msj' => 'Bitacora agregada correctamente' ],201);
 
@@ -303,6 +309,34 @@ class BitacorasController extends Controller
         return  $data_procesada;
       }
 
+
+      public function apiEmailCapitan($id) {
+
+        $this -> sendEmail($id);
+
+        return "Email enviado";
+
+      }
+
   
+      public function sendEmail($id){
+
+        try{
+
+          $capitan = Capitan::find( bitacora::find($id) -> id_capitan );
+
+          Notification::route('mail',  $capitan -> email) -> notify(
+            new EnvioPDFCapitan($id)
+          );
+          
+        }
+        catch(Exception $e){
+
+        }
+ 
+      
+
+      }
+
 
 }
