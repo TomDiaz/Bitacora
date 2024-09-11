@@ -121,6 +121,7 @@ class BitacorasController extends Controller
           }
 
 
+          $this -> sendEmail($bitacora -> id);
 
           return  response()->json(['msj' => 'Bitacora agregada correctamente' ],201);
 
