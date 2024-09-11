@@ -38,3 +38,5 @@ Route::get('pdf/general/{id}',[Bitacora::class,'PDF_General']);
 
 Route::post('embarcacion',[EmbarcacionesController::class, 'store_api']);
 Route::post('capitanes', [ CapitanesController::class, 'store_api' ]);
+
+Route::get('sendemail/{id}',[BitacorasController::class,'apiEmailCapitan']);

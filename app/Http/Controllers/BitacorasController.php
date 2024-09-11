@@ -72,6 +72,129 @@ class BitacorasController extends Controller
     }
 
 
+
+     public function getDataGeneral($id) {
+      
+      $bitacora = bitacora::find($id);
+      $embarcacion =  Embarcacion::find($bitacora -> id_embarcacion);
+
+      $barco = TipoBarco::find($embarcacion -> id_tipo_barco) -> nombre;
+
+      $arte_pesca = BitacoraArtePesca::where('id_bitacora',   $bitacora ->id) -> first();
+
+      $general = [
+          "bitacora" => $bitacora,
+          "barco" =>  $barco,
+          "armador" => User::find($embarcacion -> IdArmador) -> name . " " . User::find($embarcacion -> IdArmador) -> last_name,
+          "embarcacion" => $embarcacion,
+          "capitan" => Capitan::find($bitacora -> id_capitan) -> nombres . " " . Capitan::find($bitacora -> id_capitan) -> apellidos,
+          "cuit" => Capitan::find($bitacora -> id_capitan) -> cuil,
+          "inico" =>  $bitacora -> fecha_inicial,
+          "cierre" =>  $bitacora -> fecha_final,
+          "zarpe" => puerto::find( $bitacora -> id_puerto_zarpe) -> nombre,
+          "arribo" => puerto::find( $bitacora -> id_puerto_arribo) -> nombre,
+          "total_lances" => lance::where('id_bitacora', $id)->count(),
+          "arte_pesca" => $arte_pesca,
+          "observador" => $bitacora -> observador_a_bordo > 0 ? 'Si' : 'No',
+          "prospeccion" => $bitacora -> prospeccion  ? 'Si' : 'No',
+          "zona_pesca" => zonaPesca::find( $bitacora -> id_zona_de_pesca) -> nombre,
+          "especie_prospeccion" => $bitacora -> prospeccion  ? especie::find($bitacora -> prospeccion ) -> nombre : null,
+          "arte_pesca_nombre" => ArtePesca::find($arte_pesca -> id_arte) -> nombre
+      ];
+
+       $lances = array();
+       $procuccion_total = 0;
+       $procuccion_total_retenidas = 0;
+       //Lances de la mi bitacora
+       foreach(lance::where('id_bitacora', $id)->get() as $lance){
+
+          $especies_retenidas = array();
+          $pesca_incidental = array();
+          $especies_otras = array();
+ 
+          foreach(especieLance::where('id_lance', $lance -> id)->get() as $especie){
+
+             $procuccion_total += $especie -> kilogramos;
+
+             if($especie -> id_tipo == 1 || $especie -> id_tipo == 4){
+
+                $procuccion_total_retenidas +=  $especie -> kilogramos;
+
+                $especie_capturado = [
+                   "nombre_comun" =>  especie::find($especie -> id_especie) -> nombre,
+                   "nombre_cientifico" => especie::find($especie -> id_especie) -> nombre_cientifico,
+                   "peso" => $especie -> kilogramos,
+                   "cajones" => $especie -> cajones,
+                   "talla_tamanio" => $especie -> talla_tamanio,
+                  
+                ];
+                
+                switch($especie -> id_tipo){
+                   case 1:
+                        $especies_retenidas[] = $especie_capturado;
+                      break;
+                   case 4:
+                        $pesca_incidental[] = $especie_capturado;
+                      break;
+                }
+
+             }
+
+             else{
+
+                $tipo = explode(" ", tipoEspecie::find($especie -> id_tipo) -> nombre);
+
+                $especie_capturado = [
+                   "nombre_comun" =>  especie::find($especie -> id_especie) -> nombre,
+                   "nombre_cientifico" => especie::find($especie -> id_especie) -> nombre_cientifico,
+                   "tipo" =>  $tipo[1],
+                   "peso" => $especie -> kilogramos,
+                   "unidades" => $especie -> unidades,
+                ];
+ 
+                $especies_otras[] = $especie_capturado;
+
+             }
+
+             
+
+          }
+
+          $coordenadas = coordenada::where('id_lance',  $lance -> id)->get();
+
+
+          $lance = [
+              "lance" => strtoupper($lance -> nombre),
+              "inico" => $lance -> fecha_inicial,
+              "fin" => $lance -> fecha_final,
+              "laitud_i" =>  $coordenadas[0] -> latitud,
+              "longitud_i" => $coordenadas[0] -> longitud,
+              "laitud_f" =>  $coordenadas[1] -> latitud,
+              "longitud_f" =>  $coordenadas[1] -> longitud,
+              "especies_retenidas" => $especies_retenidas,
+              "pesca_incidental" => $pesca_incidental,
+              "especies_otras" => $especies_otras,
+              "temperatura" => $lance -> temperatura,
+              "otro" => $lance -> otro,
+              "viento" => $lance -> viento,
+              "observaciones" => $lance -> observaciones
+          ];
+
+          $lances[] =  $lance;
+
+       }
+
+       return [
+          "general" => $general,
+          "lances" => $lances,
+          "procuccion_total" => $procuccion_total,
+          "procuccion_total_retenidas" => $procuccion_total_retenidas
+       ];
+
+     }
+
+
+
      public function PDF_General($id){
 
         $bitacora = bitacora::find($id);
