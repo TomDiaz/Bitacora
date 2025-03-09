@@ -20,6 +20,8 @@
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-u1OknCvxWvY5kfmNBILK2hRnQC3Pr17a+RTT6rIHI7NnikvbZlHgTPOOmMi466C8" crossorigin="anonymous"></script>
 
         <style>
+
+          
             .login .login-logo{
   text-align: center;
   width: 90%;
@@ -63,10 +65,10 @@
   width: 100%;
   background: #4484c5;
   transition: .5s;
+  margin-top: 10px;
 }
 
 .login button:hover{
-  transform: scale3d(1.1, 1.1, 0.3);
   box-shadow: 2px 2px 10px 5px rgba(0, 0, 0, 0.1);
 }
         </style>

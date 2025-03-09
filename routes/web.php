@@ -12,6 +12,7 @@ use App\Http\Livewire\Metricas\Graficos;
 use App\Http\Livewire\Metricas\Excel;
 use App\Http\Livewire\Perfil;
 use App\Models\Capitan;
+use App\Http\Controllers\ResetPasswordController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -27,6 +28,7 @@ Route::get('/', function () {
     return view('auth.login');
 });
 
+Route::post('/reset-password', [ResetPasswordController::class, 'reset'])->name('password.update');
 
 
 Route::middleware(['auth:sanctum', 'verified'])->group(function () {

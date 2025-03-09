@@ -8,6 +8,8 @@ use App\Http\Controllers\BitacorasController as Bitacora;
 use App\Http\Controllers\Api\LoginController;
 use App\Http\Controllers\CapitanesController;
 use App\Http\Controllers\EmbarcacionesController;
+use App\Http\Controllers\ResetPasswordController;
+
 /*
 |--------------------------------------------------------------------------
 | API Routes
@@ -40,3 +42,5 @@ Route::post('embarcacion',[EmbarcacionesController::class, 'store_api']);
 Route::post('capitanes', [ CapitanesController::class, 'store_api' ]);
 
 Route::get('sendemail/{id}',[BitacorasController::class,'apiEmailCapitan']);
+
+Route::post('reset-password',  [ ResetPasswordController::class, 'resetCapitan' ]);

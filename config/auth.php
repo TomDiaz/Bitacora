@@ -40,6 +40,11 @@ return [
             'driver' => 'session',
             'provider' => 'users',
         ],
+
+        'capitanes' => [
+            'driver' => 'session',
+            'provider' => 'capitanes', 
+        ],
     ],
 
     /*
@@ -65,10 +70,11 @@ return [
             'model' => App\Models\User::class,
         ],
 
-        // 'users' => [
-        //     'driver' => 'database',
-        //     'table' => 'users',
-        // ],
+        'capitanes' => [
+            'driver' => 'eloquent',
+            'model' => App\Models\Capitan::class, // Laravel usará este modelo para "capitanes"
+        ],
+     
     ],
 
     /*
@@ -92,6 +98,12 @@ return [
             'table' => 'password_resets',
             'expire' => 60,
             'throttle' => 60,
+        ],
+
+        'capitanes' => [
+            'provider' => 'capitanes',
+            'table' => 'password_resets',
+            'expire' => 60,
         ],
     ],
 

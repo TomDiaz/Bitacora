@@ -45,7 +45,12 @@ return [
     |
     */
 
-    'logo' => '<b>BEPA</b>',
+    'logo' => ' <div style="text-font-family: Arial, sans-serif; display: flex; align-items: center; justify-content: space-between;">
+        <div style="margin-top: -4px; font-size: 24px; font-weight: bold;">BEPA</div>
+        <div style="margin-right: 10px;margin-top: -4px; text-align: center; display: inline-block; background-color: #3193bc; color: white; padding: 5px 10px; font-size: 10px; border-radius: 15px;">
+            EMPRESAS
+        </div>
+    </div>',
     'logo_img' => 'vendor/adminlte/dist/img/logo.png',
     'logo_img_class' => 'brand-image img-circle elevation-3',
     'logo_img_xl' => null,

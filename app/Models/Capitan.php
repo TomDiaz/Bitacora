@@ -2,11 +2,14 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Factories\HasFactory;
-use Illuminate\Database\Eloquent\Model;
-
-class Capitan extends Model
+use Illuminate\Foundation\Auth\User as Authenticatable;
+use Illuminate\Notifications\Notifiable;
+use Illuminate\Auth\Passwords\CanResetPassword;
+class Capitan extends Authenticatable
 {
+
+    use Notifiable, CanResetPassword;
+
     protected $table = 'capitan';
 
     public $timestamps = false;
@@ -27,4 +30,33 @@ class Capitan extends Model
         'fechaRegistro',
         'id_armador',
     ];
+
+    public function getEmailForPasswordReset()
+    {
+        return $this->email;  
+    }
+
+    public function getAuthPassword()
+    {
+        return $this->clave;
+    }
+
+    public function getPasswordAttribute()
+    {
+        return $this->clave;
+    }
+    
+    public function setPasswordAttribute($value)
+    {
+        $this->attributes['clave'] = $value;
+    }
+
+
+    public function sendPasswordResetNotification($token)
+    {
+    
+        Reset::where('email', $this -> email)->update([ 'type' => 'capitan']);
+
+        $this->notify(new \App\Notifications\ResetPasswordCapitan($token, $this));
+    }
 }
