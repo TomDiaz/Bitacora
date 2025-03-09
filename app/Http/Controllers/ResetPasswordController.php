@@ -46,8 +46,13 @@ class ResetPasswordController extends Controller
 
     public function resetCapitan(Request $request) {
 
-       // Buscar el capitán por el email
-       $capitan = Capitan::where('email', $request->usuario)->first();
+        $request->validate([
+            'usuario' => 'required',
+        ]);
+
+        $campo = filter_var($request->usuario, FILTER_VALIDATE_EMAIL) ? 'email' : 'usuario';
+
+        $capitan = Capitan::where($campo, $request->usuario)->first();
 
        if (!$capitan) {
            return response()->json(['message' => 'Capitán no encontrado.'], 404);
